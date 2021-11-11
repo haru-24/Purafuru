@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <nav
       class="
         font-sans
@@ -8,10 +8,10 @@
         sm:flex-row sm:text-left sm:justify-between
         py-4
         px-6
-        bg-orange-300
         shadow
         sm:items-baseline
         w-full
+        bg-green-300
       "
     >
       <div class="mb-2 sm:mb-0">
@@ -19,8 +19,14 @@
           tag="a"
           to="/"
           href="/home"
-          class="text-2xl no-underline text-grey-darkest hover:text-blue-dark"
-          >Applecation Title</nuxt-Link
+          class="
+            text-2xl
+            no-underline
+            text-grey-darkest
+            hover:text-blue-dark
+            font-extrabold
+          "
+          >Application Title</nuxt-Link
         >
 
         <a
@@ -44,11 +50,13 @@
             hover:text-blue-dark
             ml-5
           "
-          ><span class="material-icons text-2xl"> favorite_border </span>投稿</a
+          ><span class="material-icons text-2xl"> assignment </span>投稿</a
         >
       </div>
       <div>
-        <span class="material-icons text-4xl"> account_circle </span>
+        <a href="">
+          <span class="material-icons text-4xl"> account_circle </span>
+        </a>
       </div>
     </nav>
   </div>
