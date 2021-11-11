@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="bg-white lg:w-4/12 md:6/12 w-10/12 m-auto my-10 shadow-md">
+      <h1 class="text-center text-3xl">title</h1>
       <div class="py-8 px-8 rounded-xl">
-        <h1 class="font-medium text-2xl mt-3 text-center">Login</h1>
+        <h1 class="font-medium text-2xl mt-3 text-center">ログイン</h1>
         <form action="" class="mt-6">
           <div class="my-5 text-sm">
-            <label for="username" class="block text-black">Username</label>
+            <label for="username" class="block text-black">e-mail</label>
             <input
               id="username"
               type="text"
@@ -19,7 +20,7 @@
                 bg-gray-100
                 w-full
               "
-              placeholder="Username"
+              placeholder="e-mail"
             />
           </div>
           <div class="my-5 text-sm">
@@ -86,7 +87,7 @@
                 p-3
                 duration-300
                 rounded-sm
-                hover:bg-blue-700
+                hover:bg-red-700
               "
             >
               Google
@@ -111,10 +112,10 @@
         </div>
 
         <p class="mt-12 text-xs text-center font-light text-gray-400">
-          Don't have an account?
-          <a href="../auth/register.html" class="text-black font-medium">
-            Create One
-          </a>
+          アカウントをお持ちではないですか?
+          <nuxt-Link tag="a" to="/register" class="text-black font-medium">
+            新規登録
+          </nuxt-Link>
         </p>
       </div>
     </div>

@@ -8,20 +8,21 @@
         sm:flex-row sm:text-left sm:justify-between
         py-4
         px-6
-        bg-white
+        bg-orange-300
         shadow
         sm:items-baseline
         w-full
       "
     >
       <div class="mb-2 sm:mb-0">
-        <a
+        <nuxt-Link
+          tag="a"
+          to="/"
           href="/home"
           class="text-2xl no-underline text-grey-darkest hover:text-blue-dark"
-          >Home</a
+          >Applecation Title</nuxt-Link
         >
-      </div>
-      <div>
+
         <a
           href="/one"
           class="
@@ -29,9 +30,10 @@
             no-underline
             text-grey-darkest
             hover:text-blue-dark
-            ml-2
+            ml-10
           "
-          >One</a
+        >
+          <span class="material-icons text-2xl"> search </span>探す</a
         >
         <a
           href="/two"
@@ -40,21 +42,13 @@
             no-underline
             text-grey-darkest
             hover:text-blue-dark
-            ml-2
+            ml-5
           "
-          >Two</a
+          ><span class="material-icons text-2xl"> favorite_border </span>投稿</a
         >
-        <a
-          href="/three"
-          class="
-            text-lg
-            no-underline
-            text-grey-darkest
-            hover:text-blue-dark
-            ml-2
-          "
-          >Three</a
-        >
+      </div>
+      <div>
+        <span class="material-icons text-4xl"> account_circle </span>
       </div>
     </nav>
   </div>
