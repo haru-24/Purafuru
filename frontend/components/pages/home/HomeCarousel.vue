@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 
 export default {
   name: 'SwiperExampleMultipleSlidesPerBiew',
@@ -29,15 +29,24 @@ export default {
     Swiper,
     SwiperSlide,
   },
+  directives: {
+    swiper: directive,
+  },
   data() {
     return {
       swiperOption: {
         slidesPerView: 3,
         spaceBetween: 30,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
         pagination: {
           el: '.swiper-pagination',
           clickable: true,
+          loop: true,
         },
+
         navigation: {
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev',

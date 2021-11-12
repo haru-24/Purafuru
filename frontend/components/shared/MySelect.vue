@@ -1,5 +1,5 @@
 <template>
-  <select name="pref" class="bg-gray-100 rounded-sm">
+  <select name="pref" class="rounded-sm">
     <option
       v-for="prefecture in prefectures"
       :key="prefecture"
@@ -16,7 +16,7 @@ import { prefectures } from '@/utils/prefectures'
 export default {
   data() {
     return {
-      prefectures: prefectures,
+      prefectures,
     }
   },
 }

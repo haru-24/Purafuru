@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="flex justify-center font-extrabold text-3xl">
-      <p>みんなが共有したオススメのお店、スポットを探そう！</p>
-    </div>
     <div class="flex items-center justify-center mt-5">
       <div class="relative inline-flex">
         <svg
@@ -22,8 +19,8 @@
             rounded-lg
             text-gray-600
             h-10
-            pl-5
-            pr-5
+            pl-4
+            pr-7
             bg-white
             hover:border-gray-400
             focus:outline-none

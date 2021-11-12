@@ -28,7 +28,7 @@
             </div>
             <div class="my-5 text-sm py-3 mt-3">
               <label for="username" class="block text-black mb-3">出身地</label>
-              <MySelect />
+              <MySelect class="bg-gray-100" />
             </div>
             <div class="my-5 text-sm">
               <label for="password" class="block text-black">e-mail</label>

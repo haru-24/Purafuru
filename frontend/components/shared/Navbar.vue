@@ -18,7 +18,6 @@
         <nuxt-Link
           tag="a"
           to="/"
-          href="/home"
           class="
             text-2xl
             no-underline
@@ -29,8 +28,9 @@
           >Application Title</nuxt-Link
         >
 
-        <a
-          href="/one"
+        <nuxt-Link
+          tag="a"
+          to="/search"
           class="
             text-lg
             no-underline
@@ -39,7 +39,7 @@
             ml-10
           "
         >
-          <span class="material-icons text-2xl"> search </span>探す</a
+          <span class="material-icons text-2xl"> search </span>探す</nuxt-Link
         >
         <a
           href="/two"
@@ -54,9 +54,9 @@
         >
       </div>
       <div>
-        <a href="">
+        <nuxt-Link tag="a" to="mypage">
           <span class="material-icons text-4xl"> account_circle </span>
-        </a>
+        </nuxt-Link>
       </div>
     </nav>
   </div>
