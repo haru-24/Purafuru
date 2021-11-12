@@ -7,4 +7,19 @@
   </div>
 </template>
 
-<script></script>
+<script>
+import Navbar from '@/components/shared/Navbar.vue'
+import HomeTitle from '@/components/pages/home/HomeTitle.vue'
+import HomeSerchBar from '@/components/pages/home/HomeSerchBar.vue'
+import HomeCarousel from '@/components/pages/home/HomeCarousel.vue'
+
+export default {
+  name: 'Home',
+  components: {
+    Navbar,
+    HomeTitle,
+    HomeSerchBar,
+    HomeCarousel,
+  },
+}
+</script>

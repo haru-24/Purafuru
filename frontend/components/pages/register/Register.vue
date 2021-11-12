@@ -166,7 +166,7 @@
 </template>
 
 <script>
-import MySelect from '@/components/MySelect.vue'
+import MySelect from '@/components/shared/MySelect.vue'
 export default {
   components: {
     MySelect,

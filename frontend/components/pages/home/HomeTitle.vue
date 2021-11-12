@@ -19,6 +19,11 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  name: 'HomeTitle',
+}
+</script>
 
 <style>
 .nuxt-logo {
