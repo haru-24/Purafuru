@@ -11,7 +11,7 @@
         shadow
         sm:items-baseline
         w-full
-        bg-green-300
+        bg-green-400
       "
     >
       <div class="mb-2 sm:mb-0">
@@ -19,13 +19,14 @@
           tag="a"
           to="/"
           class="
-            text-2xl
+            text-3xl
             no-underline
-            text-grey-darkest
+            text-gray-800
             hover:text-blue-dark
             font-extrabold
+            wf-nicomoji
           "
-          >Application Title</nuxt-Link
+          >プラフル</nuxt-Link
         >
 
         <nuxt-Link
@@ -41,8 +42,9 @@
         >
           <span class="material-icons text-2xl"> search </span>探す</nuxt-Link
         >
-        <a
-          href="/two"
+        <nuxt-Link
+          tag="a"
+          to="/post"
           class="
             text-lg
             no-underline
@@ -50,7 +52,8 @@
             hover:text-blue-dark
             ml-5
           "
-          ><span class="material-icons text-2xl"> assignment </span>投稿</a
+          ><span class="material-icons text-2xl"> assignment </span
+          >投稿</nuxt-Link
         >
       </div>
       <div>
@@ -66,3 +69,8 @@ export default {
   name: 'MyNavBar',
 }
 </script>
+<style scoped>
+.wf-nicomoji {
+  font-family: 'Nico Moji';
+}
+</style>

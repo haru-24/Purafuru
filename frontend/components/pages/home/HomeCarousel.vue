@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="font-semibold text-2xl ml-5">新着投稿</p>
+    <p class="font-extrabold text-2xl ml-5">新着投稿</p>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide>div</swiper-slide>
       <swiper-slide>Slide 2</swiper-slide>

@@ -23,6 +23,10 @@ export default {
         rel: 'stylesheet',
         href: 'https://cdn.jsdelivr.net/npm/swiper@5.0.2/css/swiper.min.css',
       },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/earlyaccess/nicomoji.css',
+      },
     ],
   },
 

@@ -2,9 +2,10 @@
   <div>
     <Navbar />
     <HomeTitle />
-    <HomeSubTitle />
-    <SerchBar class="mt-10" />
-    <HomeCarousel class="mt-16" />
+    <HomeSubTitle class="-mt-4" />
+    <SerchBar class="" />
+    <div class="bg-img"></div>
+    <HomeCarousel class="" />
   </div>
 </template>
 
@@ -26,3 +27,13 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.bg-img {
+  height: 300;
+  padding: 100px 0 50px 0;
+  background-image: url(./assets/images/_e_town0057_s1024_town0057_11.jpg);
+  margin-bottom: -32px;
+  opacity: 0.5;
+}
+</style>
