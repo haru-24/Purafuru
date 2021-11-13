@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="flex justify-center">
-      <div
+      <nuxt-link
+        tag="div"
+        to="/information/sample"
         class="
           bg-gray-100
           w-5/6
@@ -39,7 +41,7 @@
           </div>
           <div class="bg-white h-24 w-40 mr-3 inline-block">画像</div>
         </div>
-      </div>
+      </nuxt-link>
     </div>
     <div class="flex justify-center"></div>
   </div>

@@ -36,15 +36,15 @@
               />
             </div>
             <div class="my-5 text-sm">
-              <label class="block text-black">郵便番号</label>
+              <label class="block text-black"
+                >郵便番号(ハイフンを入れてくだい)</label
+              >
               <input class="rounded-sm px-2 mt-3 focus:outline-none border-2" />
             </div>
             <div class="my-5 text-sm">
               <label class="block text-black">住所</label>
-              <textarea
-                cols50
-                class="rounded-sm px-4 py-2 mt-3 border-2 w-full"
-              />
+              <MySelect class="mt-2" />
+              <textarea cols50 class="rounded-sm px-4 py-2 border-2 w-full" />
             </div>
             <div class="my-5 text-sm">
               <label class="block text-black"
@@ -111,6 +111,15 @@
     </div>
   </div>
 </template>
+
+<script>
+import MySelect from '@/components/shared/MySelect.vue'
+export default {
+  components: {
+    MySelect,
+  },
+}
+</script>
 
 <style scoped>
 span {

@@ -1,17 +1,10 @@
 <template>
   <div>
-    <p class="font-extrabold text-2xl ml-5">新着投稿</p>
     <swiper class="swiper" :options="swiperOption">
-      <swiper-slide>div</swiper-slide>
+      <swiper-slide>1</swiper-slide>
       <swiper-slide>Slide 2</swiper-slide>
       <swiper-slide>Slide 3</swiper-slide>
       <swiper-slide>Slide 4</swiper-slide>
-      <swiper-slide>Slide 5</swiper-slide>
-      <swiper-slide>Slide 6</swiper-slide>
-      <swiper-slide>Slide 7</swiper-slide>
-      <swiper-slide>Slide 8</swiper-slide>
-      <swiper-slide>Slide 9</swiper-slide>
-      <swiper-slide>Slide 10</swiper-slide>
       <div slot="button-prev" class="swiper-button-prev"></div>
       <div slot="button-next" class="swiper-button-next"></div>
       <div slot="pagination" class="swiper-pagination"></div>
@@ -35,12 +28,8 @@ export default {
   data() {
     return {
       swiperOption: {
-        slidesPerView: 3,
-        spaceBetween: 30,
-        // autoplay: {
-        //   delay: 2500,
-        //   disableOnInteraction: false,
-        // },
+        slidesPerView: 1,
+
         pagination: {
           el: '.swiper-pagination',
           clickable: true,
