@@ -1,7 +1,7 @@
 FROM node:14.4.0-alpine3.12
 WORKDIR /app
 ENV NUXT_HOST 0.0.0.0
-COPY ./frontend/package*.json ./
+COPY ./frontend/ ./ 
 RUN npm i
 EXPOSE 3000
 CMD ["npm", "run", "dev"]
