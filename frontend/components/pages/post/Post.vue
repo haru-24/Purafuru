@@ -7,6 +7,7 @@
             <div class="my-5 text-sm">
               <label class="block text-black">ジャンル</label>
               <select
+                v-model="postInfo.genre"
                 class="
                   border border-gray-300
                   text-gray-600
@@ -20,9 +21,9 @@
                   mt-2
                 "
               >
-                <option value="">選択してください</option>
-                <option value="グルメ">グルメ</option>
-                <option value="スポット">スポット</option>
+                <option>選択してください</option>
+                <option>グルメ</option>
+                <option>スポット</option>
               </select>
             </div>
             <div class="my-5 text-sm">
@@ -30,27 +31,35 @@
                 >名前(店名,地名,建物名)<span>※</span></label
               >
               <input
-                id="password"
-                type="password"
+                v-model="postInfo.placeName"
                 class="rounded-sm px-4 py-2 mt-3 border-2 w-full"
               />
+              <p>{{ postInfo.placeName }}</p>
             </div>
             <div class="my-5 text-sm">
               <label class="block text-black"
                 >郵便番号(ハイフンを入れてくだい)</label
               >
-              <input class="rounded-sm px-2 mt-3 focus:outline-none border-2" />
+              <input
+                v-model="postInfo.postNumber"
+                class="rounded-sm px-2 mt-3 focus:outline-none border-2"
+              />
             </div>
             <div class="my-5 text-sm">
               <label class="block text-black">住所</label>
               <MySelect class="mt-2" />
-              <textarea cols50 class="rounded-sm px-4 py-2 border-2 w-full" />
+              <textarea
+                v-model="postInfo.address"
+                cols50
+                class="rounded-sm px-4 py-2 border-2 w-full"
+              />
             </div>
             <div class="my-5 text-sm">
               <label class="block text-black"
                 >アピールポイント(200字以内)<span>※</span></label
               >
               <textarea
+                v-model="postInfo.apealPoint"
                 cols50
                 class="rounded-sm px-4 py-2 mt-3 border-2 w-full"
               />
@@ -60,6 +69,7 @@
                 >私の一押し！(メニューor景色など 50字以内)</label
               >
               <textarea
+                v-model="postInfo.recommendation"
                 cols50
                 class="rounded-sm px-4 py-2 mt-3 border-2 w-full"
               />
@@ -104,6 +114,7 @@
             border border-gray-700
             rounded
           "
+          @click="sendData"
         >
           投稿
         </button>
@@ -112,13 +123,76 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent, reactive } from '@nuxtjs/composition-api'
+import axios from 'axios'
 import MySelect from '@/components/shared/MySelect.vue'
-export default {
+
+interface PostInfo {
+  genre: string
+  placeName: string
+  prefecture: string
+  postNumber: string
+  address: string
+  apealPoint: string
+  recommendation: string
+  image: string | null
+  postUser: string | null
+  postHistoryId: number | null
+  userID: number | null
+  favorites: number
+}
+
+export default defineComponent({
   components: {
     MySelect,
   },
-}
+  setup() {
+    const postInfo = reactive({
+      genre: '',
+      placeName: '',
+      prefecture: '',
+      postNumber: '',
+      address: '',
+      apealPoint: '',
+      recommendation: '',
+      image: null,
+      postUser: '',
+      postHistoryId: null,
+      userID: null,
+      favorites: 0,
+    }) as PostInfo
+
+    const sendData = () => {
+      axios
+        .post('http://localhost:8888/post_info', {
+          genre: postInfo.genre,
+          place_name: postInfo.placeName,
+          prefecture: postInfo.prefecture,
+          post_number: postInfo.postNumber,
+          address: postInfo.address,
+          apeal_point: postInfo.apealPoint,
+          recommendation: postInfo.recommendation,
+          image: postInfo.image,
+          post_user: postInfo.postUser,
+          post_history_id: postInfo.postHistoryId,
+          user_id: postInfo.userID,
+          favorites: postInfo.favorites,
+        })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+
+    return {
+      postInfo,
+      sendData,
+    }
+  },
+})
 </script>
 
 <style scoped>
