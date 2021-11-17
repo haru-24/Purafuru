@@ -49,7 +49,7 @@ export default {
 <style scoped>
 .swiper-container {
   height: 300px;
-  width: 100%;
+  width: 75%;
 }
 .swiper-slide {
   text-align: center;

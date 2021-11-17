@@ -2,25 +2,15 @@
   <div>
     <div class="flex items-center justify-center mt-5">
       <div class="relative inline-flex">
-        <svg
-          class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 412 232"
-        >
-          <path
-            d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
-            fill="#648299"
-            fill-rule="nonzero"
-          />
-        </svg>
-        <MySelect
+        <select
+          v-model="selectedPrefecture"
           class="
             border border-gray-300
             rounded-lg
             text-gray-600
             h-10
-            pl-4
-            pr-7
+            pl-5
+            pr-5
             bg-white
             hover:border-gray-400
             focus:outline-none
@@ -28,21 +18,19 @@
             shadow-lg
             font-semibold
           "
-        />
-      </div>
-      <p class="mr-2 ml-2 text-xl">の</p>
-      <div class="relative inline-flex">
-        <svg
-          class="w-2 h-2 absolute top-0 right-0 m-4 pointer-events-none"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 412 232"
         >
-          <path
-            d="M206 171.144L42.678 7.822c-9.763-9.763-25.592-9.763-35.355 0-9.763 9.764-9.763 25.592 0 35.355l181 181c4.88 4.882 11.279 7.323 17.677 7.323s12.796-2.441 17.678-7.322l181-181c9.763-9.764 9.763-25.592 0-35.355-9.763-9.763-25.592-9.763-35.355 0L206 171.144z"
-            fill="#648299"
-            fill-rule="nonzero"
-          />
-        </svg>
+          <option
+            v-for="prefecture in prefectures"
+            :key="prefecture"
+            name="pref"
+            class="rounded-sm"
+            :value="prefecture"
+          >
+            {{ prefecture }}
+          </option>
+        </select>
+        <p class="mr-2 ml-2 text-xl mt-2">の</p>
+
         <select
           class="
             border border-gray-300
@@ -50,7 +38,7 @@
             text-gray-600
             h-10
             pl-5
-            pr-7
+            pr-5
             bg-white
             hover:border-gray-400
             focus:outline-none
@@ -64,7 +52,7 @@
           <option value="スポット">スポット</option>
         </select>
       </div>
-      <p class="mr-2 ml-2 text-xl">を</p>
+      <p class="mr-1 ml-2 text-xl mt-1">を</p>
       <button
         type="button"
         class="
@@ -77,10 +65,10 @@
           transition
           duration-500
           ease
-          select-none
           hover:text-white hover:bg-green-600
           focus:outline-none focus:shadow-outline
         "
+        @click="emitSlectPrefecture"
       >
         探す
       </button>
@@ -88,14 +76,24 @@
   </div>
 </template>
 
-<script>
-import MySelect from '@/components/shared/MySelect.vue'
-export default {
-  name: 'MySerchBar',
-  components: {
-    MySelect,
-  },
-}
-</script>
+<script lang="ts">
+import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { utilPrefectures } from '@/utils/prefectures'
 
-<style></style>
+export default defineComponent({
+  setup(_props, context) {
+    const prefectures = ref<string[]>(utilPrefectures)
+    const selectedPrefecture = ref<string>('東京都')
+
+    const emitSlectPrefecture = () => {
+      context.emit('selectprefecture', selectedPrefecture.value)
+    }
+
+    return {
+      prefectures,
+      selectedPrefecture,
+      emitSlectPrefecture,
+    }
+  },
+})
+</script>

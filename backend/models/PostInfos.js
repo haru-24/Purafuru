@@ -52,7 +52,10 @@ const PostInfo = sequelize.define("post_infos", {
   favorites: {
     type: Sequelize.INTEGER,
   },
+  posted_at: {
+    type: Sequelize.STRING,
+  },
 });
-PostInfo.sync({ force: false });
+PostInfo.sync({ alter: true });
 
 module.exports = PostInfo;

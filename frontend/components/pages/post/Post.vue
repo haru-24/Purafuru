@@ -34,7 +34,6 @@
                 v-model="postInfo.placeName"
                 class="rounded-sm px-4 py-2 mt-3 border-2 w-full"
               />
-              <p>{{ postInfo.placeName }}</p>
             </div>
             <div class="my-5 text-sm">
               <label class="block text-black"
@@ -47,7 +46,18 @@
             </div>
             <div class="my-5 text-sm">
               <label class="block text-black">住所</label>
-              <MySelect class="mt-2" />
+              <select v-model="selectedPrefecture" class="mt-2">
+                <option
+                  v-for="prefecture in prefectures"
+                  :key="prefecture"
+                  name="pref"
+                  class="rounded-sm"
+                  :value="prefecture"
+                  :selectedPrefecture="prefecture === '東京都'"
+                >
+                  {{ prefecture }}
+                </option>
+              </select>
               <textarea
                 v-model="postInfo.address"
                 cols50
@@ -124,9 +134,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api'
+import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
 import axios from 'axios'
-import MySelect from '@/components/shared/MySelect.vue'
+import { utilPrefectures } from '@/utils/prefectures'
 
 interface PostInfo {
   genre: string
@@ -144,14 +154,13 @@ interface PostInfo {
 }
 
 export default defineComponent({
-  components: {
-    MySelect,
-  },
   setup() {
+    const prefectures = ref<string[]>(utilPrefectures)
+    const selectedPrefecture = ref<string>('東京都')
     const postInfo = reactive({
       genre: '',
       placeName: '',
-      prefecture: '',
+      prefecture: selectedPrefecture.value,
       postNumber: '',
       address: '',
       apealPoint: '',
@@ -163,12 +172,24 @@ export default defineComponent({
       favorites: 0,
     }) as PostInfo
 
-    const sendData = () => {
+    const postAlert = () => {
+      alert('投稿しました')
+      postInfo.genre = ''
+      postInfo.placeName = ''
+      postInfo.postNumber = ''
+      postInfo.address = ''
+      postInfo.apealPoint = ''
+      postInfo.recommendation = ''
+      postInfo.image = ''
+      postInfo.postHistoryId = null
+    }
+
+    const sendData = async () => {
       axios
         .post('http://localhost:8888/post_info', {
           genre: postInfo.genre,
           place_name: postInfo.placeName,
-          prefecture: postInfo.prefecture,
+          prefecture: selectedPrefecture.value,
           post_number: postInfo.postNumber,
           address: postInfo.address,
           apeal_point: postInfo.apealPoint,
@@ -185,11 +206,14 @@ export default defineComponent({
         .catch((err) => {
           console.log(err)
         })
+      await postAlert()
     }
 
     return {
       postInfo,
       sendData,
+      prefectures,
+      selectedPrefecture,
     }
   },
 })

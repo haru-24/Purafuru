@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const PostInfo = require("../models/PostInfos.js");
-
+const moment = require("moment");
 router.use(express.json());
 
-// test用get
-
 router.get("/", async (req, res) => {
-  const get = await PostInfo.findAll();
+  const get = await PostInfo.findAll({
+    order: [["createdAt", "DESC"]],
+  });
   res.json(get);
 });
 
@@ -26,6 +26,7 @@ router.post("/", async (req, res) => {
     post_history_id: req.body.post_history_id,
     user_id: req.body.user_id,
     favorites: req.body.favorites,
+    posted_at: moment().format("YYYY/ MM/ D"),
   })
     .then(() => {
       res.json(post);
@@ -33,6 +34,15 @@ router.post("/", async (req, res) => {
     .catch((err) => {
       throw err;
     });
+});
+
+router.get("/:pageID", async (req, res) => {
+  const pageData = await PostInfo.findAll({
+    where: {
+      id: [req.params.pageID],
+    },
+  });
+  res.json(pageData);
 });
 
 module.exports = router;

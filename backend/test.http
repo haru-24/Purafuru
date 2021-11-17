@@ -2,7 +2,7 @@ GET http://localhost:8888/
 
 ###
 
-GET http://localhost:8888/post_info
+GET   http://localhost:8888/review/32
 ###
 
 GET http://localhost:8888/result
