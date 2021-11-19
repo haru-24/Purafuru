@@ -52,11 +52,29 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
 
   axios: {
-    baseURL: 'http://localhost:8888',
-    browserBaseURL: 'http://localhost:8888',
+    baseURL: 'http://localhost:8888/',
+    browserBaseURL: 'http://localhost:8888/',
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/users/login',
+            method: 'post',
+            propertyName: 'token',
+          },
+          logout: { url: 'users/logout', method: 'post' },
+          user: { url: '/user', method: 'get', propertyName: 'user' },
+        },
+        // tokenRequired: true,
+        // tokenType: 'bearer'
+      },
+    },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

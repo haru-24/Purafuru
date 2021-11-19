@@ -25,29 +25,34 @@ router.post("/", async (req, res) => {
     });
 });
 
-router.post("/login", async (req, res) => {
-  const getUserData = await Users.findOne({
-    where: {
-      email: [req.body.email],
-    },
-  })
-    .then((getUserData) => {
-      if (bcrypt.compareSync(req.body.password, getUserData.password)) {
-        const payload = {
-          id: getUserData.id,
-          user_name: getUserData.user_name,
-          email: getUserData.email,
-          birth_place: getUserData.birth_place,
-        };
-        const token = jwt.sign(payload, "secret");
-        res.json(token);
-      } else {
-        res.send("パスワードが違います");
-      }
-    })
-    .catch((err) => {
-      throw err;
-    });
+// router.post("/login", async (req, res) => {
+//   const getUserData = await Users.findOne({
+//     where: {
+//       email: [req.body.email],
+//     },
+//   })
+//     .then((getUserData) => {
+//       if (bcrypt.compareSync(req.body.password, getUserData.password)) {
+//         const payload = {
+//           id: getUserData.id,
+//           user_name: getUserData.user_name,
+//           email: getUserData.email,
+//           birth_place: getUserData.birth_place,
+//         };
+//         const token = jwt.sign(payload, "secret");
+//         res.json(token);
+//       } else {
+//         res.send("パスワードが違います");
+//       }
+//     })
+//     .catch((err) => {
+//       throw err;
+//     });
+// });
+
+// テストコード
+router.post("/login/", (req, res) => {
+  return console.log(req.body);
 });
 
 router.get("/login/auth", (req, res) => {

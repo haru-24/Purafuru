@@ -2,13 +2,13 @@
   <div>
     <div class="bg-white lg:w-4/12 md:6/12 w-10/12 m-auto my-10 shadow-md">
       <h1 class="text-center text-3xl">title</h1>
-      <div class="py-8 px-8 rounded-xl">
+      <form class="py-8 px-8 rounded-xl" @submit.prevent="login">
         <h1 class="font-medium text-2xl mt-3 text-center">ログイン</h1>
         <form action="" class="mt-6">
           <div class="my-5 text-sm">
-            <label for="username" class="block text-black">e-mail</label>
+            <label class="block text-black">e-mail</label>
             <input
-              id="username"
+              v-model="loginData.email"
               type="text"
               autofocus
               class="
@@ -26,7 +26,7 @@
           <div class="my-5 text-sm">
             <label for="password" class="block text-black">Password</label>
             <input
-              id="password"
+              v-model="loginData.password"
               type="password"
               class="
                 rounded-sm
@@ -117,10 +117,31 @@
             新規登録
           </nuxt-Link>
         </p>
-      </div>
+      </form>
     </div>
   </div>
 </template>
 
-<script></script>
+<script lang="ts">
+import { defineComponent, reactive } from '@nuxtjs/composition-api'
+
+export default defineComponent({
+  setup(_props, { root: { $auth } }) {
+    const loginData = reactive({
+      email: '',
+      passward: '',
+    })
+
+    const login = () => {
+      $auth.loginWith('local', {
+        loginData,
+      })
+    }
+    return {
+      loginData,
+      login,
+    }
+  },
+})
+</script>
 <style scoped></style>
