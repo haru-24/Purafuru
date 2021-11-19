@@ -42,7 +42,7 @@ export default defineComponent({
 
     const { fetch } = useFetch(() => {
       axios
-        .get(`http://localhost:8888/post_info/${pageId}`)
+        .get(`http://localhost:8888/post_info/information/${pageId}`)
         .then((res) => {
           console.log(res)
           getValues.value = res.data

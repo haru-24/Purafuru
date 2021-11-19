@@ -1,8 +1,8 @@
-GET http://localhost:8888/
+POST http://localhost:8888/users
 
 ###
 
-GET   http://localhost:8888/review/32
+GET   http://localhost:8888/users
 ###
 
 GET http://localhost:8888/result

@@ -4,7 +4,7 @@
     <SerchBar class="mt-3" @selectprefecture="serch" />
 
     <SearchSort />
-    <SearchResult class="mt-5" :infodatas="fileterInfoDatas" />
+    <SearchResult class="mt-5" :infodatas="getInfodatas" />
     <PageNumbers class="mt-5" />
   </div>
 </template>
@@ -44,17 +44,6 @@ export default defineComponent({
   },
 
   setup() {
-    // 検索
-    const fileterInfoDatas = ref<GetInfo[]>()
-    // serchbarからemitしてきた都道府県名でフィルタリング
-    const serch = (prefecture: string) => {
-      const fileteResult = getInfodatas.value.filter(
-        (value) => value.prefecture === prefecture
-      )
-      console.log(prefecture)
-      fileterInfoDatas.value = fileteResult
-    }
-
     // 投稿情報をAPIでGET
     const getInfodatas = ref<GetInfo[]>([])
     const getPostInfo = () => {
@@ -62,7 +51,6 @@ export default defineComponent({
         .get('http://localhost:8888/post_info')
         .then((res) => {
           getInfodatas.value = res.data
-          fileterInfoDatas.value = res.data
         })
         .catch((err) => {
           throw err
@@ -72,11 +60,24 @@ export default defineComponent({
     onMounted(() => {
       getPostInfo()
     })
+    // 個別
+    const serch = (serchPrefecture: string, serachGenre: string) => {
+      axios
+        .post('http://localhost:8888/post_info/search', {
+          prefecture: serchPrefecture,
+          genre: serachGenre,
+        })
+        .then((res) => {
+          getInfodatas.value = res.data
+        })
+        .catch((err) => {
+          throw err
+        })
+    }
 
     return {
-      serch,
       getInfodatas,
-      fileterInfoDatas,
+      serch,
     }
   },
 })

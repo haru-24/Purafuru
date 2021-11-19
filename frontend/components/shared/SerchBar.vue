@@ -32,6 +32,7 @@
         <p class="mr-2 ml-2 text-xl mt-2">の</p>
 
         <select
+          v-model="selectedGenre"
           class="
             border border-gray-300
             rounded-lg
@@ -47,14 +48,13 @@
             font-semibold
           "
         >
-          <option value="">選択してください</option>
           <option value="グルメ">グルメ</option>
           <option value="スポット">スポット</option>
         </select>
       </div>
       <p class="mr-1 ml-2 text-xl mt-1">を</p>
       <button
-        type="button"
+        v-bind="selectedPrefecture"
         class="
           border border-green-500
           text-green-500
@@ -84,15 +84,21 @@ export default defineComponent({
   setup(_props, context) {
     const prefectures = ref<string[]>(utilPrefectures)
     const selectedPrefecture = ref<string>('東京都')
+    const selectedGenre = ref<string>('グルメ')
 
     const emitSlectPrefecture = () => {
-      context.emit('selectprefecture', selectedPrefecture.value)
+      context.emit(
+        'selectprefecture',
+        selectedPrefecture.value,
+        selectedGenre.value
+      )
     }
 
     return {
       prefectures,
       selectedPrefecture,
       emitSlectPrefecture,
+      selectedGenre,
     }
   },
 })
