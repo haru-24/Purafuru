@@ -81,8 +81,18 @@ import { prefectures } from '../../utils/prefectures'
 
 export default defineComponent({
   setup(_props, context) {
-    const selectedPrefecture = ref<string>('東京都')
-    const selectedGenre = ref<string>('グルメ')
+    const selectedPrefecture = ref<string>('')
+    const selectedGenre = ref<string>('')
+
+    // 初回ロード時デフォルトの値を入れておく
+    if (
+      !sessionStorage.getItem('prefecture') &&
+      !sessionStorage.getItem('genre')
+    ) {
+      sessionStorage.setItem('prefecture', '東京都')
+      sessionStorage.setItem('genre', 'グルメ')
+    }
+
     // ページ遷移した際にセッションストレージの値を表示する
     selectedPrefecture.value = sessionStorage.getItem('prefecture') as string
     selectedGenre.value = sessionStorage.getItem('genre') as string

@@ -12,8 +12,8 @@ router.post("/", async (req, res) => {
     review: req.body.review,
     post_information_id: req.body.post_information_id,
   })
-    .then(() => {
-      res.json(post);
+    .then((post) => {
+      res.send(post);
     })
     .catch((err) => {
       throw err;

@@ -10,7 +10,7 @@
         />
         <button
           class="bg-gray-500 hover:bg-gray-700 text-white px-4 rounded"
-          @click="postReviewData"
+          @click="postReview"
         >
           追加
         </button>
@@ -33,13 +33,9 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  ref,
-  useFetch,
-} from '@nuxtjs/composition-api'
-import axios from 'axios'
+import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
+import { getAllReviewData } from '../../../api/get'
+import { postReviewData } from '../../../api/post'
 
 interface ReviewData {
   id: number
@@ -56,42 +52,21 @@ export default defineComponent({
     const inputReview = ref<string>('')
 
     onMounted(() => {
-      fetch()
+      getAllReviewData(props.pageid).then((result) => {
+        reviewDatas.value = result
+      })
     })
 
-    const { fetch } = useFetch(() => {
-      axios
-        .get(`http://localhost:8888/review/${props.pageid}`)
-        .then((res) => {
-          reviewDatas.value = res.data
-        })
-        .catch((err) => {
-          throw err
-        })
-    })
-
-    const postReviewData = async () => {
-      if (inputReview.value !== '') {
-        axios
-          .post('http://localhost:8888/review', {
-            // username
-            review: inputReview.value,
-            post_information_id: props.pageid,
-          })
-
-          .catch((err) => {
-            throw err
-          })
+    const postReview = () => {
+      postReviewData(inputReview.value, props.pageid).then((result) => {
+        reviewDatas.value?.push(result)
         inputReview.value = ''
-        await fetch()
-      } else {
-        window.alert('文字が入力されていません')
-      }
+      })
     }
 
     return {
       inputReview,
-      postReviewData,
+      postReview,
       reviewDatas,
     }
   },

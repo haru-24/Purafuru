@@ -20,7 +20,9 @@ import {
   useFetch,
   useRoute,
 } from '@nuxtjs/composition-api'
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
+import { getIndividualInformation } from '../../api/get'
+import { Infomation } from '../../types/types'
 import Navbar from '@/components/shared/Navbar.vue'
 import PostInformation from '@/components/pages/information/PostInformation.vue'
 import PostCarousel from '~/components/pages/information/PostCarousel.vue'
@@ -37,8 +39,12 @@ export default defineComponent({
   },
 
   setup() {
-    const getValues = ref<AxiosResponse>()
-    const pageId = useRoute().value.query.id
+    const getValues = ref<Infomation | null | undefined>()
+    const pageId = useRoute().value.query.id as string
+
+    getIndividualInformation(pageId).then((result) => {
+      getValues.value = result
+    })
 
     const { fetch } = useFetch(() => {
       axios
