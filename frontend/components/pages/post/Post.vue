@@ -136,7 +136,7 @@
 <script lang="ts">
 import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
 import axios from 'axios'
-import { utilPrefectures } from '@/utils/prefectures'
+import { prefectures } from '~/utils/prefectures'
 
 interface PostInfo {
   genre: string
@@ -155,7 +155,6 @@ interface PostInfo {
 
 export default defineComponent({
   setup() {
-    const prefectures = ref<string[]>(utilPrefectures)
     const selectedPrefecture = ref<string>('東京都')
     const postInfo = reactive({
       genre: '',

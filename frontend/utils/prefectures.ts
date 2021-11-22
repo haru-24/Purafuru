@@ -1,4 +1,4 @@
-export const utilPrefectures = [
+export const prefectures = [
   '北海道',
   '青森県',
   '岩手県',
@@ -46,4 +46,4 @@ export const utilPrefectures = [
   '宮崎県',
   '鹿児島県',
   '沖縄県',
-]
+] as const

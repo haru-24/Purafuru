@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Navbar />
-    <SerchBar class="mt-3" @selectprefecture="serch" />
+    <Navbar @all-serch-infomation="allSearch" />
+    <SerchBar class="mt-3" @serch-infomation="serch" />
 
     <SearchSort />
     <SearchResult class="mt-5" :infodatas="getInfodatas" />
@@ -12,10 +12,10 @@
 <script lang="ts">
 import { defineComponent, ref, onMounted } from '@nuxtjs/composition-api'
 import axios from 'axios'
-import SerchBar from '../components/shared/SerchBar.vue'
-import SearchSort from '../components/pages/search/SearchSort.vue'
-import SearchResult from '../components/pages/search/SearchResult.vue'
-import PageNumbers from '../components/shared/PageNumbers.vue'
+import SerchBar from '../../components/shared/SerchBar.vue'
+import SearchSort from '../../components/pages/search/SearchSort.vue'
+import SearchResult from '../../components/pages/search/SearchResult.vue'
+import PageNumbers from '../../components/shared/PageNumbers.vue'
 import Navbar from '@/components/shared/Navbar.vue'
 
 interface GetInfo {
@@ -43,12 +43,32 @@ export default defineComponent({
     PageNumbers,
   },
 
-  setup() {
+  setup(_props, context) {
     // 投稿情報をAPIでGET
     const getInfodatas = ref<GetInfo[]>([])
-    const getPostInfo = () => {
-      axios
-        .get('http://localhost:8888/post_info')
+
+    onMounted(() => {
+      if (
+        context.root.$route.query.prefecture &&
+        context.root.$route.query.genre
+      ) {
+        serch(
+          context.root.$route.query.prefecture as string,
+          context.root.$route.query.genre as string
+        )
+      } else {
+        allSearch()
+      }
+    })
+
+    const serch = async (selectedPrefecture: string, selectedGenre: string) => {
+      await axios
+        .get('http://localhost:8888/post_info/search', {
+          params: {
+            prefecture: selectedPrefecture,
+            genre: selectedGenre,
+          },
+        })
         .then((res) => {
           getInfodatas.value = res.data
         })
@@ -57,16 +77,10 @@ export default defineComponent({
         })
     }
 
-    onMounted(() => {
-      getPostInfo()
-    })
-    // 個別
-    const serch = (serchPrefecture: string, serachGenre: string) => {
+    // 全データ取得
+    const allSearch = () => {
       axios
-        .post('http://localhost:8888/post_info/search', {
-          prefecture: serchPrefecture,
-          genre: serachGenre,
-        })
+        .get('http://localhost:8888/post_info')
         .then((res) => {
           getInfodatas.value = res.data
         })
@@ -78,6 +92,7 @@ export default defineComponent({
     return {
       getInfodatas,
       serch,
+      allSearch,
     }
   },
 })

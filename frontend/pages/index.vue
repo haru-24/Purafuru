@@ -2,8 +2,8 @@
   <div>
     <Navbar />
     <HomeTitle />
-    <HomeSubTitle class="-mt-4" />
-    <SerchBar class="" />
+    <HomeSubTitle class="mt-8" />
+    <SerchBar class="mt-8" />
     <div class="bg-img"></div>
     <HomeCarousel class="" />
   </div>

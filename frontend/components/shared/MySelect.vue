@@ -29,5 +29,5 @@
 
 <script lang="ts">
 // import { defineComponent, ref } from '@nuxtjs/composition-api'
-// import { prefectures } from '@/utils/prefectures'
+// import {  } from '@/utils/'
 </script>

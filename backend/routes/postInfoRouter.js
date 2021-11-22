@@ -41,11 +41,12 @@ router.post("/", async (req, res) => {
     });
 });
 
-router.post("/search", async (req, res) => {
+// 検索機能
+router.get("/search", async (req, res) => {
   const pageData = await PostInfo.findAndCountAll({
     where: {
-      prefecture: [req.body.prefecture],
-      genre: [req.body.genre],
+      prefecture: [req.query.prefecture],
+      genre: [req.query.genre],
     },
     offset: (page - 1) * perPage,
     limit: perPage,

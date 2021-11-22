@@ -54,7 +54,6 @@
       </div>
       <p class="mr-1 ml-2 text-xl mt-1">を</p>
       <button
-        v-bind="selectedPrefecture"
         class="
           border border-green-500
           text-green-500
@@ -68,7 +67,7 @@
           hover:text-white hover:bg-green-600
           focus:outline-none focus:shadow-outline
         "
-        @click="emitSlectPrefecture"
+        @click="onClickSearchBtn"
       >
         探す
       </button>
@@ -77,28 +76,59 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
-import { utilPrefectures } from '@/utils/prefectures'
+import { defineComponent, ref, watch } from '@nuxtjs/composition-api'
+import { prefectures } from '../../utils/prefectures'
 
 export default defineComponent({
   setup(_props, context) {
-    const prefectures = ref<string[]>(utilPrefectures)
     const selectedPrefecture = ref<string>('東京都')
     const selectedGenre = ref<string>('グルメ')
+    // ページ遷移した際にセッションストレージの値を表示する
+    selectedPrefecture.value = sessionStorage.getItem('prefecture') as string
+    selectedGenre.value = sessionStorage.getItem('genre') as string
 
-    const emitSlectPrefecture = () => {
-      context.emit(
-        'selectprefecture',
-        selectedPrefecture.value,
-        selectedGenre.value
-      )
+    const onClickSearchBtn = () => {
+      // サーチページにいる場合フェッチする
+      if (location.pathname === '/search') {
+        context.emit(
+          'serch-infomation',
+          selectedPrefecture.value,
+          selectedGenre.value
+        )
+        // クエリストリングを挿入する
+        goToSearchPage()
+      } else {
+        // 違う場合サーチに遷移する
+        goToSearchPage()
+      }
+    }
+
+    //  セッションに格納
+    const setSessionStrageInfoData = () => {
+      sessionStorage.setItem('prefecture', selectedPrefecture.value)
+      sessionStorage.setItem('genre', selectedGenre.value)
+    }
+
+    watch([selectedPrefecture, selectedGenre], () => {
+      setSessionStrageInfoData()
+    })
+
+    const goToSearchPage = () => {
+      context.root.$router.push({
+        path: 'search',
+        query: {
+          prefecture: selectedPrefecture.value,
+          genre: selectedGenre.value,
+        },
+      })
     }
 
     return {
-      prefectures,
       selectedPrefecture,
-      emitSlectPrefecture,
+      onClickSearchBtn,
       selectedGenre,
+      prefectures,
+      goToSearchPage,
     }
   },
 })

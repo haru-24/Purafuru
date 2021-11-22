@@ -29,9 +29,7 @@
           >プラフル</nuxt-Link
         >
 
-        <nuxt-Link
-          tag="a"
-          to="/search"
+        <button
           class="
             text-lg
             no-underline
@@ -39,11 +37,12 @@
             hover:text-blue-dark
             ml-10
           "
+          @click="onClickNavSearchBtn"
         >
-          <span class="material-icons text-2xl"> search </span>探す</nuxt-Link
-        >
+          <span class="material-icons text-2xl"> search </span>探す
+        </button>
         <nuxt-Link
-          tag="a"
+          tag="button"
           to="/post"
           class="
             text-lg
@@ -64,10 +63,26 @@
     </nav>
   </div>
 </template>
-<script>
-export default {
-  name: 'MyNavBar',
-}
+<script lang="ts">
+import { defineComponent } from '@nuxtjs/composition-api'
+export default defineComponent({
+  setup(_props, context) {
+    const onClickNavSearchBtn = () => {
+      // サーチページにいる場合フェッチする
+      if (location.pathname === '/search') {
+        context.emit('all-serch-infomation')
+        // クエリストリングを消すためのpush
+        context.root.$router.push('search')
+      } else {
+        // 違う場合サーチに遷移する
+        context.root.$router.push('search')
+      }
+    }
+    return {
+      onClickNavSearchBtn,
+    }
+  },
+})
 </script>
 <style scoped>
 .wf-nicomoji {
