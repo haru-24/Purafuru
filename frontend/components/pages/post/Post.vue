@@ -7,7 +7,7 @@
             <div class="my-5 text-sm">
               <label class="block text-black">ジャンル</label>
               <select
-                v-model="postInfo.genre"
+                v-model="postInformationData.genre"
                 class="
                   border border-gray-300
                   text-gray-600
@@ -21,7 +21,6 @@
                   mt-2
                 "
               >
-                <option>選択してください</option>
                 <option>グルメ</option>
                 <option>スポット</option>
               </select>
@@ -31,7 +30,7 @@
                 >名前(店名,地名,建物名)<span>※</span></label
               >
               <input
-                v-model="postInfo.placeName"
+                v-model="postInformationData.placeName"
                 class="rounded-sm px-4 py-2 mt-3 border-2 w-full"
               />
             </div>
@@ -40,13 +39,13 @@
                 >郵便番号(ハイフンを入れてくだい)</label
               >
               <input
-                v-model="postInfo.postNumber"
+                v-model="postInformationData.postNumber"
                 class="rounded-sm px-2 mt-3 focus:outline-none border-2"
               />
             </div>
             <div class="my-5 text-sm">
               <label class="block text-black">住所</label>
-              <select v-model="selectedPrefecture" class="mt-2">
+              <select v-model="postInformationData.prefecture" class="mt-2">
                 <option
                   v-for="prefecture in prefectures"
                   :key="prefecture"
@@ -59,7 +58,7 @@
                 </option>
               </select>
               <textarea
-                v-model="postInfo.address"
+                v-model="postInformationData.address"
                 cols50
                 class="rounded-sm px-4 py-2 border-2 w-full"
               />
@@ -69,7 +68,7 @@
                 >アピールポイント(200字以内)<span>※</span></label
               >
               <textarea
-                v-model="postInfo.apealPoint"
+                v-model="postInformationData.apealPoint"
                 cols50
                 class="rounded-sm px-4 py-2 mt-3 border-2 w-full"
               />
@@ -79,7 +78,7 @@
                 >私の一押し！(メニューor景色など 50字以内)</label
               >
               <textarea
-                v-model="postInfo.recommendation"
+                v-model="postInformationData.recommendation"
                 cols50
                 class="rounded-sm px-4 py-2 mt-3 border-2 w-full"
               />
@@ -124,7 +123,7 @@
             border border-gray-700
             rounded
           "
-          @click="sendData"
+          @click="clickPostBtn"
         >
           投稿
         </button>
@@ -134,32 +133,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
-import axios from 'axios'
+import { defineComponent, reactive } from '@nuxtjs/composition-api'
+import { postInformation } from '../../../api/post'
 import { prefectures } from '~/utils/prefectures'
-
-interface PostInfo {
-  genre: string
-  placeName: string
-  prefecture: string
-  postNumber: string
-  address: string
-  apealPoint: string
-  recommendation: string
-  image: string | null
-  postUser: string | null
-  postHistoryId: number | null
-  userID: number | null
-  favorites: number
-}
+import { Infomation } from '~/types/types'
 
 export default defineComponent({
   setup() {
-    const selectedPrefecture = ref<string>('東京都')
-    const postInfo = reactive({
-      genre: '',
+    const postInformationData = reactive({
+      genre: 'グルメ',
       placeName: '',
-      prefecture: selectedPrefecture.value,
+      prefecture: '東京都',
       postNumber: '',
       address: '',
       apealPoint: '',
@@ -169,50 +153,36 @@ export default defineComponent({
       postHistoryId: null,
       userID: null,
       favorites: 0,
-    }) as PostInfo
+    }) as Infomation
 
+    // 投稿後のアラート
     const postAlert = () => {
       alert('投稿しました')
-      postInfo.genre = ''
-      postInfo.placeName = ''
-      postInfo.postNumber = ''
-      postInfo.address = ''
-      postInfo.apealPoint = ''
-      postInfo.recommendation = ''
-      postInfo.image = ''
-      postInfo.postHistoryId = null
+      postInformationData.placeName = ''
+      postInformationData.postNumber = ''
+      postInformationData.address = ''
+      postInformationData.apealPoint = ''
+      postInformationData.recommendation = ''
+      postInformationData.image = ''
+      postInformationData.postHistoryId = null
     }
 
-    const sendData = async () => {
-      axios
-        .post('http://localhost:8888/post_info', {
-          genre: postInfo.genre,
-          place_name: postInfo.placeName,
-          prefecture: selectedPrefecture.value,
-          post_number: postInfo.postNumber,
-          address: postInfo.address,
-          apeal_point: postInfo.apealPoint,
-          recommendation: postInfo.recommendation,
-          image: postInfo.image,
-          post_user: postInfo.postUser,
-          post_history_id: postInfo.postHistoryId,
-          user_id: postInfo.userID,
-          favorites: postInfo.favorites,
+    const clickPostBtn = () => {
+      postInformation(postInformationData)
+        .then((result) => {
+          if (result) {
+            postAlert()
+          }
         })
-        .then((res) => {
-          console.log(res)
+        .catch(() => {
+          alert('投稿に失敗しました')
         })
-        .catch((err) => {
-          console.log(err)
-        })
-      await postAlert()
     }
 
     return {
-      postInfo,
-      sendData,
+      postInformationData,
+      clickPostBtn,
       prefectures,
-      selectedPrefecture,
     }
   },
 })

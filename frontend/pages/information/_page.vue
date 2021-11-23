@@ -17,10 +17,9 @@ import {
   defineComponent,
   onMounted,
   ref,
-  useFetch,
   useRoute,
 } from '@nuxtjs/composition-api'
-import axios from 'axios'
+
 import { getIndividualInformation } from '../../api/get'
 import { Infomation } from '../../types/types'
 import Navbar from '@/components/shared/Navbar.vue'
@@ -42,24 +41,10 @@ export default defineComponent({
     const getValues = ref<Infomation | null | undefined>()
     const pageId = useRoute().value.query.id as string
 
-    getIndividualInformation(pageId).then((result) => {
-      getValues.value = result
-    })
-
-    const { fetch } = useFetch(() => {
-      axios
-        .get(`http://localhost:8888/post_info/information/${pageId}`)
-        .then((res) => {
-          console.log(res)
-          getValues.value = res.data
-        })
-        .catch((err) => {
-          throw err
-        })
-    })
-
     onMounted(() => {
-      fetch()
+      getIndividualInformation(pageId).then((result) => {
+        getValues.value = result
+      })
     })
     return {
       getValues,
