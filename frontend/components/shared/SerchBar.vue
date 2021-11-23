@@ -14,7 +14,6 @@
             bg-white
             hover:border-gray-400
             focus:outline-none
-            appearance-none
             shadow-lg
             font-semibold
           "

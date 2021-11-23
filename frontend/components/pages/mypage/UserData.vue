@@ -9,8 +9,10 @@
       flex flex-col
     "
   >
-    <p class="text-4xl font-bold">USERNAME</p>
-    <div class="mb-1 mt-8 w-full">出身地 <span class="ml-5">東京都</span></div>
+    <p class="text-4xl font-bold">{{ $auth.user.user_name }}</p>
+    <div class="mb-1 mt-8 w-full">
+      出身地 <span class="ml-5">{{ $auth.user.birth_place }}</span>
+    </div>
     <div class="mb-1 mt-5 w-full">
       総お気に入り数 <span class="ml-5">Number</span>
     </div>

@@ -1,176 +1,193 @@
 <template>
   <div>
-    <div class="bg-white w-8/12 m-auto my-10 shadow-md">
-      <h1 class="text-center text-3xl">title</h1>
-      <div class="py-8 px-8 rounded-xl flex justify-center">
-        <div class="flex-initial w-2/5">
-          <h1 class="font-medium text-2xl mt-3 text-center">新規登録</h1>
-          <form action="" class="mt-6">
-            <div class="my-5 text-sm">
-              <label for="username" class="block text-black"
-                >ニックネーム</label
-              >
-              <input
-                id="username"
-                type="text"
-                autofocus
-                class="
-                  rounded-sm
-                  px-4
-                  py-3
-                  mt-3
-                  focus:outline-none
-                  bg-gray-100
-                  w-full
-                "
-                placeholder="ニックネーム"
-              />
-            </div>
-            <div class="my-5 text-sm py-3 mt-3">
-              <label for="username" class="block text-black mb-3">出身地</label>
-              <MySelect class="bg-gray-100" />
-            </div>
-            <div class="my-5 text-sm">
-              <label for="password" class="block text-black">e-mail</label>
-              <input
-                id="password"
-                type="password"
-                class="
-                  rounded-sm
-                  px-4
-                  py-3
-                  mt-3
-                  focus:outline-none
-                  bg-gray-100
-                  w-full
-                "
-                placeholder="e-mail"
-              />
-            </div>
-            <div class="my-5 text-sm">
-              <label for="password" class="block text-black">Password</label>
-              <input
-                id="password"
-                type="password"
-                class="
-                  rounded-sm
-                  px-4
-                  py-3
-                  mt-3
-                  focus:outline-none
-                  bg-gray-100
-                  w-full
-                "
-                placeholder="Password"
-              />
-            </div>
-            <div class="my-5 text-sm">
-              <label for="password" class="block text-black"
-                >確認用Password</label
-              >
-              <input
-                id="password"
-                type="password"
-                class="
-                  rounded-sm
-                  px-4
-                  py-3
-                  mt-3
-                  focus:outline-none
-                  bg-gray-100
-                  w-full
-                "
-                placeholder="確認用Password"
-              />
-            </div>
+    <div
+      class="
+        bg-white
+        lg:w-4/12
+        md:6/12
+        w-10/12
+        m-auto
+        my-10
+        shadow-md
+        rounded-lg
+      "
+    >
+      <h1
+        class="
+          text-4xl text-center
+          no-underline
+          text-gray-800
+          hover:text-blue-dark
+          font-extrabold
+          wf-nicomoji
+        "
+      >
+        プラフル
+      </h1>
 
-            <button
-              class="
-                block
-                text-center text-white
-                bg-gray-800
-                p-3
-                duration-300
-                rounded-sm
-                hover:bg-black
-                w-full
-              "
-            >
-              Sing-in
-            </button>
-          </form>
+      <div action="" class="py-8 px-8 rounded-xl">
+        <h1 class="font-medium text-2xl mt-3 text-center">新規登録</h1>
+        <div class="my-5 text-sm">
+          <label for="username" class="block text-black">ニックネーム</label>
+          <input
+            v-model="registerData.userName"
+            type="text"
+            autofocus
+            class="
+              rounded-sm
+              px-4
+              py-3
+              mt-3
+              focus:outline-none
+              bg-gray-100
+              w-full
+            "
+            placeholder="ニックネーム"
+          />
         </div>
-
-        <div class="flex-intial w-3/6 ml-10 mt-40">
-          <div
-            class="flex md:justify-between justify-center items-center mt-10"
+        <div class="my-5 text-sm py-3 mt-3">
+          <label for="username" class="block text-black mb-3">出身地</label>
+          <select
+            v-model="registerData.birthPlace"
+            name="pref"
+            class="
+              rounded-sm
+              text-gray-600
+              h-8
+              pl-4
+              bg-gray-100
+              hover:border-gray-400
+              focus:outline-none
+              font-semibold
+            "
           >
-            <div
-              style="height: 1px"
-              class="bg-gray-300 md:block hidden w-3/12"
-            ></div>
-            <p class="md:mx-2 text-sm font-light text-gray-400">
-              連携済みアカウントで登録
-            </p>
-            <div
-              style="height: 1px"
-              class="bg-gray-300 md:block hidden w-3/12"
-            ></div>
-          </div>
-
-          <div class="mt-7">
-            <div>
-              <button
-                class="
-                  text-center
-                  w-full
-                  text-white
-                  bg-red-600
-                  p-3
-                  duration-300
-                  rounded-sm
-                  hover:bg-red-700
-                  mb-10
-                "
-              >
-                Google
-              </button>
-            </div>
-            <div>
-              <button
-                class="
-                  text-center
-                  w-full
-                  text-white
-                  bg-blue-400
-                  p-3
-                  duration-300
-                  rounded-sm
-                  hover:bg-blue-500
-                "
-              >
-                Twitter
-              </button>
-            </div>
-          </div>
-
-          <p class="mt-12 text-xs text-center font-light text-gray-400">
-            <nuxt-Link tag="a" to="/login" class="text-black font-medium">
-              ログインへ戻る
-            </nuxt-Link>
-          </p>
+            <option
+              v-for="prefecture in prefectures"
+              :key="prefecture"
+              :value="prefecture"
+              :selected="prefecture === '東京都'"
+            >
+              {{ prefecture }}
+            </option>
+          </select>
         </div>
+        <div class="my-5 text-sm">
+          <label for="password" class="block text-black">e-mail</label>
+          <input
+            v-model="registerData.email"
+            class="
+              rounded-sm
+              px-4
+              py-3
+              mt-3
+              focus:outline-none
+              bg-gray-100
+              w-full
+            "
+            placeholder="e-mail"
+          />
+        </div>
+        <div class="my-5 text-sm">
+          <label for="password" class="block text-black">Password</label>
+          <input
+            v-model="registerData.password"
+            type="password"
+            class="
+              rounded-sm
+              px-4
+              py-3
+              mt-3
+              focus:outline-none
+              bg-gray-100
+              w-full
+            "
+            placeholder="Password"
+          />
+        </div>
+        <div class="my-5 text-sm">
+          <label for="password" class="block text-black">確認用Password</label>
+          <input
+            v-model="registerData.confirmPassword"
+            type="password"
+            class="
+              rounded-sm
+              px-4
+              py-3
+              mt-3
+              focus:outline-none
+              bg-gray-100
+              w-full
+            "
+            placeholder="確認用Password"
+          />
+        </div>
+
+        <button
+          class="
+            block
+            text-center text-white
+            bg-green-400
+            p-3
+            duration-300
+            rounded-sm
+            hover:bg-green-700
+            w-full
+          "
+          @click="postRegisterData"
+        >
+          Sing-in
+        </button>
+        <p class="mt-3 text-xs text-center font-light text-gray-400">
+          <nuxt-Link tag="a" to="/login" class="text-black font-medium">
+            ログインへ戻る
+          </nuxt-Link>
+        </p>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import MySelect from '@/components/shared/MySelect.vue'
-export default {
-  components: {
-    MySelect,
+<script lang="ts">
+import { defineComponent, reactive } from '@nuxtjs/composition-api'
+import axios from 'axios'
+import { prefectures } from '@/utils/prefectures'
+export default defineComponent({
+  setup() {
+    const registerData = reactive({
+      userName: '',
+      birthPlace: '東京都',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    })
+
+    const postRegisterData = async () => {
+      try {
+        if (registerData.password === registerData.confirmPassword) {
+          await axios.post('http://localhost:8888/users/register', {
+            user_name: registerData.userName,
+            birth_place: registerData.birthPlace,
+            email: registerData.email,
+            password: registerData.password,
+          })
+        } else {
+          alert('パスワードが違います')
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    return {
+      registerData,
+      prefectures,
+      postRegisterData,
+    }
   },
-}
+})
 </script>
-<style scoped></style>
+<style scoped>
+.wf-nicomoji {
+  font-family: 'Nico Moji';
+}
+</style>

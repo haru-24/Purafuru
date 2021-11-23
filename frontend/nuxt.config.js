@@ -60,16 +60,23 @@ export default {
   },
 
   auth: {
+    localStorage: false,
     strategies: {
       local: {
+        token: {
+          property: 'access_token',
+        },
+        user: {
+          property: false,
+        },
         endpoints: {
           login: {
             url: '/users/login',
             method: 'post',
-            propertyName: 'token',
+            propertyName: 'access_token',
           },
-          logout: { url: 'users/logout', method: 'post' },
-          user: { url: '/user', method: 'get', propertyName: 'user' },
+          logout: false,
+          user: { url: '/users/login', method: 'get', propertyName: false },
         },
         // tokenRequired: true,
         // tokenType: 'bearer'
@@ -80,5 +87,8 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     vendor: ['vue-awesome-swiper'],
+  },
+  router: {
+    middleware: ['auth'],
   },
 }

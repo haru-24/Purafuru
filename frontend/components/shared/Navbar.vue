@@ -55,9 +55,10 @@
           >投稿</nuxt-Link
         >
       </div>
-      <div>
+      <div class="">
+        <button class="inline" @click="$auth.logout()">ログアウト</button>
         <nuxt-Link tag="a" to="mypage">
-          <span class="material-icons text-4xl"> account_circle </span>
+          <span class="material-icons text-4xl inline"> account_circle </span>
         </nuxt-Link>
       </div>
     </nav>
