@@ -21,5 +21,6 @@ export default Vue.extend({
     MyPosts,
     PageNumbers,
   },
+  middleware: 'authFilter',
 })
 </script>

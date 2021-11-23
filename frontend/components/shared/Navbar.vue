@@ -42,6 +42,7 @@
           <span class="material-icons text-2xl"> search </span>探す
         </button>
         <nuxt-Link
+          v-show="$auth.loggedIn"
           tag="button"
           to="/post"
           class="
@@ -56,9 +57,19 @@
         >
       </div>
       <div class="">
-        <button class="inline" @click="$auth.logout()">ログアウト</button>
-        <nuxt-Link tag="a" to="mypage">
-          <span class="material-icons text-4xl inline"> account_circle </span>
+        <!-- 認証しているかどうかで変化 -->
+        <div v-show="!$auth.loggedIn" class="inline">
+          <nuxt-Link tag="button" to="/login" class="text-lg text-grey-darkest"
+            >ログイン<span class="material-icons text-4xl mb-1">
+              login
+            </span></nuxt-Link
+          >
+        </div>
+        <nuxt-Link v-show="$auth.loggedIn" tag="a" to="/mypage">
+          {{ $auth.user.user_name }}
+          <span class="material-icons text-4xl inline mb-1">
+            account_circle
+          </span>
         </nuxt-Link>
       </div>
     </nav>

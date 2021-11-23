@@ -88,7 +88,4 @@ export default {
   build: {
     vendor: ['vue-awesome-swiper'],
   },
-  router: {
-    middleware: ['auth'],
-  },
 }

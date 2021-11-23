@@ -5,20 +5,18 @@
         <div class="flex-initial w-4/5">
           <form>
             <div class="my-5 text-sm">
-              <label class="block text-black">ジャンル</label>
+              <label class="block text-black">ジャンル<span>※</span></label>
               <select
                 v-model="postInformationData.genre"
                 class="
-                  border border-gray-300
+                  border-gray-300
                   text-gray-600
-                  h-10
-                  pl-5
-                  pr-7
+                  h-8
                   bg-white
                   hover:border-gray-400
                   focus:outline-none
-                  appearance-none
                   mt-2
+                  border-2
                 "
               >
                 <option>グルメ</option>
@@ -31,21 +29,35 @@
               >
               <input
                 v-model="postInformationData.placeName"
-                class="rounded-sm px-4 py-2 mt-3 border-2 w-full"
+                class="rounded-sm px-4 py-2 mt-2 border-2 w-full"
               />
             </div>
             <div class="my-5 text-sm">
               <label class="block text-black"
-                >郵便番号(ハイフンを入れてくだい)</label
+                >郵便番号(半角数字、ハイフンを入れてくだい)</label
               >
               <input
                 v-model="postInformationData.postNumber"
-                class="rounded-sm px-2 mt-3 focus:outline-none border-2"
+                class="rounded-sm px-2 mt-2 focus:outline-none border-2"
               />
             </div>
             <div class="my-5 text-sm">
               <label class="block text-black">住所</label>
-              <select v-model="postInformationData.prefecture" class="mt-2">
+              <select
+                v-model="postInformationData.prefecture"
+                class="
+                  mt-2
+                  border-gray-300
+                  text-gray-600
+                  h-8
+                  pr-2
+                  bg-white
+                  hover:border-gray-400
+                  focus:outline-none
+                  mb-2
+                  border-2
+                "
+              >
                 <option
                   v-for="prefecture in prefectures"
                   :key="prefecture"
@@ -55,8 +67,8 @@
                   :selectedPrefecture="prefecture === '東京都'"
                 >
                   {{ prefecture }}
-                </option>
-              </select>
+                </option></select
+              ><span>※</span>
               <textarea
                 v-model="postInformationData.address"
                 cols50
@@ -70,7 +82,7 @@
               <textarea
                 v-model="postInformationData.apealPoint"
                 cols50
-                class="rounded-sm px-4 py-2 mt-3 border-2 w-full"
+                class="rounded-sm px-4 py-2 mt-2 border-2 w-full"
               />
             </div>
             <div class="my-5 text-sm">
@@ -80,7 +92,7 @@
               <textarea
                 v-model="postInformationData.recommendation"
                 cols50
-                class="rounded-sm px-4 py-2 mt-3 border-2 w-full"
+                class="rounded-sm px-4 py-2 mt-2 border-2 w-full"
               />
             </div>
             <p><span>※必須</span></p>
@@ -89,7 +101,7 @@
       </div>
     </div>
     <div class="w-5/12 mr-16">
-      <div class="bg-white w-full mt-3 border-2 border-dashed py-60">
+      <div class="bg-white w-full mt-2 border-2 border-dashed py-60">
         <div class="h-full w-full text-gray-400 text-center text-4xl">
           image
         </div>
@@ -108,6 +120,7 @@
             rounded
             mr-5
           "
+          @click="clickAllClearBtn"
         >
           削除
         </button>
@@ -156,8 +169,8 @@ export default defineComponent({
     }) as Infomation
 
     // 投稿後のアラート
-    const postAlert = () => {
-      alert('投稿しました')
+
+    const clickAllClearBtn = () => {
       postInformationData.placeName = ''
       postInformationData.postNumber = ''
       postInformationData.address = ''
@@ -171,7 +184,8 @@ export default defineComponent({
       postInformation(postInformationData)
         .then((result) => {
           if (result) {
-            postAlert()
+            alert('投稿しました')
+            clickAllClearBtn()
           }
         })
         .catch(() => {
@@ -183,6 +197,7 @@ export default defineComponent({
       postInformationData,
       clickPostBtn,
       prefectures,
+      clickAllClearBtn,
     }
   },
 })

@@ -3,17 +3,19 @@
     <div>
       <div class="mr-7 font-bold text-2xl">
         <p class="inline mr-10">クチコミ</p>
-        <input
-          v-model="inputReview"
-          type="text"
-          class="h-8 w-48 inline border-2 boder-gray-200"
-        />
-        <button
-          class="bg-gray-500 hover:bg-gray-700 text-white px-4 rounded"
-          @click="postReview"
-        >
-          追加
-        </button>
+        <div v-show="$auth.loggedIn" class="inline">
+          <input
+            v-model="inputReview"
+            type="text"
+            class="h-8 w-48 inline border-2 boder-gray-200"
+          />
+          <button
+            class="bg-gray-500 hover:bg-gray-700 text-white px-4 rounded"
+            @click="postReview"
+          >
+            追加
+          </button>
+        </div>
       </div>
 
       <div

@@ -30,6 +30,7 @@
         <div class="my-5 text-sm">
           <label class="block text-black">e-mail</label>
           <input
+            id="email"
             v-model="loginData.email"
             type="text"
             autofocus
@@ -48,6 +49,7 @@
         <div class="my-5 text-sm">
           <label for="password" class="block text-black">Password</label>
           <input
+            id="password"
             v-model="loginData.password"
             type="password"
             class="
