@@ -19,6 +19,12 @@ const Review = sequelize.define("reviews", {
   user: {
     type: Sequelize.STRING,
   },
+  user_id: {
+    type: Sequelize.INTEGER,
+  },
+  user_birth_place: {
+    type: Sequelize.STRING,
+  },
   reviewed_at: {
     type: Sequelize.STRING,
   },
