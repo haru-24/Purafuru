@@ -1,17 +1,25 @@
 <template>
   <div class="ml-10">
     <div>
-      <div class="mr-7 font-bold text-2xl">
-        <p class="inline mr-10">クチコミ</p>
+      <div class="mr-7 font-bold">
+        <p class="inline mr-10 text-2xl">クチコミ</p>
         <div v-show="$auth.loggedIn" class="inline">
           <input
             v-model="inputReview"
             type="text"
-            class="h-8 w-48 inline border-2 boder-gray-200"
+            class="h-7 w-56 border-2 boder-gray-200 text-sm inline"
           />
           <button
-            class="bg-gray-500 hover:bg-gray-700 text-white px-4 rounded"
-            @click="postReview"
+            class="
+              bg-gray-500
+              hover:bg-gray-700
+              text-white
+              px-2
+              rounded
+              inline
+              text-lg
+            "
+            @click="clickAddReviewBtn"
           >
             追加
           </button>
@@ -24,8 +32,8 @@
         class="text-lg ml-20 mt-3"
       >
         <p class="inline-block mr-3">{{ reviewData.reviewed_at }}</p>
-        <p class="inline-block mr-3">広島県</p>
-        <p class="inline-block mr-3">USERNAME</p>
+        <p class="inline-block mr-3">{{ reviewData.user_birth_place }}</p>
+        <p class="inline-block mr-3 w-28">{{ reviewData.user }}</p>
         <div class="inline-block ml-10">
           <p>{{ reviewData.review }}</p>
         </div>
@@ -35,17 +43,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  onMounted,
+  ref,
+  useStore,
+} from '@nuxtjs/composition-api'
 import { getAllReviewData } from '../../../api/get'
 import { postReviewData } from '../../../api/post'
-
-interface ReviewData {
-  id: number
-  user: string
-  reviewedAt: string
-  review: string
-  postInformationID: number
-}
+import { ReviewData } from '~/types/types'
 
 export default defineComponent({
   props: ['pageid'],
@@ -59,16 +65,24 @@ export default defineComponent({
       })
     })
 
-    const postReview = () => {
-      postReviewData(inputReview.value, props.pageid).then((result) => {
-        reviewDatas.value?.push(result)
+    const storeUserData = useStore().$auth.$state.user
+
+    const clickAddReviewBtn = () => {
+      postReviewData(
+        inputReview.value,
+        props.pageid,
+        storeUserData.id,
+        storeUserData.user_name,
+        storeUserData.birth_place
+      ).then((result) => {
+        reviewDatas.value?.unshift(result)
         inputReview.value = ''
       })
     }
 
     return {
       inputReview,
-      postReview,
+      clickAddReviewBtn,
       reviewDatas,
     }
   },

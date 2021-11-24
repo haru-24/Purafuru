@@ -37,12 +37,11 @@
             rounded-lg
             text-gray-600
             h-10
-            pl-5
-            pr-5
+            pl-2
+            pr-2
             bg-white
             hover:border-gray-400
             focus:outline-none
-            appearance-none
             shadow-lg
             font-semibold
           "

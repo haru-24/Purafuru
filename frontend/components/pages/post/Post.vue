@@ -101,11 +101,27 @@
       </div>
     </div>
     <div class="w-5/12 mr-16">
-      <div class="bg-white w-full mt-2 border-2 border-dashed py-60">
-        <div class="h-full w-full text-gray-400 text-center text-4xl">
-          image
+      <div class="bg-white w-full mt-2 border-2 border-dashed h-3/4">
+        <div class="h-full w-full grid grid-row-2 grid-cols-2">
+          <div>
+            <img :src="inputImg.img1" alt="" class="h-48" />
+            <input ref="preview" type="file" @change="uploadImage1" />
+          </div>
+          <div>
+            <img :src="inputImg.img2" alt="" class="h-48" />
+            <input ref="preview" type="file" @change="uploadImage2" />
+          </div>
+          <div>
+            <img :src="inputImg.img3" alt="" class="h-48" />
+            <input ref="preview" type="file" @change="uploadImage3" />
+          </div>
+          <div>
+            <img id="img" :src="inputImg.img4" alt="" class="h-48" />
+            <input ref="preview" type="file" @change="uploadImage4" />
+          </div>
         </div>
       </div>
+
       <div class="flex justify-center mt-10">
         <button
           type="button"
@@ -140,6 +156,7 @@
         >
           投稿
         </button>
+        <button @click="getimg">サンプル</button>
       </div>
     </div>
   </div>
@@ -147,12 +164,14 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from '@nuxtjs/composition-api'
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { postInformation } from '../../../api/post'
+import { app } from '@/plugins/firebase'
 import { prefectures } from '~/utils/prefectures'
 import { Infomation } from '~/types/types'
 
 export default defineComponent({
-  setup() {
+  setup(_props) {
     const postInformationData = reactive({
       genre: 'グルメ',
       placeName: '',
@@ -192,12 +211,65 @@ export default defineComponent({
           alert('投稿に失敗しました')
         })
     }
+    // 画像データを追加
+    const inputImg = reactive({
+      img1: '',
+      img2: '',
+      img3: '',
+      img4: '',
+    }) as any
 
+    // 画像データ取り込み
+    const uploadImage1 = (e: any) => {
+      const imgData = e.target.files[0]
+      inputImg.img1 = URL.createObjectURL(imgData)
+      // firebase
+      const storage = getStorage(app)
+      const imageRef = ref(storage, inputImg.img1)
+      uploadBytes(imageRef, imgData)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+    const uploadImage2 = (e: any) => {
+      const imgData = e.target.files[0]
+      inputImg.img2 = URL.createObjectURL(imgData)
+    }
+    const uploadImage3 = (e: any) => {
+      const imgData = e.target.files[0]
+      inputImg.img3 = URL.createObjectURL(imgData)
+    }
+    const uploadImage4 = (e: any) => {
+      const imgData = e.target.files[0]
+      inputImg.img4 = URL.createObjectURL(imgData)
+    }
+
+    // ダウンロード
+    const storage = getStorage(app)
+    const getimg = () => {
+      getDownloadURL(ref(storage, 'images'))
+        .then((res) => {
+          console.log(res)
+          inputImg.img3 = res
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
     return {
       postInformationData,
       clickPostBtn,
       prefectures,
       clickAllClearBtn,
+      uploadImage1,
+      uploadImage2,
+      uploadImage3,
+      uploadImage4,
+      inputImg,
+      getimg,
     }
   },
 })

@@ -66,7 +66,6 @@
           >
         </div>
         <nuxt-Link v-show="$auth.loggedIn" tag="a" to="/mypage">
-          {{ $auth.user.user_name }}
           <span class="material-icons text-4xl inline mb-1">
             account_circle
           </span>

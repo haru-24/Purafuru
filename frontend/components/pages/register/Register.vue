@@ -133,7 +133,7 @@
             hover:bg-green-700
             w-full
           "
-          @click="postRegisterData"
+          @click="clickRegisterBtn"
         >
           Sing-in
         </button>
@@ -149,39 +149,40 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from '@nuxtjs/composition-api'
-import axios from 'axios'
 import { prefectures } from '@/utils/prefectures'
+import { UserData } from '@/types/types'
+import { postRegister } from '@/api/post'
+
 export default defineComponent({
-  setup() {
+  setup(_props, context) {
     const registerData = reactive({
       userName: '',
       birthPlace: '東京都',
       email: '',
       password: '',
       confirmPassword: '',
-    })
+    }) as UserData
 
-    const postRegisterData = async () => {
-      try {
-        if (registerData.password === registerData.confirmPassword) {
-          await axios.post('http://localhost:8888/users/register', {
-            user_name: registerData.userName,
-            birth_place: registerData.birthPlace,
-            email: registerData.email,
-            password: registerData.password,
-          })
-        } else {
-          alert('パスワードが違います')
-        }
-      } catch (err) {
-        console.log(err)
-      }
+    // 認証
+    const login = () => {
+      context.root.$auth.loginWith('local', {
+        data: {
+          email: registerData.email,
+          password: registerData.password,
+        },
+      })
+    }
+
+    const clickRegisterBtn = () => {
+      postRegister(registerData).then(() => {
+        login()
+      })
     }
 
     return {
       registerData,
       prefectures,
-      postRegisterData,
+      clickRegisterBtn,
     }
   },
 })
