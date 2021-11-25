@@ -2,10 +2,16 @@
   <div>
     <Navbar />
     <div class="flex mt-6">
-      <PostInformation class="-mr-20 flex-1 w-1/2" :pagedatas="getValues" />
-      <div class="w-1/2 flex-1">
-        <PostCarousel class="mr-5" :pagedatas="getValues" />
-        <Favorit class="mt-20" :pagedatas="getValues" />
+      <Informations
+        class="-mr-20 flex-1 w-1/2"
+        :individual_page_data="informationData"
+      />
+      <div class="w-1/2 flex-1 mt-20">
+        <ImageView
+          class="flex justify-center"
+          :individual_page_data="informationData"
+        />
+        <Favorit class="mt-20" :individual_page_data="informationData" />
       </div>
     </div>
     <Review :pageid="pageId" class="-mt-5" />
@@ -19,35 +25,35 @@ import {
   ref,
   useRoute,
 } from '@nuxtjs/composition-api'
-
 import { getIndividualInformation } from '../../api/get'
 import { Infomation } from '../../types/types'
 import Navbar from '@/components/shared/Navbar.vue'
-import PostInformation from '@/components/pages/information/PostInformation.vue'
-import PostCarousel from '~/components/pages/information/PostCarousel.vue'
+import Informations from '~/components/pages/information/Informations.vue'
+import ImageView from '~/components/pages/information/ImageView.vue'
 import Favorit from '~/components/pages/information/Favorit.vue'
 import Review from '~/components/pages/information/Review.vue'
 
 export default defineComponent({
   components: {
-    PostInformation,
+    Informations,
     Navbar,
-    PostCarousel,
+    ImageView,
     Favorit,
     Review,
   },
 
   setup() {
-    const getValues = ref<Infomation | null | undefined>()
     const pageId = useRoute().value.query.id as string
+    const informationData = ref<Infomation | null | undefined>()
 
     onMounted(() => {
+      // データ取得
       getIndividualInformation(pageId).then((result) => {
-        getValues.value = result
+        informationData.value = result
       })
     })
     return {
-      getValues,
+      informationData,
       pageId,
     }
   },

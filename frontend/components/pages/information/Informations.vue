@@ -1,24 +1,25 @@
 <template>
   <div>
-    <div v-for="(pagedata, index) in pagedatas" :key="index">
+    <div v-if="!individual_page_data">ローディング中</div>
+    <div v-else>
       <div class="ml-10">
         <div class="text-lg">
-          <p class="inline-block mr-3">2000/20/20</p>
-          <p class="inline-block mr-3">{{ pagedata.prefecture }}</p>
-          <p class="inline-block mr-3">{{ pagedata.post_user }}</p>
+          <p class="inline-block mr-3">{{ individual_page_data.posted_at }}</p>
+          <p class="inline-block mr-3">{{ individual_page_data.prefecture }}</p>
+          <p class="inline-block mr-3">{{ individual_page_data.post_user }}</p>
         </div>
 
         <div>
           <div class="text-4xl font-bold mt-5">
-            <p>{{ pagedata.place_name }}</p>
+            <p>{{ individual_page_data.place_name }}</p>
           </div>
           <div class="mt-10 flex">
             <div class="flex-initial mr-7 font-bold text-2xl">
               <p>住所</p>
             </div>
             <div class="flex-initial">
-              <p>{{ pagedata.post_number }}</p>
-              <p>{{ pagedata.address }}</p>
+              <p>{{ individual_page_data.post_number }}</p>
+              <p>{{ individual_page_data.address }}</p>
             </div>
           </div>
           <div>
@@ -27,7 +28,7 @@
             </div>
             <div class="w-2/3 h-32 mt-3">
               <p class="break-words ml-20">
-                {{ pagedata.apeal_point }}
+                {{ individual_page_data.apeal_point }}
               </p>
             </div>
           </div>
@@ -36,7 +37,9 @@
               <p>オススメのメニュー or スポット</p>
             </div>
             <div class="w-2/3 h-32 mt-3">
-              <p class="break-words ml-20">{{ pagedata.recommendation }}</p>
+              <p class="break-words ml-20">
+                {{ individual_page_data.recommendation }}
+              </p>
             </div>
           </div>
         </div>
@@ -45,10 +48,21 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: ['pagedatas'],
-}
+<script lang="ts">
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { Infomation } from '@/types/types'
+
+export default defineComponent({
+  props: {
+    individual_page_data: {
+      type: Object as PropType<Infomation>,
+      default: () => {},
+    },
+  },
+  setup() {
+    return {}
+  },
+})
 </script>
 
 <style scoped></style>

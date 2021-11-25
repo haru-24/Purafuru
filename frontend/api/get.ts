@@ -50,7 +50,7 @@ export const getAllReviewData = async (pageId: number) => {
   }
 }
 
-// 個別のデータ
+// 個別のページデータ
 export const getIndividualInformation = async (pageId: string) => {
   try {
     const result = await axios.get(

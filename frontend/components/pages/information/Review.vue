@@ -2,7 +2,7 @@
   <div class="ml-10">
     <div>
       <div class="mr-7 font-bold">
-        <p class="inline mr-10 text-2xl">クチコミ</p>
+        <p class="inline mr-10 text-2xl">コメント</p>
         <div v-show="$auth.loggedIn" class="inline">
           <input
             v-model="inputReview"

@@ -150,10 +150,8 @@
 
 <script lang="ts">
 import { defineComponent, reactive, useStore } from '@nuxtjs/composition-api'
-import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { postInformation } from '../../../api/post'
-// import { postImageData } from '@/api/firebaseStorage'
-import { app } from '~/plugins/firebase'
+import { postImageData } from '@/api/firebaseStorage'
 
 import { prefectures } from '~/utils/prefectures'
 import { Infomation, UserData } from '~/types/types'
@@ -186,7 +184,6 @@ export default defineComponent({
     const previewImage = (e: any) => {
       imgData = e.target.files[0]
       postInformationData.image = URL.createObjectURL(imgData)
-      console.log(imgData)
     }
 
     const clickCancelBtn = () => {
@@ -210,17 +207,8 @@ export default defineComponent({
       postInformation(postInformationData, userData)
         .then((result) => {
           if (result) {
-            // 画像をストレージに追加
-            // postImageData(postInformationData.image, imgData)
-            const storage = getStorage(app)
-            const imageRef = ref(storage, postInformationData.image)
-            uploadBytes(imageRef, imgData)
-              .then((res) => {
-                console.log(res)
-              })
-              .catch((err) => {
-                console.log(err)
-              })
+            // 画像をストレージに追加 firebase
+            postImageData(postInformationData.image, imgData)
           }
         })
         .then(() => {
@@ -232,34 +220,6 @@ export default defineComponent({
         })
     }
 
-    // 画像データ取り込み
-    // const uploadImage1 = (e: any) => {
-    //   const imgData = e.target.files[0]
-    //   inputImg.img1 = URL.createObjectURL(imgData)
-    //   // firebase
-    //   const storage = getStorage(app)
-    //   const imageRef = ref(storage, inputImg.img1)
-    //   uploadBytes(imageRef, imgData)
-    //     .then((res) => {
-    //       console.log(res)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // }
-
-    // ダウンロード
-    // const storage = getStorage(app)
-    // const getimg = () => {
-    //   getDownloadURL(ref(storage, 'images'))
-    //     .then((res) => {
-    //       console.log(res)
-    //       inputImg.img3 = res
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // }
     return {
       postInformationData,
       clickPostBtn,

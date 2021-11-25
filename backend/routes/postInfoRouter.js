@@ -56,7 +56,7 @@ router.get("/search", async (req, res) => {
 });
 
 router.get("/information/:pageID", async (req, res) => {
-  const pageData = await PostInfo.findAll({
+  const pageData = await PostInfo.findOne({
     where: {
       id: [req.params.pageID],
     },

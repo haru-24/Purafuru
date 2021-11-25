@@ -33,7 +33,7 @@
             {{ infodata.place_name }}
           </p>
         </div>
-        <div class="mt-5 w-1/3">
+        <div class="mt-2 w-1/3">
           <p>郵便番号</p>
           <p class="ml-3">{{ infodata.post_number }}</p>
           <p>住所</p>
