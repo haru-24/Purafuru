@@ -52,7 +52,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next', '@nuxtjs/dotenv'],
 
   axios: {
     baseURL: 'http://localhost:8888/',
@@ -60,7 +60,7 @@ export default {
   },
 
   auth: {
-    localStorage: false,
+    // localStorage: false,
     strategies: {
       local: {
         token: {

@@ -30,7 +30,10 @@ export const postReviewData = async (
 }
 
 // 情報を投稿する
-export const postInformation = async (postInformation: Infomation) => {
+export const postInformation = async (
+  postInformation: Infomation,
+  userData: UserData
+) => {
   try {
     const result = await axios.post('http://localhost:8888/post_info', {
       genre: postInformation.genre,
@@ -41,9 +44,9 @@ export const postInformation = async (postInformation: Infomation) => {
       apeal_point: postInformation.apealPoint,
       recommendation: postInformation.recommendation,
       image: postInformation.image,
-      post_user: postInformation.postUser,
+      post_user: userData.userName,
       post_history_id: postInformation.postHistoryId,
-      user_id: postInformation.userID,
+      user_id: userData.id,
       favorites: postInformation.favorites,
     })
     if (result.data) {

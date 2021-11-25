@@ -101,26 +101,13 @@
       </div>
     </div>
     <div class="w-5/12 mr-16">
-      <div class="bg-white w-full mt-2 border-2 border-dashed h-3/4">
-        <div class="h-full w-full grid grid-row-2 grid-cols-2">
-          <div>
-            <img :src="inputImg.img1" alt="" class="h-48" />
-            <input ref="preview" type="file" @change="uploadImage1" />
-          </div>
-          <div>
-            <img :src="inputImg.img2" alt="" class="h-48" />
-            <input ref="preview" type="file" @change="uploadImage2" />
-          </div>
-          <div>
-            <img :src="inputImg.img3" alt="" class="h-48" />
-            <input ref="preview" type="file" @change="uploadImage3" />
-          </div>
-          <div>
-            <img id="img" :src="inputImg.img4" alt="" class="h-48" />
-            <input ref="preview" type="file" @change="uploadImage4" />
-          </div>
+      <div class="bg-white w-full mt-32 border-2 border-dashed h-2/4">
+        <div class="h-full w-full flex items-center justify-center">
+          <img :src="postInformationData.image" alt="" class="img" />
         </div>
       </div>
+      <input ref="preview" type="file" class="h-11/12" @change="previewImage" />
+      <button @click="clickCancelBtn">取り消し</button>
 
       <div class="flex justify-center mt-10">
         <button
@@ -156,19 +143,20 @@
         >
           投稿
         </button>
-        <button @click="getimg">サンプル</button>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api'
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { defineComponent, reactive, useStore } from '@nuxtjs/composition-api'
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import { postInformation } from '../../../api/post'
-import { app } from '@/plugins/firebase'
+// import { postImageData } from '@/api/firebaseStorage'
+import { app } from '~/plugins/firebase'
+
 import { prefectures } from '~/utils/prefectures'
-import { Infomation } from '~/types/types'
+import { Infomation, UserData } from '~/types/types'
 
 export default defineComponent({
   setup(_props) {
@@ -180,12 +168,31 @@ export default defineComponent({
       address: '',
       apealPoint: '',
       recommendation: '',
-      image: null,
+      image: '',
       postUser: '',
       postHistoryId: null,
       userID: null,
       favorites: 0,
     }) as Infomation
+
+    // ユーザーデータ
+    const userData = {
+      id: useStore().$auth.state.user.id,
+      userName: useStore().$auth.state.user.user_name,
+    } as UserData
+
+    // 画像データを追加
+    let imgData: any = null
+    const previewImage = (e: any) => {
+      imgData = e.target.files[0]
+      postInformationData.image = URL.createObjectURL(imgData)
+      console.log(imgData)
+    }
+
+    const clickCancelBtn = () => {
+      URL.revokeObjectURL(postInformationData.image)
+      postInformationData.image = ''
+    }
 
     // 投稿後のアラート
 
@@ -200,76 +207,66 @@ export default defineComponent({
     }
 
     const clickPostBtn = () => {
-      postInformation(postInformationData)
+      postInformation(postInformationData, userData)
         .then((result) => {
           if (result) {
-            alert('投稿しました')
-            clickAllClearBtn()
+            // 画像をストレージに追加
+            // postImageData(postInformationData.image, imgData)
+            const storage = getStorage(app)
+            const imageRef = ref(storage, postInformationData.image)
+            uploadBytes(imageRef, imgData)
+              .then((res) => {
+                console.log(res)
+              })
+              .catch((err) => {
+                console.log(err)
+              })
           }
+        })
+        .then(() => {
+          alert('投稿しました')
+          clickAllClearBtn()
         })
         .catch(() => {
           alert('投稿に失敗しました')
         })
     }
-    // 画像データを追加
-    const inputImg = reactive({
-      img1: '',
-      img2: '',
-      img3: '',
-      img4: '',
-    }) as any
 
     // 画像データ取り込み
-    const uploadImage1 = (e: any) => {
-      const imgData = e.target.files[0]
-      inputImg.img1 = URL.createObjectURL(imgData)
-      // firebase
-      const storage = getStorage(app)
-      const imageRef = ref(storage, inputImg.img1)
-      uploadBytes(imageRef, imgData)
-        .then((res) => {
-          console.log(res)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-    const uploadImage2 = (e: any) => {
-      const imgData = e.target.files[0]
-      inputImg.img2 = URL.createObjectURL(imgData)
-    }
-    const uploadImage3 = (e: any) => {
-      const imgData = e.target.files[0]
-      inputImg.img3 = URL.createObjectURL(imgData)
-    }
-    const uploadImage4 = (e: any) => {
-      const imgData = e.target.files[0]
-      inputImg.img4 = URL.createObjectURL(imgData)
-    }
+    // const uploadImage1 = (e: any) => {
+    //   const imgData = e.target.files[0]
+    //   inputImg.img1 = URL.createObjectURL(imgData)
+    //   // firebase
+    //   const storage = getStorage(app)
+    //   const imageRef = ref(storage, inputImg.img1)
+    //   uploadBytes(imageRef, imgData)
+    //     .then((res) => {
+    //       console.log(res)
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // }
 
     // ダウンロード
-    const storage = getStorage(app)
-    const getimg = () => {
-      getDownloadURL(ref(storage, 'images'))
-        .then((res) => {
-          console.log(res)
-          inputImg.img3 = res
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
+    // const storage = getStorage(app)
+    // const getimg = () => {
+    //   getDownloadURL(ref(storage, 'images'))
+    //     .then((res) => {
+    //       console.log(res)
+    //       inputImg.img3 = res
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // }
     return {
       postInformationData,
       clickPostBtn,
       prefectures,
       clickAllClearBtn,
-      uploadImage1,
-      uploadImage2,
-      uploadImage3,
-      uploadImage4,
-      inputImg,
-      getimg,
+      previewImage,
+      clickCancelBtn,
     }
   },
 })
@@ -281,5 +278,10 @@ span {
 }
 textarea {
   resize: none;
+}
+.img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
 }
 </style>

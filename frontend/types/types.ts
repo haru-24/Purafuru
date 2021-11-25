@@ -12,7 +12,7 @@ export interface Infomation {
   address: string
   apealPoint: string
   recommendation: string
-  image: string | null
+  image: string
   postUser: string | null
   postHistoryId: number | null
   userID: number | null
@@ -20,10 +20,11 @@ export interface Infomation {
 }
 
 export interface UserData {
+  id: number
   userName: string
   birthPlace: Prefecture
   email: string
-  password: string
+  password?: string
   confirmPassword?: string
 }
 
