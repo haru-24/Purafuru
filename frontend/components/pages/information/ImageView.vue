@@ -33,13 +33,13 @@ export default defineComponent({
         fetchImageData.imageData = props.individual_page_data.image
       }
     )
-    watch(fetchImageData, () => previewImage())
+    watch(fetchImageData, () => drawingImage())
 
     const imageUrl = reactive({
       data: '',
     })
 
-    const previewImage = () => {
+    const drawingImage = () => {
       const storage = getStorage(app)
       getDownloadURL(ref(storage, fetchImageData.imageData))
         .then((res) => {

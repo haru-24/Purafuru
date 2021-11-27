@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      v-for="(infodata, index) in infodatas"
+      v-for="(infodata, index) in all_info_datas"
       :key="index"
       class="flex justify-center"
     >
@@ -46,7 +46,10 @@
               <span class="text-2xl font-medium">{{ infodata.favorites }}</span>
             </div>
           </div>
-          <div class="bg-white h-24 w-40 mr-3 inline-block">画像</div>
+          <img
+            :src="fetchStorage(infodata.image)"
+            class="bg-white h-24 w-40 mr-3 inline-block"
+          />{{ fetchStorage(infodata.image) }}
         </div>
       </nuxt-link>
     </div>
@@ -56,10 +59,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import { getStorage, ref, getDownloadURL } from 'firebase/storage'
+import { app } from '@/plugins/firebase'
+import { Infomation } from '@/types/types'
 
 export default defineComponent({
-  props: ['infodatas'],
+  props: {
+    all_info_datas: {
+      type: Array as PropType<Infomation[]>,
+      defult: () => [],
+    },
+  },
+
+  setup() {
+    const fetchStorage = async (imageUrl: string) => {
+      const storage = getStorage(app)
+      const result = await getDownloadURL(ref(storage, imageUrl))
+        .then((res) => {
+          return res
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      console.log(result)
+    }
+
+    return {
+      fetchStorage,
+    }
+  },
 })
 </script>
 

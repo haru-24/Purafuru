@@ -4,7 +4,7 @@
     <SerchBar class="mt-3" @serch-infomation="serchData" />
 
     <SearchSort />
-    <SearchResult class="mt-5" :infodatas="getInfodatas" />
+    <SearchResult class="mt-5" :all_info_datas="getInfodatas" />
     <PageNumbers class="mt-5" />
   </div>
 </template>
@@ -62,6 +62,8 @@ export default defineComponent({
       allSearchInformation().then((result) => {
         getInfodatas.value = result
       })
+
+      // firebase storage 画像データを取得
     }
 
     return {

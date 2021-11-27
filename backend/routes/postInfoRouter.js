@@ -4,9 +4,6 @@ const PostInfo = require("../models/PostInfos.js");
 const moment = require("moment");
 router.use(express.json());
 
-const page = 1;
-const perPage = 10;
-
 router.get("/", async (req, res) => {
   const get = await PostInfo.findAndCountAll({
     offset: (page - 1) * perPage,
@@ -42,6 +39,8 @@ router.post("/", async (req, res) => {
 });
 
 // 検索機能
+const page = 1;
+const perPage = 10;
 router.get("/search", async (req, res) => {
   const pageData = await PostInfo.findAndCountAll({
     where: {
@@ -60,6 +59,19 @@ router.get("/information/:pageID", async (req, res) => {
     where: {
       id: [req.params.pageID],
     },
+  });
+  res.json(pageData);
+});
+
+// マイページ用情報
+router.get("/userPostInfo", async (req, res) => {
+  const pageData = await PostInfo.findAndCountAll({
+    where: {
+      user_id: [req.query.userID],
+    },
+    offset: (page - 1) * perPage,
+    limit: perPage,
+    order: [["createdAt", "DESC"]],
   });
   res.json(pageData);
 });
