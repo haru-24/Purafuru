@@ -47,9 +47,10 @@
             </div>
           </div>
           <img
-            :src="fetchStorage(infodata.image)"
+            v-if="imageUrl.imageDataArray[index]"
+            :src="imageUrl.imageDataArray[index]"
             class="bg-white h-24 w-40 mr-3 inline-block"
-          />{{ fetchStorage(infodata.image) }}
+          />
         </div>
       </nuxt-link>
     </div>
@@ -59,7 +60,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  PropType,
+  reactive,
+  watch,
+} from '@nuxtjs/composition-api'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 import { app } from '@/plugins/firebase'
 import { Infomation } from '@/types/types'
@@ -72,22 +78,38 @@ export default defineComponent({
     },
   },
 
-  setup() {
-    const fetchStorage = async (imageUrl: string) => {
-      const storage = getStorage(app)
-      const result = await getDownloadURL(ref(storage, imageUrl))
-        .then((res) => {
-          return res
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-      console.log(result)
+  setup(props) {
+    watch(
+      () => props.all_info_datas,
+      () => {
+        imageDataExtraction()
+      }
+    )
+
+    const imageUrl = reactive({
+      imageDataArray: [] as any,
+    })
+
+    const imageDataExtraction = () => {
+      if (props.all_info_datas) {
+        for (const allInfoData of props.all_info_datas) {
+          const fetchStorage = async (allInfoData: string) => {
+            const storage = getStorage(app)
+            const result = await getDownloadURL(ref(storage, allInfoData))
+              .then((res) => {
+                return res
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+            imageUrl.imageDataArray.push(result)
+          }
+          fetchStorage(allInfoData.image)
+        }
+      }
     }
 
-    return {
-      fetchStorage,
-    }
+    return { imageUrl }
   },
 })
 </script>
