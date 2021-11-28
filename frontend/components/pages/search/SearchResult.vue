@@ -47,10 +47,9 @@
             </div>
           </div>
           <img
-            v-if="imageUrl.imageDataArray[index]"
-            :src="imageUrl.imageDataArray[index]"
+            :src="fetchStorage(infodata.image)"
             class="bg-white h-24 w-40 mr-3 inline-block"
-          />
+          />{{ fetchStorage(infodata.image) }}
         </div>
       </nuxt-link>
     </div>
@@ -60,12 +59,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  PropType,
-  reactive,
-  watch,
-} from '@nuxtjs/composition-api'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { getStorage, ref, getDownloadURL } from 'firebase/storage'
 import { app } from '@/plugins/firebase'
 import { Infomation } from '@/types/types'
@@ -78,38 +72,15 @@ export default defineComponent({
     },
   },
 
-  setup(props) {
-    watch(
-      () => props.all_info_datas,
-      () => {
-        imageDataExtraction()
-      }
-    )
+  setup() {
+    const fetchStorage = async (imageUrl: string) => {
+      const storage = getStorage(app)
+      const result = await getDownloadURL(ref(storage, imageUrl))
 
-    const imageUrl = reactive({
-      imageDataArray: [] as any,
-    })
-
-    const imageDataExtraction = () => {
-      if (props.all_info_datas) {
-        for (const allInfoData of props.all_info_datas) {
-          const fetchStorage = async (allInfoData: string) => {
-            const storage = getStorage(app)
-            const result = await getDownloadURL(ref(storage, allInfoData))
-              .then((res) => {
-                return res
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-            imageUrl.imageDataArray.push(result)
-          }
-          fetchStorage(allInfoData.image)
-        }
-      }
+      console.log(result)
     }
 
-    return { imageUrl }
+    return { fetchStorage }
   },
 })
 </script>
