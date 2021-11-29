@@ -5,6 +5,7 @@ export type Genre = 'スポット' | 'グルメ'
 export type Prefecture = typeof prefectures[number]
 
 export interface Infomation {
+  id: number
   genre: Genre
   placeName: string
   prefecture: Prefecture

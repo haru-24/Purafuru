@@ -4,7 +4,7 @@
       <img
         v-if="individual_page_data.image"
         :src="individual_page_data.image"
-        class="w-11/12 h-400"
+        class="w-full h-400"
       />
       <div v-else class="w-full h-400 flex items-center">
         <p class="text-center text-3xl font-bold">画像なし</p>

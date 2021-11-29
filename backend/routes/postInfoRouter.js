@@ -76,4 +76,22 @@ router.get("/userPostInfo", async (req, res) => {
   res.json(pageData);
 });
 
+// お気に入り数追加
+router.put("/favorite", async (req, res) => {
+  const updateFavorite = await PostInfo.update(
+    {
+      favorites: req.body.favorites,
+    },
+    {
+      where: { id: req.body.id },
+    }
+  )
+    .then(() => {
+      console.log("ok favorite update");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 module.exports = router;

@@ -42,7 +42,9 @@
         <div class="flex items-end mb-3">
           <div class="inline-block">
             <div class="mr-3">
-              <span class="material-icons text-3xl"> favorite_border </span>
+              <span class="material-icons text-3xl mb-2">
+                favorite_border
+              </span>
               <span class="text-2xl font-medium">{{ infodata.favorites }}</span>
             </div>
           </div>
