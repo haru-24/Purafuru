@@ -21,7 +21,7 @@ const UserFavoritePages = sequelize.define(
     user_id: {
       type: Sequelize.INTEGER,
     },
-    fovorite_page_id: {
+    favorite_page_id: {
       type: Sequelize.INTEGER,
     },
   },

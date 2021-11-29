@@ -4,6 +4,7 @@
       <div class="flex justify-center">
         <div>
           <button
+            :class="{ isFavorite: isFavorite }"
             class="
               font-bold
               text-3xl
@@ -16,7 +17,6 @@
               transition
               duration-500
               ease
-              hover:text-white hover:bg-pink-600
               focus:outline-none focus:shadow-outline
               inline-block
             "
@@ -56,13 +56,16 @@ export default defineComponent({
   },
   setup(props) {
     // お気に入り数格納
-
     const favorites = ref<number>(0)
+
+    // お気に入りしているか判定
+    const isFavorite = ref<boolean>(false)
 
     watch(
       () => props.individual_page_data,
       () => {
         favorites.value = props.individual_page_data.favorites
+        getUserFavoriteData()
       }
     )
     // ログインしているか否か
@@ -71,22 +74,64 @@ export default defineComponent({
       userID = useStore().$auth.state.user.id
     }
 
+    // ユーザーがお気に入りしているか否か
+    const getUserFavoriteData = async () => {
+      try {
+        const result = await axios.get('http://localhost:8888/user_favorite', {
+          params: {
+            user_id: userID,
+            favorite_page_id: props.individual_page_data.id,
+          },
+        })
+        if (result.data) {
+          isFavorite.value = true
+        } else {
+          isFavorite.value = false
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
     // お気に入りボタンクリック処理
     const favoriteBtnClick = async () => {
       try {
-        const result = await axios.post('http://localhost:8888/user_favorite', {
-          user_id: userID,
-          favorite_page_id: props.individual_page_data.id,
-        })
-        if (result) {
-          favorites.value++
+        if (!isFavorite.value) {
+          const result = await axios.post(
+            'http://localhost:8888/user_favorite',
+            {
+              user_id: userID,
+              favorite_page_id: props.individual_page_data.id,
+            }
+          )
+          if (result) {
+            favorites.value++
+            isFavorite.value = true
+            await axios
+              .put('http://localhost:8888/post_info/favorite', {
+                favorites: favorites.value,
+                id: props.individual_page_data.id,
+              })
+              .then((res) => {
+                console.log(res)
+              })
+              .catch((err) => {
+                console.log(err)
+              })
+          }
+        } else {
           await axios
-            .put('http://localhost:8888/post_info/favorite', {
-              favorites: favorites.value,
-              id: props.individual_page_data.id,
+            .delete('http://localhost:8888/user_favorite', {
+              data: {
+                user_id: userID,
+                favorite_page_id: props.individual_page_data.id,
+              },
             })
             .then((res) => {
-              console.log(res)
+              if (res) {
+                favorites.value--
+                isFavorite.value = false
+              }
             })
             .catch((err) => {
               console.log(err)
@@ -100,7 +145,16 @@ export default defineComponent({
     return {
       favoriteBtnClick,
       favorites,
+      isFavorite,
     }
   },
 })
 </script>
+
+<style scoped>
+.isFavorite {
+  --tw-bg-opacity: 1;
+  background-color: rgba(219, 39, 119, var(--tw-bg-opacity));
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+</style>
