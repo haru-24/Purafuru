@@ -76,3 +76,22 @@ export const postRegister = async (registerData: UserData) => {
     console.log(err)
   }
 }
+
+// favoriteデーターベースにuserid,favoriteしたことを追加
+export const postFavoritePageData = async (
+  userId: number | null,
+  pageId: number
+) => {
+  try {
+    const result = await axios.post('http://localhost:8888/user_favorite', {
+      user_id: userId,
+      favorite_page_id: pageId,
+    })
+    if (result) {
+      return result
+    }
+    return null
+  } catch (err) {
+    console.log(err)
+  }
+}

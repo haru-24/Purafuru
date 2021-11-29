@@ -64,3 +64,25 @@ export const getIndividualInformation = async (pageId: string) => {
     console.log(err)
   }
 }
+
+// ユーザーがお気に入りしているか否か
+export const getUserFavoriteData = async (
+  userId: number | null,
+  pageId: number
+) => {
+  try {
+    const result = await axios.get('http://localhost:8888/user_favorite', {
+      params: {
+        user_id: userId,
+        favorite_page_id: pageId,
+      },
+    })
+    if (result.data) {
+      return true as boolean
+    } else {
+      return false as boolean
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}

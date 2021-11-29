@@ -44,8 +44,11 @@ import {
   ref,
   watch,
 } from '@nuxtjs/composition-api'
-import axios from 'axios'
 import { Infomation } from '@/types/types'
+import { getUserFavoriteData } from '@/api/get'
+import { postFavoritePageData } from '@/api/post'
+import { putPostInfoFavoriteData } from '@/api/put'
+import { deleteFavorite } from '@/api/delete'
 
 export default defineComponent({
   props: {
@@ -59,13 +62,13 @@ export default defineComponent({
     const favorites = ref<number>(0)
 
     // お気に入りしているか判定
-    const isFavorite = ref<boolean>(false)
+    const isFavorite = ref<boolean | undefined>(false)
 
     watch(
       () => props.individual_page_data,
       () => {
         favorites.value = props.individual_page_data.favorites
-        getUserFavoriteData()
+        confilmUserFavorite()
       }
     )
     // ログインしているか否か
@@ -75,67 +78,36 @@ export default defineComponent({
     }
 
     // ユーザーがお気に入りしているか否か
-    const getUserFavoriteData = async () => {
-      try {
-        const result = await axios.get('http://localhost:8888/user_favorite', {
-          params: {
-            user_id: userID,
-            favorite_page_id: props.individual_page_data.id,
-          },
-        })
-        if (result.data) {
-          isFavorite.value = true
-        } else {
-          isFavorite.value = false
+    const confilmUserFavorite = () => {
+      getUserFavoriteData(userID, props.individual_page_data.id).then(
+        (result) => {
+          isFavorite.value = result
         }
-      } catch (err) {
-        console.log(err)
-      }
+      )
     }
 
     // お気に入りボタンクリック処理
-    const favoriteBtnClick = async () => {
+    const favoriteBtnClick = () => {
       try {
         if (!isFavorite.value) {
-          const result = await axios.post(
-            'http://localhost:8888/user_favorite',
-            {
-              user_id: userID,
-              favorite_page_id: props.individual_page_data.id,
+          // favoritesテーブルにお気に入りしたことを伝える
+          postFavoritePageData(userID, props.individual_page_data.id).then(
+            () => {
+              favorites.value++
+              isFavorite.value = true
+              // post_infoにfavoriteの数を入れる
+              putPostInfoFavoriteData(
+                favorites.value,
+                props.individual_page_data.id
+              )
             }
           )
-          if (result) {
-            favorites.value++
-            isFavorite.value = true
-            await axios
-              .put('http://localhost:8888/post_info/favorite', {
-                favorites: favorites.value,
-                id: props.individual_page_data.id,
-              })
-              .then((res) => {
-                console.log(res)
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-          }
         } else {
-          await axios
-            .delete('http://localhost:8888/user_favorite', {
-              data: {
-                user_id: userID,
-                favorite_page_id: props.individual_page_data.id,
-              },
-            })
-            .then((res) => {
-              if (res) {
-                favorites.value--
-                isFavorite.value = false
-              }
-            })
-            .catch((err) => {
-              console.log(err)
-            })
+          // お気に入り登録を解除する
+          deleteFavorite(userID, props.individual_page_data.id).then(() => {
+            favorites.value--
+            isFavorite.value = false
+          })
         }
       } catch (err) {
         console.log(err)
