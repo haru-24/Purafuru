@@ -1,19 +1,21 @@
 <template>
   <div>
-    <img v-if="imageUrl.data" :src="imageUrl.data" class="w-11/12 h-400" />
+    <div v-if="individual_page_data">
+      <img
+        v-if="individual_page_data.image"
+        :src="individual_page_data.image"
+        class="w-11/12 h-400"
+      />
+      <div v-else class="w-full h-400 flex items-center">
+        <p class="text-center text-3xl font-bold">画像なし</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  reactive,
-  PropType,
-  watch,
-} from '@nuxtjs/composition-api'
-import { getDownloadURL, getStorage, ref } from 'firebase/storage'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { Infomation } from '@/types/types'
-import { app } from '~/plugins/firebase'
 
 export default defineComponent({
   props: {
@@ -21,38 +23,6 @@ export default defineComponent({
       type: Object as PropType<Infomation>,
       default: () => {},
     },
-  },
-
-  setup(props) {
-    const fetchImageData = reactive({
-      imageData: '',
-    })
-    watch(
-      () => props.individual_page_data,
-      () => {
-        fetchImageData.imageData = props.individual_page_data.image
-      }
-    )
-    watch(fetchImageData, () => drawingImage())
-
-    const imageUrl = reactive({
-      data: '',
-    })
-
-    const drawingImage = () => {
-      const storage = getStorage(app)
-      getDownloadURL(ref(storage, fetchImageData.imageData))
-        .then((res) => {
-          console.log(res)
-          imageUrl.data = res
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-    return {
-      imageUrl,
-    }
   },
 })
 </script>

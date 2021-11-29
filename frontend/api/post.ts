@@ -32,7 +32,8 @@ export const postReviewData = async (
 // 情報を投稿する
 export const postInformation = async (
   postInformation: Infomation,
-  userData: UserData
+  userData: UserData,
+  strageUrl: string | undefined
 ) => {
   try {
     const result = await axios.post('http://localhost:8888/post_info', {
@@ -43,7 +44,7 @@ export const postInformation = async (
       address: postInformation.address,
       apeal_point: postInformation.apealPoint,
       recommendation: postInformation.recommendation,
-      image: postInformation.image,
+      image: strageUrl,
       post_user: userData.userName,
       post_history_id: postInformation.postHistoryId,
       user_id: userData.id,

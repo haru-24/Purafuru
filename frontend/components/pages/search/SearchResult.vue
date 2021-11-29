@@ -47,9 +47,25 @@
             </div>
           </div>
           <img
-            :src="fetchStorage(infodata.image)"
-            class="bg-white h-24 w-40 mr-3 inline-block"
-          />{{ fetchStorage(infodata.image) }}
+            v-if="infodata.image"
+            :src="infodata.image"
+            class="h-24 w-40 mr-3 inline-block"
+          />
+          <div
+            v-else
+            class="
+              bg-white
+              h-24
+              w-40
+              mr-3
+              inline-block
+              flex
+              items-center
+              text-center
+            "
+          >
+            <p class="ml-12">画像なし</p>
+          </div>
         </div>
       </nuxt-link>
     </div>
@@ -60,8 +76,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
-import { getStorage, ref, getDownloadURL } from 'firebase/storage'
-import { app } from '@/plugins/firebase'
+
 import { Infomation } from '@/types/types'
 
 export default defineComponent({
@@ -70,17 +85,6 @@ export default defineComponent({
       type: Array as PropType<Infomation[]>,
       defult: () => [],
     },
-  },
-
-  setup() {
-    const fetchStorage = async (imageUrl: string) => {
-      const storage = getStorage(app)
-      const result = await getDownloadURL(ref(storage, imageUrl))
-
-      console.log(result)
-    }
-
-    return { fetchStorage }
   },
 })
 </script>

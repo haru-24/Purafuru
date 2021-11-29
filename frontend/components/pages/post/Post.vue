@@ -151,7 +151,7 @@
 <script lang="ts">
 import { defineComponent, reactive, useStore } from '@nuxtjs/composition-api'
 import { postInformation } from '../../../api/post'
-import { postImageData } from '@/api/firebaseStorage'
+import { postStrage } from '@/api/firebaseStorage'
 
 import { prefectures } from '~/utils/prefectures'
 import { Infomation, UserData } from '~/types/types'
@@ -204,12 +204,10 @@ export default defineComponent({
     }
 
     const clickPostBtn = () => {
-      postInformation(postInformationData, userData)
-        .then((result) => {
-          if (result) {
-            // 画像をストレージに追加 firebase
-            postImageData(postInformationData.image, imgData)
-          }
+      postStrage(postInformationData.image, imgData)
+        .then((strageUrl) => {
+          console.log(strageUrl)
+          postInformation(postInformationData, userData, strageUrl)
         })
         .then(() => {
           alert('投稿しました')
