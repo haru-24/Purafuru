@@ -62,8 +62,6 @@ export default defineComponent({
       allSearchInformation().then((result) => {
         getInfodatas.value = result
       })
-
-      // firebase storage 画像データを取得
     }
 
     return {

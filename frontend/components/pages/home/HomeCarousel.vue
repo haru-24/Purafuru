@@ -2,16 +2,30 @@
   <div>
     <p class="font-extrabold text-2xl ml-5">新着投稿</p>
     <swiper class="swiper" :options="swiperOption">
-      <swiper-slide>div</swiper-slide>
-      <swiper-slide>Slide 2</swiper-slide>
-      <swiper-slide>Slide 3</swiper-slide>
-      <swiper-slide>Slide 4</swiper-slide>
-      <swiper-slide>Slide 5</swiper-slide>
-      <swiper-slide>Slide 6</swiper-slide>
-      <swiper-slide>Slide 7</swiper-slide>
-      <swiper-slide>Slide 8</swiper-slide>
-      <swiper-slide>Slide 9</swiper-slide>
-      <swiper-slide>Slide 10</swiper-slide>
+      <swiper-slide
+        v-for="(getInfoData, index) in getInfodatas"
+        :key="index"
+        :style="{ backgroundImage: `url(${getInfoData.image})` }"
+      >
+        <div>
+          <div>
+            <div class="mt-5 text-center font-extrabold text-xl">
+              <p class="">
+                {{ getInfoData.posted_at }}
+              </p>
+              <p class="">
+                {{ getInfoData.prefecture }}
+              </p>
+            </div>
+
+            <p class="mt-8 text-4xl font-extrabold">
+              {{ getInfoData.place_name }}
+            </p>
+            <p></p>
+          </div>
+        </div>
+      </swiper-slide>
+
       <div slot="button-prev" class="swiper-button-prev"></div>
       <div slot="button-next" class="swiper-button-next"></div>
       <div slot="pagination" class="swiper-pagination"></div>
@@ -19,10 +33,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
-
-export default {
+import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { allSearchInformation } from '@/api/get'
+import { Infomation } from '@/types/types'
+export default defineComponent({
   name: 'SwiperExampleMultipleSlidesPerBiew',
   title: 'Multiple slides per view',
   components: {
@@ -32,15 +48,29 @@ export default {
   directives: {
     swiper: directive,
   },
+  setup() {
+    // 投稿情報をAPIでGET
+    const getInfodatas = ref<Infomation | null | undefined>()
+    // 全データ取得
+    const allSearhData = () => {
+      allSearchInformation().then((result) => {
+        getInfodatas.value = result
+      })
+    }
+    allSearhData()
+    return {
+      getInfodatas,
+    }
+  },
   data() {
     return {
       swiperOption: {
         slidesPerView: 3,
-        spaceBetween: 30,
-        // autoplay: {
-        //   delay: 2500,
-        //   disableOnInteraction: false,
-        // },
+        // spaceBetween: 30,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+        },
         pagination: {
           el: '.swiper-pagination',
           clickable: true,
@@ -54,7 +84,7 @@ export default {
       },
     }
   },
-}
+})
 </script>
 
 <style scoped>
@@ -63,19 +93,21 @@ export default {
   width: 100%;
 }
 .swiper-slide {
+  background-size: cover;
+
+  background-repeat: no-repeat;
   text-align: center;
-  font-size: 38px;
-  font-weight: 700;
-  background-color: #eee;
+  justify-content: center;
+
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-  justify-content: center;
+
   -webkit-box-align: center;
   -ms-flex-align: center;
-  align-items: center;
+
   border-left: 1px solid #fff;
 }
 </style>
