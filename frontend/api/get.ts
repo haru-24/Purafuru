@@ -14,7 +14,7 @@ export const getSearchInformation = async (
       },
     })
     if (result.data) {
-      return result.data as Infomation
+      return result.data as Infomation[]
     }
     return null
   } catch (err) {
@@ -23,12 +23,16 @@ export const getSearchInformation = async (
 }
 
 // 全県全ジャンル新着１０件分のデータ
-export const allSearchInformation = async () => {
+export const allInformation = async (pageNumber: number) => {
   try {
-    const result = await axios.get('http://localhost:8888/post_info')
+    const result = await axios.get('http://localhost:8888/post_info', {
+      params: {
+        page_number: pageNumber,
+      },
+    })
 
     if (result.data) {
-      return result.data as Infomation
+      return result.data as Infomation[]
     }
     return null
   } catch (err) {

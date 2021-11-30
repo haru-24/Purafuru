@@ -4,7 +4,10 @@ const PostInfo = require("../models/PostInfos.js");
 const moment = require("moment");
 router.use(express.json());
 
+// 作成された順に並び替えて送る
 router.get("/", async (req, res) => {
+  const page = req.query.page_number;
+  const perPage = 10;
   const get = await PostInfo.findAndCountAll({
     offset: (page - 1) * perPage,
     limit: perPage,
@@ -39,9 +42,10 @@ router.post("/", async (req, res) => {
 });
 
 // 検索機能
-const page = 1;
-const perPage = 10;
+
 router.get("/search", async (req, res) => {
+  const page = 1;
+  const perPage = 10;
   const pageData = await PostInfo.findAndCountAll({
     where: {
       prefecture: [req.query.prefecture],
@@ -65,6 +69,8 @@ router.get("/information/:pageID", async (req, res) => {
 
 // マイページ用情報
 router.get("/userPostInfo", async (req, res) => {
+  const page = 1;
+  const perPage = 10;
   const pageData = await PostInfo.findAndCountAll({
     where: {
       user_id: [req.query.userID],

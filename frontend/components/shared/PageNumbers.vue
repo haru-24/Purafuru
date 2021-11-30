@@ -5,7 +5,8 @@
         class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
         aria-label="Pagination"
       >
-        <a
+        <button
+          v-if="!pageNumber"
           href="#"
           class="
             relative
@@ -37,9 +38,9 @@
               clip-rule="evenodd"
             />
           </svg>
-        </a>
+        </button>
         <!-- Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" -->
-        <a
+        <button
           href="#"
           aria-current="page"
           class="
@@ -58,10 +59,47 @@
           "
         >
           1
-        </a>
-
-        <a
+        </button>
+        <button
           href="#"
+          class="
+            z-10
+            bg-indigo-50
+            border-green-500
+            text-green-600
+            relative
+            inline-flex
+            items-center
+            px-4
+            py-2
+            border
+            text-sm
+            font-medium
+          "
+        >
+          1
+        </button>
+        <button
+          href="#"
+          class="
+            z-10
+            bg-indigo-50
+            border-green-500
+            text-green-600
+            relative
+            inline-flex
+            items-center
+            px-4
+            py-2
+            border
+            text-sm
+            font-medium
+          "
+        >
+          1
+        </button>
+
+        <button
           class="
             relative
             inline-flex
@@ -76,6 +114,7 @@
             text-gray-500
             hover:bg-gray-50
           "
+          @click="nextPageBtnClick"
         >
           <span class="sr-only">Next</span>
           <!-- Heroicon name: solid/chevron-right -->
@@ -92,8 +131,38 @@
               clip-rule="evenodd"
             />
           </svg>
-        </a>
+        </button>
       </nav>
     </div>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent, ref } from '@nuxtjs/composition-api'
+export default defineComponent({
+  setup(_props, context) {
+    const pageNumber = ref<number>(1)
+    if (context.root.$route.query.page) {
+      const queryPage = context.root.$route.query.page as string
+      // クエリストリングのpageを数値に変換して格納
+      pageNumber.value = parseInt(queryPage)
+    }
+
+    const nextPageBtnClick = () => {
+      pageNumber.value++
+      // ページナンバーをストリングに変換
+      const pageNumberStr: string = String(pageNumber.value)
+      context.root.$router.push({
+        path: 'search',
+        query: { page: pageNumberStr },
+      })
+      context.emit('next_page')
+    }
+
+    return {
+      nextPageBtnClick,
+      pageNumber,
+    }
+  },
+})
+</script>

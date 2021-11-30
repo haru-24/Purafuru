@@ -36,7 +36,7 @@
 <script lang="ts">
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 import { defineComponent, ref } from '@nuxtjs/composition-api'
-import { allSearchInformation } from '@/api/get'
+import { allInformation } from '@/api/get'
 import { Infomation } from '@/types/types'
 export default defineComponent({
   name: 'SwiperExampleMultipleSlidesPerBiew',
@@ -50,10 +50,10 @@ export default defineComponent({
   },
   setup() {
     // 投稿情報をAPIでGET
-    const getInfodatas = ref<Infomation | null | undefined>()
+    const getInfodatas = ref<Infomation[] | null | undefined>()
     // 全データ取得
     const allSearhData = () => {
-      allSearchInformation().then((result) => {
+      allInformation(1).then((result) => {
         getInfodatas.value = result
       })
     }

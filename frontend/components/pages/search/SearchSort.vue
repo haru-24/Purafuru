@@ -31,7 +31,7 @@
 import { defineComponent, ref } from '@nuxtjs/composition-api'
 
 export default defineComponent({
-  setup() {
+  setup(_props, context) {
     const hello = ref<string>('こんにちは')
     const isNewArrivalsButton = ref<boolean>(true)
     const isFavoritButton = ref<boolean>(false)
@@ -41,6 +41,7 @@ export default defineComponent({
         isNewArrivalsButton.value = true
         isFavoritButton.value = false
       }
+      context.emit('new-arrival-sort')
     }
 
     const pushFavoritButton = () => {
@@ -48,6 +49,7 @@ export default defineComponent({
         isFavoritButton.value = true
         isNewArrivalsButton.value = false
       }
+      context.emit('favorite-sort')
     }
 
     return {

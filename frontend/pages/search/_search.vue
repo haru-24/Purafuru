@@ -3,19 +3,22 @@
     <Navbar @all-serch-infomation="allSearhData" />
     <SerchBar class="mt-3" @serch-infomation="serchData" />
 
-    <SearchSort />
+    <SearchSort
+      @new-arrival-sort="newArrivalSort"
+      @favorite-sort="favoriteSort"
+    />
     <SearchResult class="mt-5" :all_info_datas="getInfodatas" />
-    <PageNumbers class="mt-5" />
+    <PageNumbers class="mt-5" @next_page="nextPageClick" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from '@nuxtjs/composition-api'
+import { defineComponent, ref } from '@nuxtjs/composition-api'
 import SerchBar from '../../components/shared/SerchBar.vue'
 import SearchSort from '../../components/pages/search/SearchSort.vue'
 import SearchResult from '../../components/pages/search/SearchResult.vue'
 import PageNumbers from '../../components/shared/PageNumbers.vue'
-import { getSearchInformation, allSearchInformation } from '../../api/get'
+import { getSearchInformation, allInformation } from '../../api/get'
 import { Infomation } from '../../types/types'
 import Navbar from '@/components/shared/Navbar.vue'
 
@@ -30,9 +33,13 @@ export default defineComponent({
 
   setup(_props, context) {
     // 投稿情報をAPIでGET
-    const getInfodatas = ref<Infomation | null | undefined>()
+    const getInfodatas = ref<Infomation[] | null | undefined>()
 
-    onMounted(() => {
+    // ページ番号を入れる変数
+    const CurrentPageNumber = ref<number>(1)
+
+    // 画面遷移時queryの情報でAPIを分岐させる
+    const branchAtQuery = () => {
       if (
         context.root.$route.query.prefecture &&
         context.root.$route.query.genre
@@ -44,11 +51,12 @@ export default defineComponent({
           getInfodatas.value = result
         })
       } else {
-        allSearchInformation().then((result) => {
+        allInformation(CurrentPageNumber.value).then((result) => {
           getInfodatas.value = result
         })
       }
-    })
+    }
+    branchAtQuery()
 
     //  検索バーの値をfetchしてくる
     const serchData = (selectedPrefecture: string, selectedGenre: string) => {
@@ -59,9 +67,31 @@ export default defineComponent({
 
     // 全データ取得
     const allSearhData = () => {
-      allSearchInformation().then((result) => {
+      allInformation(CurrentPageNumber.value).then((result) => {
         getInfodatas.value = result
       })
+    }
+
+    // 新着順に並び替え
+    const newArrivalSort = () => {
+      branchAtQuery()
+    }
+
+    // お気に入り順に並び替え
+    const favoriteSort = () => {
+      if (getInfodatas.value) {
+        getInfodatas.value.sort((a: Infomation, b: Infomation) => {
+          if (a.favorites < b.favorites) return 1
+          if (a.favorites > b.favorites) return -1
+          return 0
+        })
+      }
+    }
+
+    // 次のページの情報を取ってくる
+    const nextPageClick = (pageNumber: number) => {
+      CurrentPageNumber.value = pageNumber
+      branchAtQuery()
     }
 
     return {
@@ -69,6 +99,9 @@ export default defineComponent({
       getSearchInformation,
       allSearhData,
       serchData,
+      newArrivalSort,
+      favoriteSort,
+      nextPageClick,
     }
   },
 })
