@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
 // 検索機能
 
 router.get("/search", async (req, res) => {
-  const page = 1;
+  const page = req.query.page_number;
   const perPage = 10;
   const pageData = await PostInfo.findAndCountAll({
     where: {

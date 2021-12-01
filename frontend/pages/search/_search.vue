@@ -36,7 +36,7 @@ export default defineComponent({
     const getInfodatas = ref<Infomation[] | null | undefined>()
 
     // ページ番号を入れる変数
-    const CurrentPageNumber = ref<number>(1)
+    const CurrentPageNumber = ref<string>('1')
 
     // 画面遷移時queryの情報でAPIを分岐させる
     const branchAtQuery = () => {
@@ -46,7 +46,8 @@ export default defineComponent({
       ) {
         getSearchInformation(
           context.root.$route.query.prefecture as string,
-          context.root.$route.query.genre as string
+          context.root.$route.query.genre as string,
+          CurrentPageNumber.value
         ).then((result) => {
           getInfodatas.value = result
         })
@@ -60,13 +61,19 @@ export default defineComponent({
 
     //  検索バーの値をfetchしてくる
     const serchData = (selectedPrefecture: string, selectedGenre: string) => {
-      getSearchInformation(selectedPrefecture, selectedGenre).then((result) => {
+      CurrentPageNumber.value = '1'
+      getSearchInformation(
+        selectedPrefecture,
+        selectedGenre,
+        CurrentPageNumber.value
+      ).then((result) => {
         getInfodatas.value = result
       })
     }
 
     // 全データ取得
     const allSearhData = () => {
+      CurrentPageNumber.value = '1'
       allInformation(CurrentPageNumber.value).then((result) => {
         getInfodatas.value = result
       })
@@ -89,8 +96,8 @@ export default defineComponent({
     }
 
     // 次のページの情報を取ってくる
-    const nextPageClick = (pageNumber: number) => {
-      CurrentPageNumber.value = pageNumber
+    const nextPageClick = (queryPageNumber: string) => {
+      CurrentPageNumber.value = queryPageNumber
       branchAtQuery()
     }
 

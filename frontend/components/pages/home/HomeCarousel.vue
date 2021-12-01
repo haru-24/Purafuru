@@ -53,7 +53,7 @@ export default defineComponent({
     const getInfodatas = ref<Infomation[] | null | undefined>()
     // 全データ取得
     const allSearhData = () => {
-      allInformation(1).then((result) => {
+      allInformation('1').then((result) => {
         getInfodatas.value = result
       })
     }

@@ -6,7 +6,6 @@
         aria-label="Pagination"
       >
         <button
-          v-if="!pageNumber"
           href="#"
           class="
             relative
@@ -138,30 +137,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({
   setup(_props, context) {
-    const pageNumber = ref<number>(1)
-    if (context.root.$route.query.page) {
-      const queryPage = context.root.$route.query.page as string
-      // クエリストリングのpageを数値に変換して格納
-      pageNumber.value = parseInt(queryPage)
-    }
-
     const nextPageBtnClick = () => {
-      pageNumber.value++
-      // ページナンバーをストリングに変換
-      const pageNumberStr: string = String(pageNumber.value)
-      context.root.$router.push({
-        path: 'search',
-        query: { page: pageNumberStr },
-      })
-      context.emit('next_page')
+      if (!context.root.$route.query.page) {
+        context.root.$router.push({
+          query: {
+            page: '2',
+            prefecture: context.root.$route.query.prefecture,
+            genre: context.root.$route.query.genre,
+          },
+        })
+        context.emit('next_page', '2')
+      } else {
+        // ?=pageの番号を数値型に変換 ＋１する
+        const queryPage = context.root.$route.query.page as string
+        let pageNumber = parseInt(queryPage) as number
+        pageNumber++
+        //  足した値をストリングにしてrouter push
+        const pageNumberStr: string = String(pageNumber)
+        context.root.$router.push({
+          query: {
+            page: pageNumberStr,
+            prefecture: context.root.$route.query.prefecture,
+            genre: context.root.$route.query.genre,
+          },
+        })
+        context.emit('next_page', pageNumberStr)
+      }
     }
 
     return {
       nextPageBtnClick,
-      pageNumber,
     }
   },
 })

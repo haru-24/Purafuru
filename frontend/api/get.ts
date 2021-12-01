@@ -4,13 +4,15 @@ import { Infomation } from '../types/types'
 // 検索データを取得
 export const getSearchInformation = async (
   selectedPrefecture: string,
-  selectedGenre: string
+  selectedGenre: string,
+  queryPageNumber: string
 ) => {
   try {
     const result = await axios.get('http://localhost:8888/post_info/search', {
       params: {
         prefecture: selectedPrefecture,
         genre: selectedGenre,
+        page_number: queryPageNumber,
       },
     })
     if (result.data) {
@@ -23,11 +25,11 @@ export const getSearchInformation = async (
 }
 
 // 全県全ジャンル新着１０件分のデータ
-export const allInformation = async (pageNumber: number) => {
+export const allInformation = async (queryPageNumber: string) => {
   try {
     const result = await axios.get('http://localhost:8888/post_info', {
       params: {
-        page_number: pageNumber,
+        page_number: queryPageNumber,
       },
     })
 
