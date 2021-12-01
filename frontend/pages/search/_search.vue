@@ -8,7 +8,11 @@
       @favorite-sort="favoriteSort"
     />
     <SearchResult class="mt-5" :all_info_datas="getInfodatas" />
-    <PageNumbers class="mt-5" @next_page="nextPageClick" />
+    <PagenationBtn
+      class="mt-5"
+      :max_page_value="pageMaxValue"
+      @pagenation_click="pagenationBtnClick"
+    />
   </div>
 </template>
 
@@ -17,7 +21,7 @@ import { defineComponent, ref } from '@nuxtjs/composition-api'
 import SerchBar from '../../components/shared/SerchBar.vue'
 import SearchSort from '../../components/pages/search/SearchSort.vue'
 import SearchResult from '../../components/pages/search/SearchResult.vue'
-import PageNumbers from '../../components/shared/PageNumbers.vue'
+import PagenationBtn from '../../components/shared/PagenationBtn.vue'
 import { getSearchInformation, allInformation } from '../../api/get'
 import { Infomation } from '../../types/types'
 import Navbar from '@/components/shared/Navbar.vue'
@@ -28,7 +32,7 @@ export default defineComponent({
     SerchBar,
     SearchSort,
     SearchResult,
-    PageNumbers,
+    PagenationBtn,
   },
 
   setup(_props, context) {
@@ -36,56 +40,78 @@ export default defineComponent({
     const getInfodatas = ref<Infomation[] | null | undefined>()
 
     // ページ番号を入れる変数
-    const CurrentPageNumber = ref<string>('1')
+    const CurrentPageNumber = ref<string>('')
+    if (context.root.$route.query.page) {
+      CurrentPageNumber.value = context.root.$route.query.page as string
+    } else {
+      CurrentPageNumber.value = '1'
+    }
+    // 表示するページ数の最大値
+    const pageMaxValue = ref<string>('1')
 
-    // 画面遷移時queryの情報でAPIを分岐させる
-    const branchAtQuery = () => {
+    // 10件ごと全データ検索
+    const allInfoDataStoring = () => {
+      allInformation(CurrentPageNumber.value).then((result) => {
+        getInfodatas.value = result?.dbInfoData
+        const dataCount = result?.dbDataCount as number
+        pageMaxValue.value = String(Math.ceil(dataCount / 10))
+      })
+    }
+    // 10件ごと都道府県、ジャンルを入れて検索する
+    const searchDataStoring = (prefecture: string, genre: string) => {
+      getSearchInformation(prefecture, genre, CurrentPageNumber.value).then(
+        (result) => {
+          getInfodatas.value = result?.dbInfoData
+          const dataCount = result?.dbDataCount as number
+          pageMaxValue.value = String(Math.ceil(dataCount / 10))
+          console.log(pageMaxValue.value)
+        }
+      )
+    }
+
+    // 画面遷移時queryの情報で分岐させる
+    const displayDataBranch = () => {
       if (
         context.root.$route.query.prefecture &&
         context.root.$route.query.genre
       ) {
-        getSearchInformation(
+        searchDataStoring(
           context.root.$route.query.prefecture as string,
-          context.root.$route.query.genre as string,
-          CurrentPageNumber.value
-        ).then((result) => {
-          getInfodatas.value = result
-        })
+          context.root.$route.query.genre as string
+        )
       } else {
-        allInformation(CurrentPageNumber.value).then((result) => {
-          getInfodatas.value = result
-        })
+        allInfoDataStoring()
       }
     }
-    branchAtQuery()
+    displayDataBranch()
 
     //  検索バーの値をfetchしてくる
     const serchData = (selectedPrefecture: string, selectedGenre: string) => {
       CurrentPageNumber.value = '1'
-      getSearchInformation(
-        selectedPrefecture,
-        selectedGenre,
-        CurrentPageNumber.value
-      ).then((result) => {
-        getInfodatas.value = result
-      })
+      searchDataStoring(selectedPrefecture, selectedGenre)
     }
 
-    // 全データ取得
+    // 探すボタンを押して全データ取得
     const allSearhData = () => {
       CurrentPageNumber.value = '1'
-      allInformation(CurrentPageNumber.value).then((result) => {
-        getInfodatas.value = result
-      })
+      allInfoDataStoring()
     }
+
+    // ソートボタンの状態
+    let newArrivalSortBtnOn: boolean = true
+    let favoriteSortBtnOn: boolean = false
 
     // 新着順に並び替え
     const newArrivalSort = () => {
-      branchAtQuery()
+      newArrivalSortBtnOn = true
+      favoriteSortBtnOn = false
+      displayDataBranch()
     }
 
     // お気に入り順に並び替え
     const favoriteSort = () => {
+      newArrivalSortBtnOn = false
+      favoriteSortBtnOn = true
       if (getInfodatas.value) {
         getInfodatas.value.sort((a: Infomation, b: Infomation) => {
           if (a.favorites < b.favorites) return 1
@@ -95,11 +121,33 @@ export default defineComponent({
       }
     }
 
-    // 次のページの情報を取ってくる
-    const nextPageClick = (queryPageNumber: string) => {
+    // ページネーション🔥🔥🔥🔥🔥🔥🔥
+    const pagenationBtnClick = (queryPageNumber: string) => {
       CurrentPageNumber.value = queryPageNumber
-      branchAtQuery()
+      if (newArrivalSortBtnOn) {
+        displayDataBranch()
+      } else if (favoriteSortBtnOn) {
+        if (
+          context.root.$route.query.prefecture &&
+          context.root.$route.query.genre
+        ) {
+          getSearchInformation(
+            context.root.$route.query.prefecture as string,
+            context.root.$route.query.genre as string,
+            CurrentPageNumber.value
+          ).then((result) => {
+            getInfodatas.value = result?.dbInfoData
+            favoriteSort()
+          })
+        } else {
+          allInformation(CurrentPageNumber.value).then((result) => {
+            getInfodatas.value = result?.dbInfoData
+            favoriteSort()
+          })
+        }
+      }
     }
+    favoriteSort()
 
     return {
       getInfodatas,
@@ -108,7 +156,8 @@ export default defineComponent({
       serchData,
       newArrivalSort,
       favoriteSort,
-      nextPageClick,
+      pagenationBtnClick,
+      pageMaxValue,
     }
   },
 })

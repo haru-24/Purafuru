@@ -3,7 +3,7 @@
     <Navbar />
     <UserData />
     <MyPosts class="mt-3" :user_post_info_datas="userPostInformationDatas" />
-    <PageNumbers />
+    <PagenationBtn />
   </div>
 </template>
 
@@ -13,7 +13,7 @@ import axios from 'axios'
 import Navbar from '../components/shared/Navbar.vue'
 import UserData from '../components/pages/mypage/UserData.vue'
 import MyPosts from '../components/pages/mypage/MyPosts.vue'
-import PageNumbers from '../components/shared/PageNumbers.vue'
+import PagenationBtn from '../components/shared/PagenationBtn.vue'
 import { Infomation } from '@/types/types'
 
 export default defineComponent({
@@ -21,7 +21,7 @@ export default defineComponent({
     Navbar,
     UserData,
     MyPosts,
-    PageNumbers,
+    PagenationBtn,
   },
   middleware: 'authFilter',
 

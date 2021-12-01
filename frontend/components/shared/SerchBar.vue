@@ -125,6 +125,7 @@ export default defineComponent({
       context.root.$router.push({
         path: 'search',
         query: {
+          page: '1',
           prefecture: selectedPrefecture.value,
           genre: selectedGenre.value,
         },

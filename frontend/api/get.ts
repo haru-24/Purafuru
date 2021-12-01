@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Infomation } from '../types/types'
+import { Infomation, ResponseInformationData } from '../types/types'
 
 // 検索データを取得
 export const getSearchInformation = async (
@@ -16,7 +16,10 @@ export const getSearchInformation = async (
       },
     })
     if (result.data) {
-      return result.data as Infomation[]
+      const dbInfoData = result.data.rows as Infomation[]
+      const dbDataCount = result.data.count as number
+      const resultData = { dbInfoData, dbDataCount } as ResponseInformationData
+      return resultData
     }
     return null
   } catch (err) {
@@ -34,7 +37,10 @@ export const allInformation = async (queryPageNumber: string) => {
     })
 
     if (result.data) {
-      return result.data as Infomation[]
+      const dbInfoData = result.data.rows as Infomation[]
+      const dbDataCount = result.data.count as number
+      const resultData = { dbInfoData, dbDataCount } as ResponseInformationData
+      return resultData
     }
     return null
   } catch (err) {

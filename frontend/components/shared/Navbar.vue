@@ -84,10 +84,10 @@ export default defineComponent({
       if (location.pathname === '/search') {
         context.emit('all-serch-infomation')
         // クエリストリングを消すためのpush
-        context.root.$router.push({ path: '/search' })
+        context.root.$router.push({ path: '/search', query: { page: '1' } })
       } else {
         // 違う場合サーチに遷移する
-        context.root.$router.push({ path: '/search' })
+        context.root.$router.push({ path: '/search', query: { page: '1' } })
       }
     }
     return {

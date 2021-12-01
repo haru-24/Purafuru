@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
     limit: perPage,
     order: [["createdAt", "DESC"]],
   });
-  res.json(get.rows);
+  res.json(get);
 });
 
 // post_infoへ投稿
@@ -55,7 +55,7 @@ router.get("/search", async (req, res) => {
     limit: perPage,
     order: [["createdAt", "DESC"]],
   });
-  res.json(pageData.rows);
+  res.json(pageData);
 });
 
 router.get("/information/:pageID", async (req, res) => {

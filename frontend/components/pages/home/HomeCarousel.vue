@@ -54,7 +54,7 @@ export default defineComponent({
     // 全データ取得
     const allSearhData = () => {
       allInformation('1').then((result) => {
-        getInfodatas.value = result
+        getInfodatas.value = result?.dbInfoData
       })
     }
     allSearhData()

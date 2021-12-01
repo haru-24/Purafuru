@@ -2,10 +2,11 @@
   <div>
     <div class="flex justify-center">
       <nav
-        class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+        class="relative z-0 inline-flex rounded-md shadow-sm space-x-10 mb-5"
         aria-label="Pagination"
       >
         <button
+          v-if="$route.query.page && $route.query.page !== '1'"
           href="#"
           class="
             relative
@@ -21,9 +22,8 @@
             text-gray-500
             hover:bg-gray-50
           "
+          @click="prevPageBtnClick"
         >
-          <span class="sr-only">Previous</span>
-          <!-- Heroicon name: solid/chevron-left -->
           <svg
             class="h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -37,68 +37,11 @@
               clip-rule="evenodd"
             />
           </svg>
-        </button>
-        <!-- Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" -->
-        <button
-          href="#"
-          aria-current="page"
-          class="
-            z-10
-            bg-indigo-50
-            border-green-500
-            text-green-600
-            relative
-            inline-flex
-            items-center
-            px-4
-            py-2
-            border
-            text-sm
-            font-medium
-          "
-        >
-          1
-        </button>
-        <button
-          href="#"
-          class="
-            z-10
-            bg-indigo-50
-            border-green-500
-            text-green-600
-            relative
-            inline-flex
-            items-center
-            px-4
-            py-2
-            border
-            text-sm
-            font-medium
-          "
-        >
-          1
-        </button>
-        <button
-          href="#"
-          class="
-            z-10
-            bg-indigo-50
-            border-green-500
-            text-green-600
-            relative
-            inline-flex
-            items-center
-            px-4
-            py-2
-            border
-            text-sm
-            font-medium
-          "
-        >
-          1
+          <p>前のページ</p>
         </button>
 
         <button
+          v-if="$route.query.page !== max_page_value"
           class="
             relative
             inline-flex
@@ -115,8 +58,7 @@
           "
           @click="nextPageBtnClick"
         >
-          <span class="sr-only">Next</span>
-          <!-- Heroicon name: solid/chevron-right -->
+          <p>次のページ</p>
           <svg
             class="h-5 w-5"
             xmlns="http://www.w3.org/2000/svg"
@@ -138,18 +80,17 @@
 
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
+
 export default defineComponent({
+  props: {
+    max_page_value: String,
+  },
   setup(_props, context) {
+    // 次に進む
     const nextPageBtnClick = () => {
       if (!context.root.$route.query.page) {
-        context.root.$router.push({
-          query: {
-            page: '2',
-            prefecture: context.root.$route.query.prefecture,
-            genre: context.root.$route.query.genre,
-          },
-        })
-        context.emit('next_page', '2')
+        pageQueryPush('2')
+        context.emit('pagenation_click', '2')
       } else {
         // ?=pageの番号を数値型に変換 ＋１する
         const queryPage = context.root.$route.query.page as string
@@ -157,19 +98,37 @@ export default defineComponent({
         pageNumber++
         //  足した値をストリングにしてrouter push
         const pageNumberStr: string = String(pageNumber)
-        context.root.$router.push({
-          query: {
-            page: pageNumberStr,
-            prefecture: context.root.$route.query.prefecture,
-            genre: context.root.$route.query.genre,
-          },
-        })
-        context.emit('next_page', pageNumberStr)
+        pageQueryPush(pageNumberStr)
+        context.emit('pagenation_click', pageNumberStr)
       }
     }
 
+    // 前に戻る
+    const prevPageBtnClick = () => {
+      if (context.root.$route.query.page) {
+        // ?=pageの番号を数値型に変換 -１する
+        const queryPage = context.root.$route.query.page as string
+        let pageNumber = parseInt(queryPage) as number
+        pageNumber--
+        //  引いた値をストリングにしてrouter push
+        const pageNumberStr: string = String(pageNumber)
+        pageQueryPush(pageNumberStr)
+        context.emit('pagenation_click', pageNumberStr)
+      }
+    }
+
+    const pageQueryPush = (pageQuery: string) => {
+      context.root.$router.push({
+        query: {
+          page: pageQuery,
+          prefecture: context.root.$route.query.prefecture,
+          genre: context.root.$route.query.genre,
+        },
+      })
+    }
     return {
       nextPageBtnClick,
+      prevPageBtnClick,
     }
   },
 })

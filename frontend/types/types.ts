@@ -37,3 +37,8 @@ export interface ReviewData {
   review: string
   postInformationId: number
 }
+
+export interface ResponseInformationData {
+  dbInfoData: Infomation[]
+  dbDataCount: number
+}
