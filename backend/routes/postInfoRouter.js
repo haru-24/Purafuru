@@ -16,6 +16,18 @@ router.get("/", async (req, res) => {
   res.json(get);
 });
 
+// 作成された順に並び替えて送る
+router.get("/sort_favorite", async (req, res) => {
+  const page = req.query.page_number;
+  const perPage = 10;
+  const get = await PostInfo.findAndCountAll({
+    offset: (page - 1) * perPage,
+    limit: perPage,
+    order: [["favorites", "DESC"]],
+  });
+  res.json(get);
+});
+
 // post_infoへ投稿
 router.post("/", async (req, res) => {
   const post = await PostInfo.create({
@@ -42,7 +54,6 @@ router.post("/", async (req, res) => {
 });
 
 // 検索機能
-
 router.get("/search", async (req, res) => {
   const page = req.query.page_number;
   const perPage = 10;
@@ -54,6 +65,22 @@ router.get("/search", async (req, res) => {
     offset: (page - 1) * perPage,
     limit: perPage,
     order: [["createdAt", "DESC"]],
+  });
+  res.json(pageData);
+});
+
+// 検索機能(お気に入り順にソート)
+router.get("/search/sort_favorite", async (req, res) => {
+  const page = req.query.page_number;
+  const perPage = 10;
+  const pageData = await PostInfo.findAndCountAll({
+    where: {
+      prefecture: [req.query.prefecture],
+      genre: [req.query.genre],
+    },
+    offset: (page - 1) * perPage,
+    limit: perPage,
+    order: [["favorites", "DESC"]],
   });
   res.json(pageData);
 });

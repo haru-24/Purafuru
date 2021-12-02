@@ -27,6 +27,35 @@ export const getSearchInformation = async (
   }
 }
 
+// 検索データを取得(お気に入り順)
+export const getSearchInformationFavoriteSort = async (
+  selectedPrefecture: string,
+  selectedGenre: string,
+  queryPageNumber: string
+) => {
+  try {
+    const result = await axios.get(
+      'http://localhost:8888/post_info/search/sort_favorite',
+      {
+        params: {
+          prefecture: selectedPrefecture,
+          genre: selectedGenre,
+          page_number: queryPageNumber,
+        },
+      }
+    )
+    if (result.data) {
+      const dbInfoData = result.data.rows as Infomation[]
+      const dbDataCount = result.data.count as number
+      const resultData = { dbInfoData, dbDataCount } as ResponseInformationData
+      return resultData
+    }
+    return null
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 // 全県全ジャンル新着１０件分のデータ
 export const allInformation = async (queryPageNumber: string) => {
   try {
@@ -35,6 +64,30 @@ export const allInformation = async (queryPageNumber: string) => {
         page_number: queryPageNumber,
       },
     })
+
+    if (result.data) {
+      const dbInfoData = result.data.rows as Infomation[]
+      const dbDataCount = result.data.count as number
+      const resultData = { dbInfoData, dbDataCount } as ResponseInformationData
+      return resultData
+    }
+    return null
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+// お気に入り順１０件分のデータ
+export const favoriteSortInformation = async (queryPageNumber: string) => {
+  try {
+    const result = await axios.get(
+      'http://localhost:8888/post_info/sort_favorite',
+      {
+        params: {
+          page_number: queryPageNumber,
+        },
+      }
+    )
 
     if (result.data) {
       const dbInfoData = result.data.rows as Infomation[]

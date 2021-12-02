@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div v-if="individual_page_data">
-      <div class="flex justify-center">
+      <div v-if="$auth.loggedIn" class="flex justify-center">
         <div>
           <button
             :class="{ isFavorite: isFavorite }"
@@ -17,6 +17,7 @@
               transition
               duration-500
               ease
+              hover:bg-pink-200
               focus:outline-none focus:shadow-outline
               inline-block
             "
@@ -27,6 +28,33 @@
               favorite_border
             </span>
           </button>
+        </div>
+      </div>
+      <div v-else class="flex justify-center">
+        <div>
+          <div
+            class="
+              font-bold
+              text-3xl
+              border border-gray-500
+              text-gray-500
+              rounded-md
+              px-4
+              py-2
+              m-2
+              transition
+              duration-500
+              ease
+              focus:outline-none focus:shadow-outline
+              inline-block
+            "
+            @click="pleaseLoginClick"
+          >
+            お気に入り
+            <span class="material-icons text-4xl inline-block mb-1">
+              favorite_border
+            </span>
+          </div>
         </div>
       </div>
       <div class="text-3xl font-bold flex justify-center">
@@ -102,7 +130,7 @@ export default defineComponent({
               )
             }
           )
-        } else {
+        } else if (confirm('お気に入り登録解除しますか?')) {
           // お気に入り登録を解除する
           deleteFavorite(userID, props.individual_page_data.id).then(() => {
             favorites.value--
@@ -114,10 +142,15 @@ export default defineComponent({
       }
     }
 
+    const pleaseLoginClick = () => {
+      alert('ログイン後お気に入り登録ができます')
+    }
+
     return {
       favoriteBtnClick,
       favorites,
       isFavorite,
+      pleaseLoginClick,
     }
   },
 })
@@ -127,6 +160,11 @@ export default defineComponent({
 .isFavorite {
   --tw-bg-opacity: 1;
   background-color: rgba(219, 39, 119, var(--tw-bg-opacity));
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+.isFavorite:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(190, 24, 93, var(--tw-text-opacity));
   color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 </style>
