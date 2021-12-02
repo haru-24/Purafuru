@@ -48,7 +48,12 @@
         <div class="flex justify-center">
           <div class="w-5/6 flex justify-end">
             <button class="mr-3">削除</button>
-            <button class="mr-5">編集</button>
+            <nuxt-link
+              tag="button"
+              :to="{ path: '/edit', query: { id: user_post_info_data.id } }"
+              class="mr-5"
+              >編集</nuxt-link
+            >
           </div>
         </div>
       </div>

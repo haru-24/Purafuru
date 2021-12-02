@@ -6,7 +6,7 @@
         aria-label="Pagination"
       >
         <button
-          v-if="$route.query.page && $route.query.page !== '1'"
+          v-if="$route.query.p && $route.query.p !== '1'"
           href="#"
           class="
             relative
@@ -41,7 +41,7 @@
         </button>
 
         <button
-          v-if="$route.query.page !== max_page_value"
+          v-if="$route.query.p !== max_page_value"
           class="
             relative
             inline-flex
@@ -88,12 +88,12 @@ export default defineComponent({
   setup(_props, context) {
     // 次に進む
     const nextPageBtnClick = () => {
-      if (!context.root.$route.query.page) {
+      if (!context.root.$route.query.p) {
         pageQueryPush('2')
         context.emit('pagenation_click', '2')
       } else {
         // ?=pageの番号を数値型に変換 ＋１する
-        const queryPage = context.root.$route.query.page as string
+        const queryPage = context.root.$route.query.p as string
         let pageNumber = parseInt(queryPage) as number
         pageNumber++
         //  足した値をストリングにしてrouter push
@@ -105,9 +105,9 @@ export default defineComponent({
 
     // 前に戻る
     const prevPageBtnClick = () => {
-      if (context.root.$route.query.page) {
+      if (context.root.$route.query.p) {
         // ?=pageの番号を数値型に変換 -１する
-        const queryPage = context.root.$route.query.page as string
+        const queryPage = context.root.$route.query.p as string
         let pageNumber = parseInt(queryPage) as number
         pageNumber--
         //  引いた値をストリングにしてrouter push
@@ -120,7 +120,7 @@ export default defineComponent({
     const pageQueryPush = (pageQuery: string) => {
       context.root.$router.push({
         query: {
-          page: pageQuery,
+          p: pageQuery,
           prefecture: context.root.$route.query.prefecture,
           genre: context.root.$route.query.genre,
         },

@@ -109,51 +109,15 @@
       <input ref="preview" type="file" class="h-11/12" @change="previewImage" />
       <button @click="clickCancelBtn">取り消し</button>
 
-      <div class="flex justify-center mt-10">
-        <button
-          type="button"
-          class="
-            bg-red-500
-            hover:bg-red-700
-            text-white
-            font-bold
-            py-2
-            px-4
-            border border-red-700
-            rounded
-            mr-5
-          "
-          @click="clickAllClearBtn"
-        >
-          削除
-        </button>
-        <button
-          type="button"
-          class="
-            bg-gray-500
-            hover:bg-gray-700
-            text-white
-            font-bold
-            py-2
-            px-4
-            border border-gray-700
-            rounded
-          "
-          @click="clickPostBtn"
-        >
-          投稿
-        </button>
-      </div>
+      <div class="flex justify-center mt-10"></div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, useStore } from '@nuxtjs/composition-api'
-import { postInformation } from '../../../api/post'
-import { postStrage } from '@/api/firebaseStorage'
+import { defineComponent, reactive } from '@nuxtjs/composition-api'
 import { prefectures } from '~/utils/prefectures'
-import { Infomation, UserData } from '~/types/types'
+import { Infomation } from '~/types/types'
 
 export default defineComponent({
   setup(_props) {
@@ -172,58 +136,10 @@ export default defineComponent({
       favorites: 0,
     }) as Infomation
 
-    // ユーザーデータ
-    const userData = {
-      id: useStore().$auth.state.user.id,
-      userName: useStore().$auth.state.user.user_name,
-    } as UserData
-
-    // 画像データを追加
-    let imgData: any = null
-    const previewImage = (e: any) => {
-      imgData = e.target.files[0]
-      postInformationData.image = URL.createObjectURL(imgData)
-    }
-
-    const clickCancelBtn = () => {
-      URL.revokeObjectURL(postInformationData.image)
-      postInformationData.image = ''
-    }
-
-    // 投稿後のアラート
-
-    const clickAllClearBtn = () => {
-      postInformationData.placeName = ''
-      postInformationData.postNumber = ''
-      postInformationData.address = ''
-      postInformationData.apealPoint = ''
-      postInformationData.recommendation = ''
-      postInformationData.image = ''
-      postInformationData.postHistoryId = null
-    }
-
-    const clickPostBtn = () => {
-      postStrage(postInformationData.image, imgData)
-        .then((strageUrl) => {
-          console.log(strageUrl)
-          postInformation(postInformationData, userData, strageUrl)
-        })
-        .then(() => {
-          alert('投稿しました')
-          clickAllClearBtn()
-        })
-        .catch(() => {
-          alert('投稿に失敗しました')
-        })
-    }
-
     return {
       postInformationData,
-      clickPostBtn,
+
       prefectures,
-      clickAllClearBtn,
-      previewImage,
-      clickCancelBtn,
     }
   },
 })

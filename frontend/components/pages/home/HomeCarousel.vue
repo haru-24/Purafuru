@@ -7,7 +7,11 @@
         :key="index"
         :style="{ backgroundImage: `url(${getInfoData.image})` }"
       >
-        <div>
+        <nuxt-link
+          tag="div"
+          :to="{ path: 'information/page?id=' + getInfoData.id }"
+          class="cursor-pointer"
+        >
           <div>
             <div class="mt-5 text-center font-extrabold text-xl">
               <p class="">
@@ -23,7 +27,7 @@
             </p>
             <p></p>
           </div>
-        </div>
+        </nuxt-link>
       </swiper-slide>
 
       <div slot="button-prev" class="swiper-button-prev"></div>

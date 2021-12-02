@@ -46,8 +46,8 @@ export default defineComponent({
 
     // ページ番号を入れる変数
     const CurrentPageNumber = ref<string>('')
-    if (context.root.$route.query.page) {
-      CurrentPageNumber.value = context.root.$route.query.page as string
+    if (context.root.$route.query.p) {
+      CurrentPageNumber.value = context.root.$route.query.p as string
     } else {
       CurrentPageNumber.value = '1'
     }
