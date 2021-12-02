@@ -18,6 +18,7 @@ export interface Infomation {
   postHistoryId: number | null
   userID: number | null
   favorites: number
+  postedAt: string
 }
 
 export interface UserData {

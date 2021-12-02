@@ -13,3 +13,16 @@ export const deleteFavorite = async (userId: number | null, pageId: number) => {
     console.log(err)
   }
 }
+
+// 記事の削除
+export const deleteInformation = async (pageId: number) => {
+  try {
+    await axios.delete('http://localhost:8888/post_info', {
+      data: {
+        id: pageId,
+      },
+    })
+  } catch (err) {
+    console.log(err)
+  }
+}

@@ -9,6 +9,7 @@
         tag="div"
         :to="{ path: 'information/page?id=' + infodata.id }"
         class="
+          cursor-pointer
           bg-gray-100
           w-5/6
           h-32

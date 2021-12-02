@@ -9,12 +9,13 @@
 
 <script lang="ts">
 import { defineComponent, useStore, ref } from '@nuxtjs/composition-api'
-import axios from 'axios'
+
 import Navbar from '../components/shared/Navbar.vue'
 import UserData from '../components/pages/mypage/UserData.vue'
 import MyPosts from '../components/pages/mypage/MyPosts.vue'
 import PagenationBtn from '../components/shared/PagenationBtn.vue'
 import { Infomation } from '@/types/types'
+import { getUserPostInfoData } from '@/api/get'
 
 export default defineComponent({
   components: {
@@ -26,25 +27,14 @@ export default defineComponent({
   middleware: 'authFilter',
 
   setup() {
-    const userPostInformationDatas = ref<Infomation>()
-    const getUserPostData = async () => {
-      try {
-        const result = await axios.get(
-          'http://localhost:8888/post_info/userPostInfo',
-          {
-            params: {
-              userID: useStore().$auth.state.user.id,
-            },
-          }
-        )
-        if (result) {
-          userPostInformationDatas.value = result.data.rows
-        }
-      } catch (err) {
-        console.log(err)
-      }
+    const userPostInformationDatas = ref<Infomation[]>()
+    const userPostInfoDataStoring = () => {
+      getUserPostInfoData(useStore().$auth.state.user.id).then((result) => {
+        userPostInformationDatas.value = result
+      })
     }
-    getUserPostData()
+
+    userPostInfoDataStoring()
 
     return {
       userPostInformationDatas,

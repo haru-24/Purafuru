@@ -4,21 +4,21 @@
     <div v-else>
       <div class="ml-10">
         <div class="text-lg">
-          <p class="inline-block mr-3">{{ individual_page_data.posted_at }}</p>
+          <p class="inline-block mr-3">{{ individual_page_data.postedAt }}</p>
           <p class="inline-block mr-3">{{ individual_page_data.prefecture }}</p>
-          <p class="inline-block mr-3">{{ individual_page_data.post_user }}</p>
+          <p class="inline-block mr-3">{{ individual_page_data.postUser }}</p>
         </div>
 
         <div>
           <div class="text-4xl font-bold mt-5">
-            <p>{{ individual_page_data.place_name }}</p>
+            <p>{{ individual_page_data.placeName }}</p>
           </div>
           <div class="mt-10 flex">
             <div class="flex-initial mr-7 font-bold text-2xl">
               <p>住所</p>
             </div>
             <div class="flex-initial">
-              <p>{{ individual_page_data.post_number }}</p>
+              <p>{{ individual_page_data.postNumber }}</p>
               <p>{{ individual_page_data.address }}</p>
             </div>
           </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="w-2/3 h-32 mt-3">
               <p class="break-words ml-20">
-                {{ individual_page_data.apeal_point }}
+                {{ individual_page_data.apealPoint }}
               </p>
             </div>
           </div>

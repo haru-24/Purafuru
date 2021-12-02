@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const PostInfo = require("../models/PostInfos.js");
 const moment = require("moment");
+const { route } = require("./userFavoritePagesRouter.js");
 router.use(express.json());
 
 // 作成された順に並び替えて送る
@@ -96,14 +97,11 @@ router.get("/information/:pageID", async (req, res) => {
 
 // マイページ用情報
 router.get("/userPostInfo", async (req, res) => {
-  const page = 1;
-  const perPage = 10;
-  const pageData = await PostInfo.findAndCountAll({
+  const pageData = await PostInfo.findAll({
     where: {
       user_id: [req.query.userID],
     },
-    offset: (page - 1) * perPage,
-    limit: perPage,
+
     order: [["createdAt", "DESC"]],
   });
   res.json(pageData);
@@ -111,7 +109,7 @@ router.get("/userPostInfo", async (req, res) => {
 
 // お気に入り数追加
 router.put("/favorite", async (req, res) => {
-  const updateFavorite = await PostInfo.update(
+  await PostInfo.update(
     {
       favorites: req.body.favorites,
     },
@@ -121,6 +119,44 @@ router.put("/favorite", async (req, res) => {
   )
     .then(() => {
       console.log("ok favorite update");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// 自分が投稿した記事の編集
+router.put("/edit", async (req, res) => {
+  await PostInfo.update(
+    {
+      genre: req.body.genre,
+      place_name: req.body.place_name,
+      prefecture: req.body.prefecture,
+      post_number: req.body.post_number,
+      address: req.body.address,
+      apeal_point: req.body.apeal_point,
+      recommendation: req.body.recommendation,
+      image: req.body.image,
+    },
+    { where: { id: req.body.id } }
+  )
+    .then(() => {
+      res.send("ok information update");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// 記事の削除
+router.delete("/", async (req, res) => {
+  await PostInfo.destroy({
+    where: {
+      id: req.body.id,
+    },
+  })
+    .then(() => {
+      res.send("Information deleted");
     })
     .catch((err) => {
       console.log(err);

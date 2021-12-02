@@ -50,6 +50,7 @@ export default defineComponent({
       // データ取得
       getIndividualInformation(pageId).then((result) => {
         informationData.value = result
+        console.log(informationData.value)
       })
     })
     return {

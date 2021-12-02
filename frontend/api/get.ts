@@ -122,9 +122,23 @@ export const getIndividualInformation = async (pageId: string) => {
       `http://localhost:8888/post_info/information/${pageId}`
     )
     if (result.data) {
-      return result.data as Infomation
+      const infoData = {
+        id: result.data.id,
+        genre: result.data.genre,
+        placeName: result.data.place_name,
+        prefecture: result.data.prefecture,
+        postNumber: result.data.post_number,
+        address: result.data.address,
+        apealPoint: result.data.apeal_point,
+        recommendation: result.data.recommendation,
+        image: result.data.image,
+        postUser: result.data.post_user,
+        userID: result.data.user_id,
+        favorites: result.data.favorites,
+        postedAt: result.data.posted_at,
+      } as Infomation
+      return infoData
     }
-    return null
   } catch (err) {
     console.log(err)
   }
@@ -146,6 +160,24 @@ export const getUserFavoriteData = async (
       return true as boolean
     } else {
       return false as boolean
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const getUserPostInfoData = async (userId: number) => {
+  try {
+    const result = await axios.get(
+      'http://localhost:8888/post_info/userPostInfo',
+      {
+        params: {
+          userID: userId,
+        },
+      }
+    )
+    if (result.data) {
+      return result.data as Infomation[]
     }
   } catch (err) {
     console.log(err)
