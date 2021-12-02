@@ -206,7 +206,7 @@ export default defineComponent({
       postStrage(postInformationData.image, imgData)
         .then((strageUrl) => {
           console.log(strageUrl)
-          postInformation(postInformationData, userData, strageUrl)
+          postInformation(postInformationData, userData, strageUrl?.getImgUrl)
         })
         .then(() => {
           alert('投稿しました')
