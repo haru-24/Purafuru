@@ -55,8 +55,8 @@ export default {
   modules: ['@nuxtjs/axios', '@nuxtjs/auth-next', '@nuxtjs/dotenv'],
 
   axios: {
-    baseURL: 'http://localhost:8888/',
-    browserBaseURL: 'http://localhost:8888/',
+    baseURL: 'https://share-tori.herokuapp.com/',
+    browserBaseURL: 'https://share-tori.herokuapp.com/',
   },
 
   auth: {
