@@ -115,7 +115,7 @@
           <input ref="preview" type="file" class="h-11/12" />
 
           <div class="flex justify-center mt-10">
-            <button
+            <!-- <button
               type="button"
               class="
                 bg-red-500
@@ -128,9 +128,10 @@
                 rounded
                 mr-5
               "
+              @click="ClickDeleteImgBtn(editInformationData.imgOriginalUrl)"
             >
-              取り消し
-            </button>
+              画像の削除
+            </button> -->
             <button
               type="button"
               class="
@@ -161,6 +162,7 @@ import { prefectures } from '~/utils/prefectures'
 import { Infomation } from '~/types/types'
 import { getIndividualInformation } from '@/api/get'
 import { putEditPostInfodata } from '@/api/put'
+// import { deleteStorageData } from '@/api/firebaseStorage'
 export default defineComponent({
   setup(_props, context) {
     const editInformationData = reactive({
@@ -177,6 +179,7 @@ export default defineComponent({
       postHistoryId: null,
       userID: null,
       favorites: 0,
+      imgOriginalUrl: '',
     }) as Infomation
 
     const pageId = useRoute().value.query.id as string
@@ -195,6 +198,7 @@ export default defineComponent({
         editInformationData.postUser = resultData.postUser
         editInformationData.userID = resultData.userID
         editInformationData.favorites = resultData.favorites
+        editInformationData.imgOriginalUrl = resultData.imgOriginalUrl
       })
     }
     pageDataStoring()
@@ -209,10 +213,18 @@ export default defineComponent({
       )
     }
 
+    // const ClickDeleteImgBtn = (imageUrl: string) => {
+    //   deleteStorageData(imageUrl).then(() => {
+    //     editInformationData.image = ''
+    //     editInformationData.imgOriginalUrl = ''
+    //   })
+    // }
+
     return {
       editInformationData,
       prefectures,
       clickPutBtn,
+      // ClickDeleteImgBtn,
     }
   },
 })

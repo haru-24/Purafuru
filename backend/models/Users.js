@@ -1,11 +1,16 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const env = process.env.NODE_ENV || "development";
+const env = process.env.NODE_ENV || "production";
 const config = require(__dirname + "/../config/config.json")[env];
 const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
-  config
+  process.env.DATABASE_URL || config.use_env_variable,
+  {
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  }
 );
 
 const Users = sequelize.define(

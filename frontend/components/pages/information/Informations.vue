@@ -6,7 +6,9 @@
         <div class="text-lg">
           <p class="inline-block mr-3">{{ individual_page_data.postedAt }}</p>
           <p class="inline-block mr-3">{{ individual_page_data.prefecture }}</p>
-          <p class="inline-block mr-3">{{ individual_page_data.postUser }}</p>
+          <p class="mr-3 mt-3">
+            <span class="mr-12">投稿者</span>{{ individual_page_data.postUser }}
+          </p>
         </div>
 
         <div>

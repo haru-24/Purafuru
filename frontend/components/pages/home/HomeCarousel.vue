@@ -10,7 +10,7 @@
         <nuxt-link
           tag="div"
           :to="{ path: 'information/page?id=' + getInfoData.id }"
-          class="cursor-pointer text-white"
+          class="cursor-pointer text-gray-200"
         >
           <div>
             <div class="mt-5 text-center font-extrabold text-xl">

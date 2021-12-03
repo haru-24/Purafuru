@@ -14,7 +14,7 @@
         <Favorit class="mt-20" :individual_page_data="informationData" />
       </div>
     </div>
-    <Review :pageid="pageId" class="-mt-5" />
+    <Review :pageid="pageId" class="-mt-10" />
   </div>
 </template>
 
