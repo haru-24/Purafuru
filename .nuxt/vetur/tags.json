@@ -1,0 +1,62 @@
+{
+  "NuxtLogo": {
+    "description": "Auto imported from components/NuxtLogo.vue"
+  },
+  "SharedNavbar": {
+    "description": "Auto imported from components/shared/Navbar.vue"
+  },
+  "SharedPagenationBtn": {
+    "description": "Auto imported from components/shared/PagenationBtn.vue"
+  },
+  "SharedSerchBar": {
+    "description": "Auto imported from components/shared/SerchBar.vue"
+  },
+  "PagesHomeCarousel": {
+    "description": "Auto imported from components/pages/home/HomeCarousel.vue"
+  },
+  "PagesHomeSubTitle": {
+    "description": "Auto imported from components/pages/home/HomeSubTitle.vue"
+  },
+  "PagesHomeTitle": {
+    "description": "Auto imported from components/pages/home/HomeTitle.vue"
+  },
+  "PagesEditInputEdit": {
+    "description": "Auto imported from components/pages/edit/InputEdit.vue"
+  },
+  "PagesEditUpdateBtn": {
+    "description": "Auto imported from components/pages/edit/UpdateBtn.vue"
+  },
+  "PagesInformationFavorit": {
+    "description": "Auto imported from components/pages/information/Favorit.vue"
+  },
+  "PagesInformationImageView": {
+    "description": "Auto imported from components/pages/information/ImageView.vue"
+  },
+  "PagesInformationInformations": {
+    "description": "Auto imported from components/pages/information/Informations.vue"
+  },
+  "PagesInformationReview": {
+    "description": "Auto imported from components/pages/information/Review.vue"
+  },
+  "PagesMypageMyPosts": {
+    "description": "Auto imported from components/pages/mypage/MyPosts.vue"
+  },
+  "PagesMypageUserData": {
+    "description": "Auto imported from components/pages/mypage/UserData.vue"
+  },
+  "PagesPost": {
+    "description": "Auto imported from components/pages/post/Post.vue"
+  },
+  "PagesLogin": {
+    "description": "Auto imported from components/pages/login/Login.vue"
+  },
+  "PagesRegister": {
+    "description": "Auto imported from components/pages/register/Register.vue"
+  },
+  "PagesSearchResult": {
+    "description": "Auto imported from components/pages/search/SearchResult.vue"
+  },
+  "PagesSearchSort": {
+    "description": "Auto imported from components/pages/search/SearchSort.vue"
+  }
+}

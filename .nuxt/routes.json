@@ -1,0 +1,58 @@
+[
+  {
+    "name": "edit",
+    "path": "/edit",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/edit.vue",
+    "chunkName": "pages/edit",
+    "_name": "_50c0c198"
+  },
+  {
+    "name": "login",
+    "path": "/login",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/login.vue",
+    "chunkName": "pages/login",
+    "_name": "_5a92636a"
+  },
+  {
+    "name": "mypage",
+    "path": "/mypage",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/mypage.vue",
+    "chunkName": "pages/mypage",
+    "_name": "_39c5e7c9"
+  },
+  {
+    "name": "post",
+    "path": "/post",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/post.vue",
+    "chunkName": "pages/post",
+    "_name": "_1e62b12e"
+  },
+  {
+    "name": "register",
+    "path": "/register",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/register.vue",
+    "chunkName": "pages/register",
+    "_name": "_74bcba9e"
+  },
+  {
+    "name": "information-page",
+    "path": "/information/:page?",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/information/_page.vue",
+    "chunkName": "pages/information/_page",
+    "_name": "_22ba43ad"
+  },
+  {
+    "name": "search-search",
+    "path": "/search/:search?",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/search/_search.vue",
+    "chunkName": "pages/search/_search",
+    "_name": "_79131a6e"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_090f2b34"
+  }
+]
