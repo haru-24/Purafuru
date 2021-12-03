@@ -2,57 +2,57 @@
   {
     "name": "edit",
     "path": "/edit",
-    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/edit.vue",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/frontend/pages/edit.vue",
     "chunkName": "pages/edit",
-    "_name": "_50c0c198"
+    "_name": "_712fdb7f"
   },
   {
     "name": "login",
     "path": "/login",
-    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/login.vue",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/frontend/pages/login.vue",
     "chunkName": "pages/login",
-    "_name": "_5a92636a"
+    "_name": "_7faa1d78"
   },
   {
     "name": "mypage",
     "path": "/mypage",
-    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/mypage.vue",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/frontend/pages/mypage.vue",
     "chunkName": "pages/mypage",
-    "_name": "_39c5e7c9"
+    "_name": "_0a53b820"
   },
   {
     "name": "post",
     "path": "/post",
-    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/post.vue",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/frontend/pages/post.vue",
     "chunkName": "pages/post",
-    "_name": "_1e62b12e"
+    "_name": "_3ed1cb15"
   },
   {
     "name": "register",
     "path": "/register",
-    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/register.vue",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/frontend/pages/register.vue",
     "chunkName": "pages/register",
-    "_name": "_74bcba9e"
+    "_name": "_f8d91dd0"
   },
   {
     "name": "information-page",
     "path": "/information/:page?",
-    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/information/_page.vue",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/frontend/pages/information/_page.vue",
     "chunkName": "pages/information/_page",
-    "_name": "_22ba43ad"
+    "_name": "_33068db4"
   },
   {
     "name": "search-search",
     "path": "/search/:search?",
-    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/search/_search.vue",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/frontend/pages/search/_search.vue",
     "chunkName": "pages/search/_search",
-    "_name": "_79131a6e"
+    "_name": "_6ad780d6"
   },
   {
     "name": "index",
     "path": "/",
-    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/pages/index.vue",
+    "component": "/Users/nishiuraharu/Desktop/share_tori_frontend/frontend/pages/index.vue",
     "chunkName": "pages/index",
-    "_name": "_090f2b34"
+    "_name": "_12f963a6"
   }
 ]

@@ -20,11 +20,17 @@
   "PagesHomeTitle": {
     "description": "Auto imported from components/pages/home/HomeTitle.vue"
   },
-  "PagesEditInputEdit": {
-    "description": "Auto imported from components/pages/edit/InputEdit.vue"
+  "PagesLogin": {
+    "description": "Auto imported from components/pages/login/Login.vue"
   },
-  "PagesEditUpdateBtn": {
-    "description": "Auto imported from components/pages/edit/UpdateBtn.vue"
+  "PagesMypageMyPosts": {
+    "description": "Auto imported from components/pages/mypage/MyPosts.vue"
+  },
+  "PagesMypageUserData": {
+    "description": "Auto imported from components/pages/mypage/UserData.vue"
+  },
+  "PagesPost": {
+    "description": "Auto imported from components/pages/post/Post.vue"
   },
   "PagesInformationFavorit": {
     "description": "Auto imported from components/pages/information/Favorit.vue"
@@ -38,20 +44,14 @@
   "PagesInformationReview": {
     "description": "Auto imported from components/pages/information/Review.vue"
   },
-  "PagesMypageMyPosts": {
-    "description": "Auto imported from components/pages/mypage/MyPosts.vue"
-  },
-  "PagesMypageUserData": {
-    "description": "Auto imported from components/pages/mypage/UserData.vue"
-  },
-  "PagesPost": {
-    "description": "Auto imported from components/pages/post/Post.vue"
-  },
-  "PagesLogin": {
-    "description": "Auto imported from components/pages/login/Login.vue"
-  },
   "PagesRegister": {
     "description": "Auto imported from components/pages/register/Register.vue"
+  },
+  "PagesEditInputEdit": {
+    "description": "Auto imported from components/pages/edit/InputEdit.vue"
+  },
+  "PagesEditUpdateBtn": {
+    "description": "Auto imported from components/pages/edit/UpdateBtn.vue"
   },
   "PagesSearchResult": {
     "description": "Auto imported from components/pages/search/SearchResult.vue"

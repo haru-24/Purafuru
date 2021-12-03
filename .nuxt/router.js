@@ -4,14 +4,14 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _50c0c198 = () => interopDefault(import('../pages/edit.vue' /* webpackChunkName: "pages/edit" */))
-const _5a92636a = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
-const _39c5e7c9 = () => interopDefault(import('../pages/mypage.vue' /* webpackChunkName: "pages/mypage" */))
-const _1e62b12e = () => interopDefault(import('../pages/post.vue' /* webpackChunkName: "pages/post" */))
-const _74bcba9e = () => interopDefault(import('../pages/register.vue' /* webpackChunkName: "pages/register" */))
-const _22ba43ad = () => interopDefault(import('../pages/information/_page.vue' /* webpackChunkName: "pages/information/_page" */))
-const _79131a6e = () => interopDefault(import('../pages/search/_search.vue' /* webpackChunkName: "pages/search/_search" */))
-const _090f2b34 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _712fdb7f = () => interopDefault(import('../pages/edit.vue' /* webpackChunkName: "pages/edit" */))
+const _7faa1d78 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
+const _0a53b820 = () => interopDefault(import('../pages/mypage.vue' /* webpackChunkName: "pages/mypage" */))
+const _3ed1cb15 = () => interopDefault(import('../pages/post.vue' /* webpackChunkName: "pages/post" */))
+const _f8d91dd0 = () => interopDefault(import('../pages/register.vue' /* webpackChunkName: "pages/register" */))
+const _33068db4 = () => interopDefault(import('../pages/information/_page.vue' /* webpackChunkName: "pages/information/_page" */))
+const _6ad780d6 = () => interopDefault(import('../pages/search/_search.vue' /* webpackChunkName: "pages/search/_search" */))
+const _12f963a6 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
 
@@ -26,35 +26,35 @@ export const routerOptions = {
 
   routes: [{
     path: "/edit",
-    component: _50c0c198,
+    component: _712fdb7f,
     name: "edit"
   }, {
     path: "/login",
-    component: _5a92636a,
+    component: _7faa1d78,
     name: "login"
   }, {
     path: "/mypage",
-    component: _39c5e7c9,
+    component: _0a53b820,
     name: "mypage"
   }, {
     path: "/post",
-    component: _1e62b12e,
+    component: _3ed1cb15,
     name: "post"
   }, {
     path: "/register",
-    component: _74bcba9e,
+    component: _f8d91dd0,
     name: "register"
   }, {
     path: "/information/:page?",
-    component: _22ba43ad,
+    component: _33068db4,
     name: "information-page"
   }, {
     path: "/search/:search?",
-    component: _79131a6e,
+    component: _6ad780d6,
     name: "search-search"
   }, {
     path: "/",
-    component: _090f2b34,
+    component: _12f963a6,
     name: "index"
   }],
 
