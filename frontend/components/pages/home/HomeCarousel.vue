@@ -10,7 +10,7 @@
         <nuxt-link
           tag="div"
           :to="{ path: 'information/page?id=' + getInfoData.id }"
-          class="cursor-pointer"
+          class="cursor-pointer text-white"
         >
           <div>
             <div class="mt-5 text-center font-extrabold text-xl">
@@ -25,7 +25,6 @@
             <p class="mt-8 text-4xl font-extrabold">
               {{ getInfoData.place_name }}
             </p>
-            <p></p>
           </div>
         </nuxt-link>
       </swiper-slide>

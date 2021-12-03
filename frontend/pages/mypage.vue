@@ -2,7 +2,11 @@
   <div>
     <Navbar />
     <UserData />
-    <MyPosts class="mt-3" :user_post_info_datas="userPostInformationDatas" />
+    <MyPosts
+      class="mt-3"
+      :user_post_info_datas="userPostInformationDatas"
+      @refresh_my_post_data="refreshMyData"
+    />
     <PagenationBtn />
   </div>
 </template>
@@ -28,6 +32,7 @@ export default defineComponent({
 
   setup() {
     const userPostInformationDatas = ref<Infomation[]>()
+    // ユーザーの投稿したデータを取得
     const userPostInfoDataStoring = () => {
       getUserPostInfoData(useStore().$auth.state.user.id).then((result) => {
         userPostInformationDatas.value = result
@@ -36,8 +41,16 @@ export default defineComponent({
 
     userPostInfoDataStoring()
 
+    // デリートあと再取得
+    const refreshMyData = (userId: number) => {
+      getUserPostInfoData(userId).then((result) => {
+        userPostInformationDatas.value = result
+      })
+    }
+
     return {
       userPostInformationDatas,
+      refreshMyData,
     }
   },
 })

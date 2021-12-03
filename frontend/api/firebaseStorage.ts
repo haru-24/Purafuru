@@ -1,4 +1,10 @@
-import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage'
 import { app } from '~/plugins/firebase'
 
 interface ResultImageUrl {
@@ -27,11 +33,12 @@ export const postStrage = async (imgURL: string, imgData: any) => {
 }
 
 // 画像データの削除
-// export const deleteFile = () =>{
-//   try{
-// const desertRef = ref(storage,"image")
-
-//   }catch(err ){
-//     console.log(err)
-//   }
-// }
+export const deleteStorageData = async (imgUrl: string) => {
+  try {
+    const desertRef = ref(storage, imgUrl)
+    await deleteObject(desertRef)
+    console.log('delete storage data')
+  } catch (err) {
+    console.log(err)
+  }
+}

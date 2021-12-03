@@ -103,7 +103,7 @@
     <div class="w-5/12 mr-16">
       <div class="bg-white w-full mt-32 border-2 border-dashed h-2/4">
         <div class="h-full w-full flex items-center justify-center">
-          <img :src="postInformationData.image" alt="" class="img" />
+          <img :src="postInformationData.imgOriginalUrl" alt="" class="img" />
         </div>
       </div>
       <input ref="preview" type="file" class="h-11/12" @change="previewImage" />
@@ -165,7 +165,7 @@ export default defineComponent({
       address: '',
       apealPoint: '',
       recommendation: '',
-      image: '',
+      imgOriginalUrl: '',
       postUser: '',
       postHistoryId: null,
       userID: null,
@@ -182,12 +182,12 @@ export default defineComponent({
     let imgData: any = null
     const previewImage = (e: any) => {
       imgData = e.target.files[0]
-      postInformationData.image = URL.createObjectURL(imgData)
+      postInformationData.imgOriginalUrl = URL.createObjectURL(imgData)
     }
 
     const clickCancelBtn = () => {
-      URL.revokeObjectURL(postInformationData.image)
-      postInformationData.image = ''
+      URL.revokeObjectURL(postInformationData.imgOriginalUrl)
+      postInformationData.imgOriginalUrl = ''
     }
 
     // 投稿後のアラート
@@ -198,14 +198,15 @@ export default defineComponent({
       postInformationData.address = ''
       postInformationData.apealPoint = ''
       postInformationData.recommendation = ''
-      postInformationData.image = ''
+      postInformationData.imgOriginalUrl = ''
       postInformationData.postHistoryId = null
     }
 
     const clickPostBtn = () => {
-      postStrage(postInformationData.image, imgData)
+      postStrage(postInformationData.imgOriginalUrl, imgData)
         .then((strageUrl) => {
           console.log(strageUrl)
+          console.log(postInformationData.imgOriginalUrl)
           postInformation(postInformationData, userData, strageUrl?.getImgUrl)
         })
         .then(() => {

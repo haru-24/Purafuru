@@ -44,6 +44,7 @@ router.post("/", async (req, res) => {
     post_history_id: req.body.post_history_id,
     user_id: req.body.user_id,
     favorites: req.body.favorites,
+    img_original_url: req.body.img_original_url,
     posted_at: moment().format("YYYY/ MM/ D"),
   })
     .then(() => {

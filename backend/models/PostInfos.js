@@ -55,6 +55,9 @@ const PostInfo = sequelize.define("post_infos", {
   posted_at: {
     type: Sequelize.STRING,
   },
+  img_original_url: {
+    type: Sequelize.STRING,
+  },
 });
 PostInfo.sync({ alter: true });
 

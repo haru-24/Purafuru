@@ -19,6 +19,7 @@ export interface Infomation {
   userID: number | null
   favorites: number
   postedAt: string
+  imgOriginalUrl: string
 }
 
 export interface UserData {

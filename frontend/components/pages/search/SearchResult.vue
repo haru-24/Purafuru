@@ -34,10 +34,9 @@
             {{ infodata.place_name }}
           </p>
         </div>
-        <div class="mt-2 w-1/3">
-          <p>郵便番号</p>
-          <p class="ml-3">{{ infodata.post_number }}</p>
+        <div class="mt-3 w-1/3">
           <p>住所</p>
+          <p class="ml-3">{{ infodata.post_number }}</p>
           <p class="ml-3">{{ infodata.address }}</p>
         </div>
         <div class="flex items-end mb-3">

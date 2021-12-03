@@ -44,6 +44,7 @@ export const postInformation = async (
       address: postInformation.address,
       apeal_point: postInformation.apealPoint,
       recommendation: postInformation.recommendation,
+      img_original_url: postInformation.imgOriginalUrl,
       image: strageUrl,
       post_user: userData.userName,
       post_history_id: postInformation.postHistoryId,

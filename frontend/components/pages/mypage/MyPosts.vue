@@ -40,9 +40,9 @@
               <div class="inline-block">
                 <div class="mr-3">
                   <span class="material-icons text-3xl"> favorite_border </span>
-                  <span class="text-2xl font-medium">{{
-                    user_post_info_data.favorites
-                  }}</span>
+                  <span class="text-2xl font-medium"
+                    >{{ user_post_info_data.favorites }}
+                  </span>
                 </div>
               </div>
               <div class="bg-white h-24 w-40 mr-3 inline-block">
@@ -74,10 +74,17 @@
           <div class="w-5/6 flex justify-end">
             <button
               class="mr-3"
-              @click="deleteInfoBtnClick(user_post_info_data.id)"
+              @click="
+                deleteInfoBtnClick(
+                  user_post_info_data.id,
+                  user_post_info_data.img_original_url,
+                  user_post_info_data.user_id
+                )
+              "
             >
               削除
             </button>
+
             <nuxt-link
               tag="button"
               :to="{ path: '/edit', query: { id: user_post_info_data.id } }"
@@ -95,6 +102,7 @@
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { Infomation } from '@/types/types'
 import { deleteInformation } from '@/api/delete'
+import { deleteStorageData } from '@/api/firebaseStorage'
 
 export default defineComponent({
   props: {
@@ -102,9 +110,16 @@ export default defineComponent({
       type: Array as PropType<Infomation[]>,
     },
   },
-  setup() {
-    const deleteInfoBtnClick = (id: number) => {
-      deleteInformation(id)
+  setup(_props, context) {
+    // 投稿の削除
+    const deleteInfoBtnClick = (id: number, imgUrl: string, userId: number) => {
+      if (confirm('投稿を削除しますか？')) {
+        deleteStorageData(imgUrl).then(() => {
+          deleteInformation(id).then(() => {
+            context.emit('refresh_my_post_data', userId)
+          })
+        })
+      }
     }
     return {
       deleteInfoBtnClick,
