@@ -1,0 +1,21 @@
+<template>
+  <div>
+    <button
+      type="button"
+      class="
+        bg-red-500
+        hover:bg-red-700
+        text-white
+        font-bold
+        py-2
+        px-4
+        border border-red-700
+        rounded
+        mr-5
+      "
+      @click="$emit('all_clear_btn')"
+    >
+      削除
+    </button>
+  </div>
+</template>

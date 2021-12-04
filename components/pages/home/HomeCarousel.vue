@@ -3,27 +3,27 @@
     <p class="font-extrabold text-2xl ml-5">新着投稿</p>
     <swiper class="swiper" :options="swiperOption">
       <swiper-slide
-        v-for="(getInfoData, index) in getInfodatas"
+        v-for="(infoData, index) in fetch_all_info_datas"
         :key="index"
-        :style="{ backgroundImage: `url(${getInfoData.image})` }"
+        :style="{ backgroundImage: `url(${infoData.image})` }"
       >
         <nuxt-link
           tag="div"
-          :to="{ path: 'information/page?id=' + getInfoData.id }"
+          :to="{ path: 'information/page?id=' + infoData.id }"
           class="cursor-pointer text-gray-200"
         >
           <div>
             <div class="mt-5 text-center font-extrabold text-xl">
               <p class="">
-                {{ getInfoData.posted_at }}
+                {{ infoData.posted_at }}
               </p>
               <p class="">
-                {{ getInfoData.prefecture }}
+                {{ infoData.prefecture }}
               </p>
             </div>
 
             <p class="mt-8 text-4xl font-extrabold">
-              {{ getInfoData.place_name }}
+              {{ infoData.place_name }}
             </p>
           </div>
         </nuxt-link>
@@ -31,16 +31,19 @@
 
       <div slot="button-prev" class="swiper-button-prev"></div>
       <div slot="button-next" class="swiper-button-next"></div>
-      <div slot="pagination" class="swiper-pagination"></div>
+      <div
+        slot="pagination"
+        class="swiper-pagination swiper-pagination-white"
+      ></div>
     </swiper>
   </div>
 </template>
 
 <script lang="ts">
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
-import { defineComponent, ref } from '@nuxtjs/composition-api'
-import { allInformation } from '@/api/get'
+import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { Infomation } from '@/types/types'
+
 export default defineComponent({
   name: 'SwiperExampleMultipleSlidesPerBiew',
   title: 'Multiple slides per view',
@@ -51,20 +54,13 @@ export default defineComponent({
   directives: {
     swiper: directive,
   },
-  setup() {
-    // 投稿情報をAPIでGET
-    const getInfodatas = ref<Infomation[] | null | undefined>()
-    // 全データ取得
-    const allSearhData = () => {
-      allInformation('1').then((result) => {
-        getInfodatas.value = result?.dbInfoData
-      })
-    }
-    allSearhData()
-    return {
-      getInfodatas,
-    }
+  props: {
+    fetch_all_info_datas: {
+      type: Array as PropType<Infomation[]>,
+      defult: () => [],
+    },
   },
+
   data() {
     return {
       swiperOption: {
@@ -97,20 +93,20 @@ export default defineComponent({
 }
 .swiper-slide {
   background-size: cover;
-
   background-repeat: no-repeat;
   text-align: center;
   justify-content: center;
-
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
-
   -webkit-box-align: center;
   -ms-flex-align: center;
+}
 
-  border-left: 1px solid #fff;
+.swiper-button-prev,
+.swiper-button-next {
+  color: rgb(98, 204, 165);
 }
 </style>

@@ -136,40 +136,16 @@
         </button>
       </div>
 
-      <div class="flex justify-center mt-10">
-        <button
-          type="button"
-          class="
-            bg-red-500
-            hover:bg-red-700
-            text-white
-            font-bold
-            py-2
-            px-4
-            border border-red-700
-            rounded
-            mr-5
-          "
-          @click="clickAllClearBtn"
-        >
-          削除
-        </button>
-        <button
-          type="button"
-          class="
-            bg-gray-500
-            hover:bg-gray-700
-            text-white
-            font-bold
-            py-2
-            px-4
-            border border-gray-700
-            rounded
-          "
-          @click="clickPostBtn"
-        >
-          投稿
-        </button>
+      <div v-if="isLoading" class="flex justify-center mt-3">
+        <div
+          class="animate-spin h-10 w-10 border-4 border-green-500 rounded-full"
+          style="border-top-color: transparent"
+        ></div>
+      </div>
+
+      <div v-else class="flex justify-center mt-10">
+        <PostDeleteBtn @all_clear_btn="clickAllClearBtn" />
+        <PostBtn @post_btn="clickPostBtn" />
       </div>
     </div>
   </div>
@@ -186,8 +162,14 @@ import { postInformation } from '../../../api/post'
 import { postStrage } from '@/api/firebaseStorage'
 import { prefectures } from '~/utils/prefectures'
 import { Infomation, UserData } from '~/types/types'
+import PostBtn from '@/components/pages/post/PostBtn.vue'
+import PostDeleteBtn from '@/components/pages/post/PostDeleteBtn.vue'
 
 export default defineComponent({
+  components: {
+    PostBtn,
+    PostDeleteBtn,
+  },
   setup(_props) {
     const postInformationData = reactive({
       genre: 'グルメ',
@@ -240,7 +222,10 @@ export default defineComponent({
       postInformationData.postHistoryId = null
     }
 
+    const isLoading = ref<boolean>(false)
+
     const clickPostBtn = () => {
+      isLoading.value = true
       postStrage(postInformationData.imgOriginalUrl, imgData)
         .then((strageUrl) => {
           console.log(strageUrl)
@@ -250,9 +235,11 @@ export default defineComponent({
         .then(() => {
           alert('投稿しました')
           clickAllClearBtn()
+          isLoading.value = false
         })
         .catch(() => {
           alert('投稿に失敗しました')
+          isLoading.value = false
         })
     }
 
@@ -264,6 +251,7 @@ export default defineComponent({
       previewImage,
       clickCancelBtn,
       imgPreview,
+      isLoading,
     }
   },
 })

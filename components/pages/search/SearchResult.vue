@@ -78,7 +78,6 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
-
 import { Infomation } from '@/types/types'
 
 export default defineComponent({

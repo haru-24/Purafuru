@@ -11,13 +11,16 @@ export const postReviewData = async (
 ) => {
   try {
     if (inputReview !== '') {
-      const result = await axios.post('http://localhost:8000/review', {
-        review: inputReview,
-        post_information_id: pageid,
-        user_id: userId,
-        user: userName,
-        user_birth_place: userBirthPlace,
-      })
+      const result = await axios.post(
+        'https://share-tori.herokuapp.com/review',
+        {
+          review: inputReview,
+          post_information_id: pageid,
+          user_id: userId,
+          user: userName,
+          user_birth_place: userBirthPlace,
+        }
+      )
       if (result.data) {
         return result.data
       }
@@ -36,21 +39,24 @@ export const postInformation = async (
   strageUrl: string | undefined
 ) => {
   try {
-    const result = await axios.post('http://localhost:8000/post_info', {
-      genre: postInformation.genre,
-      place_name: postInformation.placeName,
-      prefecture: postInformation.prefecture,
-      post_number: postInformation.postNumber,
-      address: postInformation.address,
-      apeal_point: postInformation.apealPoint,
-      recommendation: postInformation.recommendation,
-      img_original_url: postInformation.imgOriginalUrl,
-      image: strageUrl,
-      post_user: userData.userName,
-      post_history_id: postInformation.postHistoryId,
-      user_id: userData.id,
-      favorites: postInformation.favorites,
-    })
+    const result = await axios.post(
+      'https://share-tori.herokuapp.com/post_info',
+      {
+        genre: postInformation.genre,
+        place_name: postInformation.placeName,
+        prefecture: postInformation.prefecture,
+        post_number: postInformation.postNumber,
+        address: postInformation.address,
+        apeal_point: postInformation.apealPoint,
+        recommendation: postInformation.recommendation,
+        img_original_url: postInformation.imgOriginalUrl,
+        image: strageUrl,
+        post_user: userData.userName,
+        post_history_id: postInformation.postHistoryId,
+        user_id: userData.id,
+        favorites: postInformation.favorites,
+      }
+    )
     if (result.data) {
       return result.data as Infomation
     }
@@ -64,7 +70,7 @@ export const postInformation = async (
 export const postRegister = async (registerData: UserData) => {
   try {
     if (registerData.password === registerData.confirmPassword) {
-      await axios.post('http://localhost:8000/users/register', {
+      await axios.post('https://share-tori.herokuapp.com/users/register', {
         user_name: registerData.userName,
         birth_place: registerData.birthPlace,
         email: registerData.email,
@@ -84,10 +90,13 @@ export const postFavoritePageData = async (
   pageId: number
 ) => {
   try {
-    const result = await axios.post('http://localhost:8000/user_favorite', {
-      user_id: userId,
-      favorite_page_id: pageId,
-    })
+    const result = await axios.post(
+      'https://share-tori.herokuapp.com/user_favorite',
+      {
+        user_id: userId,
+        favorite_page_id: pageId,
+      }
+    )
     if (result) {
       return result
     }

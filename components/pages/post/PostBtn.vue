@@ -1,0 +1,20 @@
+<template>
+  <div>
+    <button
+      type="button"
+      class="
+        bg-gray-500
+        hover:bg-gray-700
+        text-white
+        font-bold
+        py-2
+        px-4
+        border border-gray-700
+        rounded
+      "
+      @click="$emit('post_btn')"
+    >
+      投稿
+    </button>
+  </div>
+</template>
