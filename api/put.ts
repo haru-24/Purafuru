@@ -6,7 +6,7 @@ export const putPostInfoFavoriteData = async (
   pageId: number
 ) => {
   try {
-    await axios.put('https://share-tori.herokuapp.com/post_info/favorite', {
+    await axios.put('http://localhost:8000/post_info/favorite', {
       favorites,
       id: pageId,
     })
@@ -20,20 +20,17 @@ export const putEditPostInfodata = async (
   imageUrl: string
 ) => {
   try {
-    const result = await axios.put(
-      'https://share-tori.herokuapp.com/post_info/edit',
-      {
-        id: postInformation.id,
-        genre: postInformation.genre,
-        place_name: postInformation.placeName,
-        prefecture: postInformation.prefecture,
-        post_number: postInformation.postNumber,
-        address: postInformation.address,
-        apeal_point: postInformation.apealPoint,
-        recommendation: postInformation.recommendation,
-        image: imageUrl,
-      }
-    )
+    const result = await axios.put('http://localhost:8000/post_info/edit', {
+      id: postInformation.id,
+      genre: postInformation.genre,
+      place_name: postInformation.placeName,
+      prefecture: postInformation.prefecture,
+      post_number: postInformation.postNumber,
+      address: postInformation.address,
+      apeal_point: postInformation.apealPoint,
+      recommendation: postInformation.recommendation,
+      image: imageUrl,
+    })
     if (result.data) {
       return result.data as Infomation
     }

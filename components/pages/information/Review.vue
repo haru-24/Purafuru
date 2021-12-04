@@ -37,6 +37,14 @@
         <div class="inline-block ml-10">
           <p>{{ reviewData.review }}</p>
         </div>
+        <div v-if="$auth.user.id === reviewData.user_id">
+          <button
+            class="text-xs text-red-600 hover:text-red-900"
+            @click="commentDeleteBtnClick(reviewData.id, index)"
+          >
+            コメントの削除
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -52,6 +60,7 @@ import {
 import { getAllReviewData } from '../../../api/get'
 import { postReviewData } from '../../../api/post'
 import { ReviewData } from '~/types/types'
+import { deleteReview } from '@/api/delete'
 
 export default defineComponent({
   props: ['pageid'],
@@ -80,10 +89,19 @@ export default defineComponent({
       })
     }
 
+    const commentDeleteBtnClick = (reviewId: number, index: number) => {
+      if (confirm('コメントを削除しますか？')) {
+        deleteReview(reviewId).then(() => {
+          reviewDatas.value?.splice(index, 1)
+        })
+      }
+    }
+
     return {
       inputReview,
       clickAddReviewBtn,
       reviewDatas,
+      commentDeleteBtnClick,
     }
   },
 })

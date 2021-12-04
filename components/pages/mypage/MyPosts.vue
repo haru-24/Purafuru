@@ -73,7 +73,7 @@
         <div class="flex justify-center">
           <div class="w-5/6 flex justify-end">
             <button
-              class="mr-3"
+              class="mr-3 text-red-600"
               @click="
                 deleteInfoBtnClick(
                   user_post_info_data.id,

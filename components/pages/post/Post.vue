@@ -106,8 +106,35 @@
           <img :src="postInformationData.imgOriginalUrl" alt="" class="img" />
         </div>
       </div>
-      <input ref="preview" type="file" class="h-11/12" @change="previewImage" />
-      <button @click="clickCancelBtn">取り消し</button>
+      <div class="mt-3">
+        <label
+          class="
+            hover:bg-gray-200
+            text-gray-500
+            font-bold
+            py-2
+            px-2
+            border border-gray-500
+            rounded
+            inline
+          "
+        >
+          画像を選択
+          <input
+            ref="imgPreview"
+            type="file"
+            class="h-11/12 inputImage"
+            @change="previewImage"
+          />
+        </label>
+
+        <button
+          class="hover:text-red-900 text-red-500 font-bold inline ml-4"
+          @click="clickCancelBtn"
+        >
+          取り消し
+        </button>
+      </div>
 
       <div class="flex justify-center mt-10">
         <button
@@ -149,7 +176,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, useStore } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  reactive,
+  useStore,
+  ref,
+} from '@nuxtjs/composition-api'
 import { postInformation } from '../../../api/post'
 import { postStrage } from '@/api/firebaseStorage'
 import { prefectures } from '~/utils/prefectures'
@@ -178,16 +210,22 @@ export default defineComponent({
       userName: useStore().$auth.state.user.user_name,
     } as UserData
 
+    // 画像のrefデータ
+    const imgPreview = ref<HTMLImageElement | string>()
+
     // 画像データを追加
     let imgData: any = null
     const previewImage = (e: any) => {
       imgData = e.target.files[0]
-      postInformationData.imgOriginalUrl = URL.createObjectURL(imgData)
+      postInformationData.imgOriginalUrl = URL.createObjectURL(
+        imgData
+      ) as string
+      imgPreview.value = ''
     }
 
     const clickCancelBtn = () => {
-      URL.revokeObjectURL(postInformationData.imgOriginalUrl)
       postInformationData.imgOriginalUrl = ''
+      URL.revokeObjectURL(postInformationData.imgOriginalUrl)
     }
 
     // 投稿後のアラート
@@ -225,6 +263,7 @@ export default defineComponent({
       clickAllClearBtn,
       previewImage,
       clickCancelBtn,
+      imgPreview,
     }
   },
 })
@@ -241,5 +280,8 @@ textarea {
   width: 100%;
   height: 350px;
   object-fit: cover;
+}
+.inputImage {
+  display: none;
 }
 </style>

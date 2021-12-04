@@ -112,26 +112,8 @@
               <img :src="editInformationData.image" alt="" class="img" />
             </div>
           </div>
-          <input ref="preview" type="file" class="h-11/12" />
 
           <div class="flex justify-center mt-10">
-            <!-- <button
-              type="button"
-              class="
-                bg-red-500
-                hover:bg-red-700
-                text-white
-                font-bold
-                py-2
-                px-4
-                border border-red-700
-                rounded
-                mr-5
-              "
-              @click="ClickDeleteImgBtn(editInformationData.imgOriginalUrl)"
-            >
-              画像の削除
-            </button> -->
             <button
               type="button"
               class="
