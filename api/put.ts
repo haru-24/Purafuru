@@ -17,7 +17,7 @@ export const putPostInfoFavoriteData = async (
 
 export const putEditPostInfodata = async (
   postInformation: Infomation,
-  imageUrl: string
+  imageUrl: string | undefined
 ) => {
   try {
     const result = await axios.put('http://localhost:8000/post_info/edit', {
@@ -29,6 +29,7 @@ export const putEditPostInfodata = async (
       address: postInformation.address,
       apeal_point: postInformation.apealPoint,
       recommendation: postInformation.recommendation,
+      img_original_url: postInformation.imgOriginalUrl,
       image: imageUrl,
     })
     if (result.data) {

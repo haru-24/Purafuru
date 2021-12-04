@@ -213,7 +213,7 @@ export default defineComponent({
     // 画像のrefデータ
     const imgPreview = ref<HTMLImageElement | string>()
 
-    // 画像データを追加
+    // 画像データをプレビューする
     let imgData: any = null
     const previewImage = (e: any) => {
       imgData = e.target.files[0]

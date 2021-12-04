@@ -8,7 +8,7 @@ import {
 import { app } from '~/plugins/firebase'
 
 interface ResultImageUrl {
-  uploadUrl: string
+  originalUrl: string
   getImgUrl: string
 }
 
@@ -20,9 +20,9 @@ export const postStrage = async (imgURL: string, imgData: any) => {
     const upload = await uploadBytes(imageRef, imgData)
     if (upload) {
       const getImgUrl = await getDownloadURL(ref(storage, imgURL))
-      const uploadUrl = upload.metadata.fullPath
+      const originalUrl = upload.metadata.fullPath
       const resultImageUrl = {
-        uploadUrl,
+        originalUrl,
         getImgUrl,
       } as ResultImageUrl
       return resultImageUrl

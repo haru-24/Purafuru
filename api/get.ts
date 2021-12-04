@@ -136,7 +136,7 @@ export const getIndividualInformation = async (pageId: string) => {
         userID: result.data.user_id,
         favorites: result.data.favorites,
         postedAt: result.data.posted_at,
-        imgOriginalUrl: result.data.user_post_info_data,
+        imgOriginalUrl: result.data.img_original_url,
       } as Infomation
       return infoData
     }

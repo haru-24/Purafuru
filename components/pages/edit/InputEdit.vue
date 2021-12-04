@@ -108,8 +108,47 @@
         </div>
         <div class="w-5/12 mr-16">
           <div class="bg-white w-full mt-32 border-2 border-dashed h-2/4">
-            <div class="h-full w-full flex items-center justify-center">
+            <div
+              v-if="editInformationData.image"
+              class="h-full w-full flex items-center justify-center"
+            >
               <img :src="editInformationData.image" alt="" class="img" />
+            </div>
+            <div v-else class="h-full w-full flex items-center justify-center">
+              <img
+                :src="editInformationData.imgOriginalUrl"
+                alt=""
+                class="img"
+              />
+            </div>
+            <div class="mt-3">
+              <label
+                class="
+                  hover:bg-gray-200
+                  text-gray-500
+                  font-bold
+                  py-2
+                  px-2
+                  border border-gray-500
+                  rounded
+                  inline
+                "
+              >
+                画像を変更
+                <input
+                  ref="imgPreview"
+                  type="file"
+                  class="h-11/12 inputImage"
+                  @change="previewImage"
+                />
+              </label>
+
+              <button
+                class="hover:text-red-900 text-red-500 font-bold inline ml-4"
+                @click="clickCancelBtn"
+              >
+                取り消し
+              </button>
             </div>
           </div>
 
@@ -139,12 +178,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, useRoute } from '@nuxtjs/composition-api'
+import {
+  defineComponent,
+  reactive,
+  useRoute,
+  ref,
+} from '@nuxtjs/composition-api'
 import { prefectures } from '~/utils/prefectures'
 import { Infomation } from '~/types/types'
 import { getIndividualInformation } from '@/api/get'
 import { putEditPostInfodata } from '@/api/put'
-// import { deleteStorageData } from '@/api/firebaseStorage'
+import { deleteStorageData, postStrage } from '@/api/firebaseStorage'
 export default defineComponent({
   setup(_props, context) {
     const editInformationData = reactive({
@@ -186,27 +230,62 @@ export default defineComponent({
     pageDataStoring()
 
     const clickPutBtn = () => {
-      putEditPostInfodata(editInformationData, editInformationData.image).then(
-        () => {
+      // 画像の変更があるなら
+      if (!editInformationData.image) {
+        postStrage(editInformationData.imgOriginalUrl, imgData).then(
+          (resultUrl) => {
+            putEditPostInfodata(editInformationData, resultUrl?.getImgUrl).then(
+              () => {
+                if (confirm('更新しました')) {
+                  context.root.$router.push('mypage')
+                }
+              }
+            )
+          }
+        )
+      } else {
+        putEditPostInfodata(
+          editInformationData,
+          editInformationData.image
+        ).then(() => {
           if (confirm('更新しました')) {
             context.root.$router.push('mypage')
           }
-        }
-      )
+        })
+      }
     }
 
-    // const ClickDeleteImgBtn = (imageUrl: string) => {
-    //   deleteStorageData(imageUrl).then(() => {
-    //     editInformationData.image = ''
-    //     editInformationData.imgOriginalUrl = ''
-    //   })
-    // }
+    // 画像のrefデータ
+    const imgPreview = ref<HTMLImageElement | string>()
+
+    // 画像データを追加
+    let imgData: any = null
+    const previewImage = (e: any) => {
+      // 画像データがある場合
+      if (editInformationData.imgOriginalUrl) {
+        deleteStorageData(editInformationData.imgOriginalUrl).then(() => {})
+      } else {
+        editInformationData.image = ''
+        editInformationData.imgOriginalUrl = ''
+        imgData = e.target.files[0]
+        editInformationData.imgOriginalUrl = URL.createObjectURL(
+          imgData
+        ) as string
+        imgPreview.value = ''
+      }
+    }
+
+    const clickCancelBtn = () => {
+      editInformationData.imgOriginalUrl = ''
+      URL.revokeObjectURL(editInformationData.imgOriginalUrl)
+    }
 
     return {
       editInformationData,
       prefectures,
       clickPutBtn,
-      // ClickDeleteImgBtn,
+      clickCancelBtn,
+      previewImage,
     }
   },
 })
@@ -223,5 +302,9 @@ textarea {
   width: 100%;
   height: 350px;
   object-fit: cover;
+}
+
+.inputImage {
+  display: none;
 }
 </style>
