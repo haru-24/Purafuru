@@ -32,6 +32,7 @@ export interface UserData {
 }
 
 export interface ReviewData {
+  id: number
   user: string
   userId: number
   userBirthPlace: string

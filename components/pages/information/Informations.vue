@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!individual_page_data">ローディング中</div>
+    <div v-if="!individual_page_data"></div>
     <div v-else>
       <div class="ml-10">
         <div class="text-lg">

@@ -37,7 +37,8 @@
         <div class="inline-block ml-10">
           <p>{{ reviewData.review }}</p>
         </div>
-        <div v-if="$auth.user.id === reviewData.user_id">
+
+        <div v-if="!$auth.user.id === reviewData.user_id">
           <button
             class="text-xs text-red-600 hover:text-red-900"
             @click="commentDeleteBtnClick(reviewData.id, index)"
@@ -51,12 +52,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  ref,
-  useStore,
-} from '@nuxtjs/composition-api'
+import { defineComponent, ref, useStore } from '@nuxtjs/composition-api'
 import { getAllReviewData } from '../../../api/get'
 import { postReviewData } from '../../../api/post'
 import { ReviewData } from '~/types/types'
@@ -68,10 +64,8 @@ export default defineComponent({
     const reviewDatas = ref<ReviewData[]>()
     const inputReview = ref<string>('')
 
-    onMounted(() => {
-      getAllReviewData(props.pageid).then((result) => {
-        reviewDatas.value = result
-      })
+    getAllReviewData(props.pageid).then((result) => {
+      reviewDatas.value = result
     })
 
     const storeUserData = useStore().$auth.$state.user

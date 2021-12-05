@@ -1,20 +1,28 @@
 <template>
   <div>
     <Navbar />
-    <div class="flex mt-6">
-      <Informations
-        class="-mr-20 flex-1 w-1/2"
-        :individual_page_data="informationData"
-      />
-      <div class="w-1/2 flex-1 mt-20">
-        <ImageView
-          class="flex justify-center"
+    <div v-if="!informationData" class="flex justify-center mt-44">
+      <div
+        class="animate-spin h-10 w-10 border-4 border-green-500 rounded-full"
+        style="border-top-color: transparent"
+      ></div>
+    </div>
+    <div v-else>
+      <div class="flex mt-6">
+        <Informations
+          class="-mr-20 flex-1 w-1/2"
           :individual_page_data="informationData"
         />
-        <Favorit class="mt-20" :individual_page_data="informationData" />
+        <div class="w-1/2 flex-1 mt-20">
+          <ImageView
+            class="flex justify-center"
+            :individual_page_data="informationData"
+          />
+          <Favorit class="mt-20" :individual_page_data="informationData" />
+        </div>
       </div>
+      <Review :pageid="pageId" class="-mt-10" />
     </div>
-    <Review :pageid="pageId" class="-mt-10" />
   </div>
 </template>
 

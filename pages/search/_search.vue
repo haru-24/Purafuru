@@ -7,12 +7,20 @@
       @new-arrival-sort="newArrivalSort"
       @favorite-sort="favoriteSort"
     />
-    <SearchResult class="mt-5" :all_info_datas="getInfodatas" />
-    <PagenationBtn
-      class="mt-5"
-      :max_page_value="pageMaxValue"
-      @pagenation_click="pagenationBtnClick"
-    />
+    <div v-if="!getInfodatas" class="flex justify-center mt-44">
+      <div
+        class="animate-spin h-10 w-10 border-4 border-green-500 rounded-full"
+        style="border-top-color: transparent"
+      ></div>
+    </div>
+    <div v-else>
+      <SearchResult class="mt-5" :all_info_datas="getInfodatas" />
+      <PagenationBtn
+        class="mt-5"
+        :max_page_value="pageMaxValue"
+        @pagenation_click="pagenationBtnClick"
+      />
+    </div>
   </div>
 </template>
 
