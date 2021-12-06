@@ -72,6 +72,9 @@
             </p>
           </div>
         </div>
+        <div v-if="isError" class="text-red-600 text-center">
+          メールアドレスかパスワードが間違っています
+        </div>
 
         <button
           type="submit"
@@ -95,7 +98,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@nuxtjs/composition-api'
+import { defineComponent, reactive, ref } from '@nuxtjs/composition-api'
 
 export default defineComponent({
   setup(_props, context) {
@@ -104,15 +107,25 @@ export default defineComponent({
       password: '',
     })
 
+    const isError = ref<boolean>(false)
+
     // 認証
     const login = () => {
-      context.root.$auth.loginWith('local', {
-        data: loginData,
-      })
+      context.root.$auth
+        .loginWith('local', {
+          data: loginData,
+        })
+        .then((res) => {
+          console.log(res)
+        })
+        .catch(() => {
+          isError.value = true
+        })
     }
     return {
       loginData,
       login,
+      isError,
     }
   },
 })
