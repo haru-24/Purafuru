@@ -1,8 +1,8 @@
 <template>
   <div class="">
     <nav
+      v-if="$mq === 'lg'"
       class="
-        font-sans
         flex flex-col
         text-center
         sm:flex-row sm:text-left sm:justify-between
@@ -73,8 +73,48 @@
         </nuxt-Link>
       </div>
     </nav>
+    <!-- レスポンシブ対応 -->
+    <div v-if="$mq === 'sm'">
+      <nav class="flex justify-between py-3 px-6 shadow w-full bg-green-400">
+        <nuxt-Link
+          tag="a"
+          to="/"
+          class="
+            text-xl
+            no-underline
+            text-gray-800
+            font-extrabold
+            wf-nicomoji
+            mt-1
+          "
+          >プラフル</nuxt-Link
+        >
+        <div class="mt-3 space-x-1">
+          <button @click="onClickNavSearchBtn">
+            <span class="material-icons text-3xl inline-block mb-2">
+              search
+            </span>
+          </button>
+
+          <nuxt-Link v-show="$auth.loggedIn" tag="button" to="/post"
+            ><span class="material-icons text-3xl mb-2">
+              assignment
+            </span></nuxt-Link
+          >
+          <nuxt-link v-show="!$auth.loggedIn" tag="button" to="/login">
+            <span class="material-icons text-3xl mb-2"> login </span>
+          </nuxt-link>
+          <nuxt-Link v-if="$auth.loggedIn" tag="a" to="/mypage">
+            <span class="material-icons text-3xl inline-block mb-2">
+              account_circle
+            </span>
+          </nuxt-Link>
+        </div>
+      </nav>
+    </div>
   </div>
 </template>
+
 <script lang="ts">
 import { defineComponent } from '@nuxtjs/composition-api'
 export default defineComponent({

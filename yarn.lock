@@ -8593,6 +8593,13 @@
   "resolved" "https://registry.npmjs.org/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz"
   "version" "5.0.1"
 
+"json2mq@^0.2.0":
+  "integrity" "sha1-tje9O6nqvhIsg+lyBIOusQ0skEo="
+  "resolved" "https://registry.npmjs.org/json2mq/-/json2mq-0.2.0.tgz"
+  "version" "0.2.0"
+  dependencies:
+    "string-convert" "^0.2.0"
+
 "json5@^0.5.1":
   "integrity" "sha1-Hq3nrMASA0rYTiOWdn6tn6VJWCE="
   "resolved" "https://registry.npmjs.org/json5/-/json5-0.5.1.tgz"
@@ -12811,6 +12818,11 @@
   dependencies:
     "safe-buffer" "~5.1.0"
 
+"string-convert@^0.2.0":
+  "integrity" "sha1-aYLMMEn7tM2F+LJFaLnZvznu/5c="
+  "resolved" "https://registry.npmjs.org/string-convert/-/string-convert-0.2.1.tgz"
+  "version" "0.2.1"
+
 "string-length@^4.0.1":
   "integrity" "sha512-+l6rNN5fYHNhZZy41RXsYptCjA2Igmq4EG7kZAYFQI1E1VTXarr6ZPXBg6eq7Y6eK4FEhY6AJlyuFIb/v/S0VQ=="
   "resolved" "https://registry.npmjs.org/string-length/-/string-length-4.0.2.tgz"
@@ -13894,6 +13906,13 @@
   "version" "2.4.0"
   dependencies:
     "deepmerge" "^4.2.2"
+
+"vue-mq@^1.0.1":
+  "integrity" "sha512-FceZ1tFE0MZ8GroRBKPQWBRy4ZEAa7p5R7cGAzJpGuKPU2AI4ClmE+S6O/yV4jO5271o9tgaUFt7fzUAIf9xOQ=="
+  "resolved" "https://registry.npmjs.org/vue-mq/-/vue-mq-1.0.1.tgz"
+  "version" "1.0.1"
+  dependencies:
+    "json2mq" "^0.2.0"
 
 "vue-no-ssr@^1.1.1":
   "integrity" "sha512-ZMjqRpWabMPqPc7gIrG0Nw6vRf1+itwf0Itft7LbMXs2g3Zs/NFmevjZGN1x7K3Q95GmIjWbQZTVerxiBxI+0g=="

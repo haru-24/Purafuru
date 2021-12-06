@@ -9,15 +9,30 @@
 
     <footer>
       <div class="bg-img"></div>
-      <div v-if="!getInfodatas" class="flex justify-center mt-44">
+      <div v-if="!getInfodatas" class="flex justify-center mt-64">
         <div
-          class="animate-spin h-10 w-10 border-4 border-green-500 rounded-full"
+          class="
+            animate-spin
+            h-10
+            w-10
+            border-4 border-green-500
+            rounded-full
+            -mt-32
+          "
           style="border-top-color: transparent"
         ></div>
       </div>
 
       <div v-else>
-        <HomeCarousel class="" :fetch_all_info_datas="getInfodatas" />
+        <HomeCarousel
+          v-if="$mq === 'lg'"
+          class=""
+          :fetch_all_info_datas="getInfodatas"
+        />
+        <ResponsiveCarousel
+          v-if="$mq === 'sm'"
+          :fetch_all_info_datas="getInfodatas"
+        />
       </div>
     </footer>
   </div>
@@ -30,6 +45,7 @@ import Navbar from '@/components/shared/Navbar.vue'
 import HomeTitle from '@/components/pages/home/HomeTitle.vue'
 import HomeCarousel from '@/components/pages/home/HomeCarousel.vue'
 import HomeSubTitle from '@/components/pages/home/HomeSubTitle.vue'
+import ResponsiveCarousel from '@/components/pages/home/ResponsiveCarousel.vue'
 import { allInformation } from '@/api/get'
 import { Infomation } from '@/types/types'
 
@@ -41,6 +57,7 @@ export default defineComponent({
     SerchBar,
     HomeCarousel,
     HomeSubTitle,
+    ResponsiveCarousel,
   },
 
   setup() {
@@ -62,7 +79,8 @@ export default defineComponent({
 
 <style scoped>
 .bg-img {
-  height: 300;
+  height: 150px;
+  width: 100%;
   padding: 100px 0 50px 0;
   background-image: url(./assets/images/_e_town0057_s1024_town0057_11.jpg);
   margin-bottom: -32px;

@@ -19,7 +19,7 @@
       <PagenationBtn
         class="mt-5"
         :max_page_value="pageMaxValue"
-        @pagenation_click="pagenationBtnClick"
+        @pagenation_click="pageTransitionFetch"
       />
     </div>
     <div v-else class="text-center mt-5 text-2xl font-bold">
@@ -59,19 +59,23 @@ export default defineComponent({
     const isLoading = ref<boolean>(false)
 
     // ページ番号を入れる変数
-    const CurrentPageNumber = ref<string>('')
+    const currentPageNumber = ref<string>('')
     if (context.root.$route.query.p) {
-      CurrentPageNumber.value = context.root.$route.query.p as string
+      currentPageNumber.value = context.root.$route.query.p as string
     } else {
-      CurrentPageNumber.value = '1'
+      currentPageNumber.value = '1'
     }
     // 表示するページ数の最大値
     const pageMaxValue = ref<string>('1')
 
+    context.root.$router.afterEach((to) => {
+      pageTransitionFetch(to.query.p as string)
+    })
+
     // 10件ごと全データ
     const allInfoDataStoring = () => {
       isLoading.value = true
-      allInformation(CurrentPageNumber.value).then((result) => {
+      allInformation(currentPageNumber.value).then((result) => {
         getInfodatas.value = result?.dbInfoData
         const dataCount = result?.dbDataCount as number
         pageMaxValue.value = String(Math.ceil(dataCount / 10))
@@ -82,7 +86,7 @@ export default defineComponent({
     // 10件ごと全データ(お気に入り順)
     const favoriteSortInfoDataStoring = () => {
       isLoading.value = true
-      favoriteSortInformation(CurrentPageNumber.value).then((result) => {
+      favoriteSortInformation(currentPageNumber.value).then((result) => {
         getInfodatas.value = result?.dbInfoData
         const dataCount = result?.dbDataCount as number
         pageMaxValue.value = String(Math.ceil(dataCount / 10))
@@ -93,7 +97,7 @@ export default defineComponent({
     // 10件ごと都道府県、ジャンルを入れて検索する
     const searchDataStoring = (prefecture: string, genre: string) => {
       isLoading.value = true
-      getSearchInformation(prefecture, genre, CurrentPageNumber.value).then(
+      getSearchInformation(prefecture, genre, currentPageNumber.value).then(
         (result) => {
           getInfodatas.value = result?.dbInfoData
           const dataCount = result?.dbDataCount as number
@@ -112,7 +116,7 @@ export default defineComponent({
       getSearchInformationFavoriteSort(
         prefecture,
         genre,
-        CurrentPageNumber.value
+        currentPageNumber.value
       ).then((result) => {
         getInfodatas.value = result?.dbInfoData
         const dataCount = result?.dbDataCount as number
@@ -153,7 +157,7 @@ export default defineComponent({
 
     //  検索バーの値をfetchしてくる
     const serchData = (selectedPrefecture: string, selectedGenre: string) => {
-      CurrentPageNumber.value = '1'
+      currentPageNumber.value = '1'
       if (context.root.$route.query.sort === 'new_arrival') {
         searchDataStoring(selectedPrefecture, selectedGenre)
       } else if (context.root.$route.query.sort === 'favorite') {
@@ -163,7 +167,7 @@ export default defineComponent({
 
     // 探すボタンを押して全データ取得
     const allSearhData = () => {
-      CurrentPageNumber.value = '1'
+      currentPageNumber.value = '1'
       allInfoDataStoring()
     }
 
@@ -196,8 +200,8 @@ export default defineComponent({
     }
 
     // ページネーション
-    const pagenationBtnClick = (queryPageNumber: string) => {
-      CurrentPageNumber.value = queryPageNumber
+    const pageTransitionFetch = (queryPageNumber: string) => {
+      currentPageNumber.value = queryPageNumber
       if (context.root.$route.query.sort === 'new_arrival') {
         displayDataBranch()
       } else if (context.root.$route.query.sort === 'favorite') {
@@ -231,7 +235,7 @@ export default defineComponent({
       serchData,
       newArrivalSort,
       favoriteSort,
-      pagenationBtnClick,
+      pageTransitionFetch,
       pageMaxValue,
       isLoading,
     }

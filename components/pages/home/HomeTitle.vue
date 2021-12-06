@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="grid gap-6 mb-8 md:grid-cols-2 ml-2">
+    <div v-if="$mq === 'lg'" class="grid gap-6 mb-8 md:grid-cols-2 ml-2">
       <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
         <h4
           class="
@@ -20,6 +20,22 @@
           旅に出た際に新たな魅力を<span class="text-green-600">発見</span>
         </p>
       </div>
+    </div>
+    <!-- レスポンシブ対応 -->
+    <div v-if="$mq === 'sm'">
+      <h4
+        class="
+          mt-8
+          text-center
+          mb-10
+          font-extrabold
+          text-4xl text-gray-600
+          dark:text-gray-300
+          wf-nicomoji
+        "
+      >
+        プラフル
+      </h4>
     </div>
   </div>
 </template>

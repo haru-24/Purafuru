@@ -34,7 +34,10 @@ export default {
   css: ['./assets/css/googleIcon.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [{ src: './plugins/swiper.js', ssr: false }],
+  plugins: [
+    { src: './plugins/swiper.js', ssr: false },
+    { src: '~/plugins/vue-mq', ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: {
@@ -55,8 +58,8 @@ export default {
   modules: ['@nuxtjs/axios', '@nuxtjs/auth-next', '@nuxtjs/dotenv'],
 
   axios: {
-    baseURL: 'http://localhost:8000/',
-    browserBaseURL: 'http://localhost:8000/',
+    baseURL: 'https://share-tori.herokuapp.com/',
+    browserBaseURL: 'https://share-tori.herokuapp.com/',
   },
 
   auth: {

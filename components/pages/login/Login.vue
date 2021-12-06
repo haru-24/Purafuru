@@ -115,9 +115,6 @@ export default defineComponent({
         .loginWith('local', {
           data: loginData,
         })
-        .then((res) => {
-          console.log(res)
-        })
         .catch(() => {
           isError.value = true
         })
