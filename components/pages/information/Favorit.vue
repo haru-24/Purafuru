@@ -70,7 +70,6 @@ import {
   PropType,
   useStore,
   ref,
-  watch,
 } from '@nuxtjs/composition-api'
 import { Infomation } from '@/types/types'
 import { getUserFavoriteData } from '@/api/get'
@@ -89,22 +88,14 @@ export default defineComponent({
     // お気に入り数格納
     const favorites = ref<number>(0)
 
-    // お気に入りしているか判定
-    const isFavorite = ref<boolean | undefined>(false)
-
-    watch(
-      () => props.individual_page_data,
-      () => {
-        favorites.value = props.individual_page_data.favorites
-        confilmUserFavorite()
-      }
-    )
     // ログインしているか否か
     let userID: number | null = null
     if (useStore().$auth.state.user) {
       userID = useStore().$auth.state.user.id
     }
 
+    // お気に入りしているか判定
+    const isFavorite = ref<boolean | undefined>(false)
     // ユーザーがお気に入りしているか否か
     const confilmUserFavorite = () => {
       getUserFavoriteData(userID, props.individual_page_data.id).then(
@@ -113,6 +104,10 @@ export default defineComponent({
         }
       )
     }
+
+    //  createdで発火
+    favorites.value = props.individual_page_data.favorites
+    confilmUserFavorite()
 
     // お気に入りボタンクリック処理
     const favoriteBtnClick = () => {
@@ -159,8 +154,8 @@ export default defineComponent({
 <style scoped>
 .isFavorite {
   --tw-bg-opacity: 1;
-  background-color: rgba(219, 39, 119, var(--tw-bg-opacity));
-  color: rgba(255, 255, 255, var(--tw-text-opacity));
+  background-color: rgba(219, 39, 119);
+  color: rgba(255, 255, 255);
 }
 .isFavorite:hover {
   --tw-bg-opacity: 1;

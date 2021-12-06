@@ -1,20 +1,25 @@
 <template>
-  <div>
-    <Navbar />
-    <HomeTitle />
-    <HomeSubTitle class="-mt-4" />
-    <SerchBar class="" />
-    <div class="bg-img"></div>
-    <div v-if="!getInfodatas" class="flex justify-center mt-44">
-      <div
-        class="animate-spin h-10 w-10 border-4 border-green-500 rounded-full"
-        style="border-top-color: transparent"
-      ></div>
+  <div class="flex flex-col min-h-screen">
+    <div class="flex-grow">
+      <Navbar />
+      <HomeTitle />
+      <HomeSubTitle class="-mt-4" />
+      <SerchBar class="" />
     </div>
 
-    <div v-else>
-      <HomeCarousel class="" :fetch_all_info_datas="getInfodatas" />
-    </div>
+    <footer>
+      <div class="bg-img"></div>
+      <div v-if="!getInfodatas" class="flex justify-center mt-44">
+        <div
+          class="animate-spin h-10 w-10 border-4 border-green-500 rounded-full"
+          style="border-top-color: transparent"
+        ></div>
+      </div>
+
+      <div v-else>
+        <HomeCarousel class="" :fetch_all_info_datas="getInfodatas" />
+      </div>
+    </footer>
   </div>
 </template>
 

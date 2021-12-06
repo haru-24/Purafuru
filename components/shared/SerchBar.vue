@@ -128,6 +128,7 @@ export default defineComponent({
           p: '1',
           prefecture: selectedPrefecture.value,
           genre: selectedGenre.value,
+          sort: 'new_arrival',
         },
       })
     }

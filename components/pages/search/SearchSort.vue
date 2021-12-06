@@ -33,8 +33,21 @@ import { defineComponent, ref } from '@nuxtjs/composition-api'
 export default defineComponent({
   setup(_props, context) {
     const hello = ref<string>('こんにちは')
-    const isNewArrivalsButton = ref<boolean>(true)
-    const isFavoritButton = ref<boolean>(false)
+    const isNewArrivalsButton = ref<boolean>()
+    const isFavoritButton = ref<boolean>()
+
+    // 画面更新時の判定
+    const currentBtnOn = () => {
+      if (context.root.$route.query.sort === 'new_arrival') {
+        isFavoritButton.value = false
+        isNewArrivalsButton.value = true
+      } else if (context.root.$route.query.sort === 'favorite') {
+        isNewArrivalsButton.value = false
+        isFavoritButton.value = true
+      }
+    }
+    currentBtnOn()
+
     // ボタンの切り替え
     const pushNewArrivalsButton = () => {
       if (isNewArrivalsButton.value === false) {

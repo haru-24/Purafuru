@@ -119,13 +119,16 @@ export default defineComponent({
 
     const pageQueryPush = (pageQuery: string) => {
       context.root.$router.push({
+        path: '/search',
         query: {
           p: pageQuery,
           prefecture: context.root.$route.query.prefecture,
           genre: context.root.$route.query.genre,
+          sort: context.root.$route.query.sort,
         },
       })
     }
+
     return {
       nextPageBtnClick,
       prevPageBtnClick,

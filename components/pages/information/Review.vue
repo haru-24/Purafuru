@@ -38,7 +38,7 @@
           <p>{{ reviewData.review }}</p>
         </div>
 
-        <div v-if="!$auth.user.id === reviewData.user_id">
+        <div v-if="$auth.user && $auth.user.id === reviewData.user_id">
           <button
             class="text-xs text-red-600 hover:text-red-900"
             @click="commentDeleteBtnClick(reviewData.id, index)"
@@ -66,6 +66,7 @@ export default defineComponent({
 
     getAllReviewData(props.pageid).then((result) => {
       reviewDatas.value = result
+      console.log(reviewDatas.value)
     })
 
     const storeUserData = useStore().$auth.$state.user
