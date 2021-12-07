@@ -75,7 +75,9 @@
     </nav>
     <!-- レスポンシブ対応 -->
     <div v-if="$mq === 'sm'">
-      <nav class="flex justify-between py-3 px-6 shadow w-full bg-green-400">
+      <nav
+        class="flex justify-between py-1 pb-2 px-6 shadow w-full bg-green-400"
+      >
         <nuxt-Link
           tag="a"
           to="/"
@@ -89,23 +91,21 @@
           "
           >プラフル</nuxt-Link
         >
-        <div class="mt-3 space-x-1">
+        <div class="mt-2 space-x-1">
           <button @click="onClickNavSearchBtn">
-            <span class="material-icons text-3xl inline-block mb-2">
-              search
-            </span>
+            <span class="material-icons text-3xl inline-block"> search </span>
           </button>
 
           <nuxt-Link v-show="$auth.loggedIn" tag="button" to="/post"
-            ><span class="material-icons text-3xl mb-2">
+            ><span class="material-icons text-3xl">
               assignment
             </span></nuxt-Link
           >
           <nuxt-link v-show="!$auth.loggedIn" tag="button" to="/login">
-            <span class="material-icons text-3xl mb-2"> login </span>
+            <span class="material-icons text-3xl"> login </span>
           </nuxt-link>
           <nuxt-Link v-if="$auth.loggedIn" tag="a" to="/mypage">
-            <span class="material-icons text-3xl inline-block mb-2">
+            <span class="material-icons text-3xl inline-block">
               account_circle
             </span>
           </nuxt-Link>

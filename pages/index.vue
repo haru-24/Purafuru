@@ -7,7 +7,7 @@
       <SerchBar class="" />
     </div>
 
-    <footer>
+    <footer v-if="$mq === 'lg'">
       <div class="bg-img"></div>
       <div v-if="!getInfodatas" class="flex justify-center mt-64">
         <div
@@ -29,6 +29,26 @@
           class=""
           :fetch_all_info_datas="getInfodatas"
         />
+      </div>
+    </footer>
+    <!-- レスポンシブ対応 -->
+    <footer v-if="$mq === 'sm'">
+      <div class="bg-img"></div>
+      <div v-if="!getInfodatas" class="flex justify-center mt-64">
+        <div
+          class="
+            animate-spin
+            h-10
+            w-10
+            border-4 border-green-500
+            rounded-full
+            -mt-32
+          "
+          style="border-top-color: transparent"
+        ></div>
+      </div>
+
+      <div v-else>
         <ResponsiveCarousel
           v-if="$mq === 'sm'"
           :fetch_all_info_datas="getInfodatas"

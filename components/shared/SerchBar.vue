@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex items-center justify-center mt-5">
+    <div v-if="$mq === 'lg'" class="flex items-center justify-center mt-5">
       <div class="relative inline-flex">
         <select
           v-model="selectedPrefecture"
@@ -58,6 +58,79 @@
           rounded-md
           px-4
           py-2
+          m-2
+          transition
+          duration-500
+          ease
+          hover:text-white hover:bg-green-600
+          focus:outline-none focus:shadow-outline
+        "
+        @click="onClickSearchBtn"
+      >
+        探す
+      </button>
+    </div>
+
+    <!-- レスポンシブ対応 -->
+    <div v-if="$mq === 'sm'" class="flex items-center justify-center mt-5">
+      <div class="relative inline-flex">
+        <select
+          v-model="selectedPrefecture"
+          class="
+            border border-gray-300
+            rounded-lg
+            text-gray-600
+            h-8
+            px-3
+            bg-white
+            hover:border-gray-400
+            focus:outline-none
+            shadow-lg
+            font-semibold
+            text-sm
+          "
+        >
+          <option
+            v-for="prefecture in prefectures"
+            :key="prefecture"
+            name="pref"
+            class="rounded-sm"
+            :value="prefecture"
+          >
+            {{ prefecture }}
+          </option>
+        </select>
+        <p class="mr-2 ml-2 text-base mt-2">の</p>
+
+        <select
+          v-model="selectedGenre"
+          class="
+            border border-gray-300
+            rounded-lg
+            text-gray-600
+            h-8
+            px-1
+            bg-white
+            hover:border-gray-400
+            focus:outline-none
+            shadow-lg
+            font-semibold
+            text-sm
+          "
+        >
+          <option value="グルメ">グルメ</option>
+          <option value="スポット">スポット</option>
+        </select>
+      </div>
+      <p class="mr-1 ml-2 text-base">を</p>
+      <button
+        class="
+          border border-green-500
+          text-green-500
+          rounded-md
+          text-sm
+          px-2
+          py-1
           m-2
           transition
           duration-500

@@ -104,20 +104,15 @@
             mt-4
           "
         >
-          <div class="mt-1 w-1/5">
-            <span class="ml-3 text-xs">{{ infodata.prefecture }}</span>
-            <br />
-
+          <div class="w-3/5 mt-1">
             <p class="font-semibold ml-3 text-xs mt-1">
               {{ infodata.place_name }}
             </p>
-          </div>
-          <div class="mt-1 w-2/5 text-xs">
-            <p class="text-xs">住所</p>
             <p class="ml-3 text-xs">{{ infodata.post_number }}</p>
             <p class="ml-3 text-xs">{{ infodata.address }}</p>
           </div>
-          <div class="flex items-end mb-2">
+
+          <div class="flex items-end mb-2 w-2/5">
             <div class="inline-block mr-1">
               <div class="">
                 <span class="material-icons"> favorite_border </span>
@@ -127,14 +122,14 @@
             <img
               v-if="infodata.image"
               :src="infodata.image"
-              class="h-16 w-24 mr-3 inline-block"
+              class="h-16 w-24 mr-1 inline-block"
             />
             <div
               v-else
               class="
                 bg-white
-                h-16
-                w-20
+                h-12
+                w-18
                 mr-3
                 inline-block
                 flex

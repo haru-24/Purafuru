@@ -25,7 +25,7 @@
     <div v-if="$mq === 'sm'">
       <h4
         class="
-          mt-8
+          mt-16
           text-center
           mb-10
           font-extrabold

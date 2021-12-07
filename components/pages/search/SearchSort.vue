@@ -1,29 +1,67 @@
 <template>
   <div>
-    <div class="ml-5 -mb-1">
-      <button
-        class="w-32 h-12 border-4 border-primary rounded-md hover:bg-gray-100"
-        :class="{ push: isNewArrivalsButton }"
-        @click="pushNewArrivalsButton"
-      >
-        新着順
-      </button>
-      <button
-        class="
-          w-32
-          h-12
-          border-4 border-primary
-          rounded-md
-          -ml-2
-          hover:bg-gray-100
-        "
-        :class="{ push: isFavoritButton }"
-        @click="pushFavoritButton"
-      >
-        お気に入り順
-      </button>
+    <div v-if="$mq === 'lg'">
+      <div class="ml-5 -mb-1">
+        <button
+          class="w-32 h-12 border-4 border-primary rounded-md hover:bg-gray-100"
+          :class="{ push: isNewArrivalsButton }"
+          @click="pushNewArrivalsButton"
+        >
+          新着順
+        </button>
+        <button
+          class="
+            w-32
+            h-12
+            border-4 border-primary
+            rounded-md
+            -ml-2
+            hover:bg-gray-100
+          "
+          :class="{ push: isFavoritButton }"
+          @click="pushFavoritButton"
+        >
+          お気に入り順
+        </button>
+      </div>
+      <div class="border-2 border-primary"></div>
     </div>
-    <div class="border-2 border-primary"></div>
+
+    <!-- レスポンシブ対応 -->
+    <div v-if="$mq === 'sm'">
+      <div class="ml-1 mt-3 -mb-1">
+        <button
+          class="
+            w-24
+            h-8
+            border-4 border-primary
+            rounded-md
+            hover:bg-gray-100
+            text-xs
+          "
+          :class="{ push: isNewArrivalsButton }"
+          @click="pushNewArrivalsButton"
+        >
+          新着順
+        </button>
+        <button
+          class="
+            w-24
+            h-8
+            border-4 border-primary
+            rounded-md
+            -ml-2
+            hover:bg-gray-100
+            text-xs
+          "
+          :class="{ push: isFavoritButton }"
+          @click="pushFavoritButton"
+        >
+          お気に入り順
+        </button>
+      </div>
+      <div class="border-2 border-primary -mb-4"></div>
+    </div>
   </div>
 </template>
 

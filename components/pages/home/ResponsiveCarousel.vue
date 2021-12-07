@@ -109,4 +109,10 @@ export default defineComponent({
 .swiper-button-next {
   color: rgb(98, 204, 165);
 }
+
+.swiper-button-prev,
+.swiper-button-next:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
 </style>
