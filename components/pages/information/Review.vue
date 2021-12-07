@@ -51,7 +51,7 @@
       </div>
       <!-- レスポンシブ -->
       <div v-if="$mq === 'sm'">
-        <div class="ml-2">
+        <div class="ml-2 mt-2">
           <div class="font-bold">
             <p class="inline mr-2 text-sm">コメント</p>
             <div v-show="$auth.loggedIn" class="inline">

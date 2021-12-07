@@ -19,10 +19,10 @@
               class="flex justify-center"
               :individual_page_data="informationData"
             />
-            <Favorit class="mt-20" :individual_page_data="informationData" />
+            <Favorit class="mt-6" :individual_page_data="informationData" />
           </div>
         </div>
-        <Review :pageid="pageId" class="-mt-10" />
+        <Review :pageid="pageId" class="" />
       </div>
     </div>
 

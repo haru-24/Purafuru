@@ -32,8 +32,8 @@
               <div class="mr-7 font-bold text-2xl mt-10">
                 <p>アピールポイント</p>
               </div>
-              <div class="w-2/3 h-32 mt-3">
-                <p class="break-words ml-20">
+              <div class="w-2/3 mt-3">
+                <p class="break-words ml-10">
                   {{ individual_page_data.apealPoint }}
                 </p>
               </div>
@@ -42,8 +42,8 @@
               <div class="mr-7 font-bold text-2xl mt-10">
                 <p>オススメのメニュー or スポット</p>
               </div>
-              <div class="w-2/3 h-32 mt-3">
-                <p class="break-words ml-20">
+              <div class="w-2/3 mt-3">
+                <p class="break-words ml-10">
                   {{ individual_page_data.recommendation }}
                 </p>
               </div>
@@ -77,17 +77,17 @@
               <div class="font-bold text-base mt-6">
                 <p>アピールポイント</p>
               </div>
-              <div class="w-11/12 h-32 mt-1 mr-2">
+              <div class="w-11/12 mt-1 mr-2">
                 <p class="break-words ml-5 text-sm">
                   {{ individual_page_data.apealPoint }}
                 </p>
               </div>
             </div>
             <div>
-              <div class="font-bold text-base mt-1">
+              <div class="font-bold text-base mt-4">
                 <p>オススメのメニュー or スポット</p>
               </div>
-              <div class="w-11/12 h-20 mt-3">
+              <div class="w-11/12 mt-3">
                 <p class="break-words ml-5 text-sm">
                   {{ individual_page_data.recommendation }}
                 </p>

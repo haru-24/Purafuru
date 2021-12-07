@@ -100,7 +100,7 @@
             {{ prefecture }}
           </option>
         </select>
-        <p class="mr-2 ml-2 text-base mt-2">の</p>
+        <p class="mr-1 ml-1 text-base mt-1">の</p>
 
         <select
           v-model="selectedGenre"
@@ -122,7 +122,7 @@
           <option value="スポット">スポット</option>
         </select>
       </div>
-      <p class="mr-1 ml-2 text-base">を</p>
+      <p class="mr-1 ml-1 text-base">を</p>
       <button
         class="
           border border-green-500
@@ -131,7 +131,8 @@
           text-sm
           px-2
           py-1
-          m-2
+          m-1
+          mt-1
           transition
           duration-500
           ease
