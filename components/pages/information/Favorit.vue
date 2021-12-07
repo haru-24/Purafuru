@@ -1,64 +1,133 @@
 <template>
   <div class="">
-    <div v-if="individual_page_data">
-      <div v-if="$auth.loggedIn" class="flex justify-center">
-        <div>
-          <button
-            :class="{ isFavorite: isFavorite }"
-            class="
-              font-bold
-              text-3xl
-              border border-pink-500
-              text-pink-500
-              rounded-md
-              px-4
-              py-2
-              m-2
-              transition
-              duration-500
-              ease
-              hover:bg-pink-200
-              focus:outline-none focus:shadow-outline
-              inline-block
-            "
-            @click="favoriteBtnClick"
-          >
-            お気に入り
-            <span class="material-icons text-4xl inline-block mb-1">
-              favorite_border
-            </span>
-          </button>
-        </div>
-      </div>
-      <div v-else class="flex justify-center">
-        <div>
-          <div
-            class="
-              font-bold
-              text-3xl
-              border border-gray-500
-              text-gray-500
-              rounded-md
-              px-4
-              py-2
-              m-2
-              transition
-              duration-500
-              ease
-              focus:outline-none focus:shadow-outline
-              inline-block
-            "
-            @click="pleaseLoginClick"
-          >
-            お気に入り
-            <span class="material-icons text-4xl inline-block mb-1">
-              favorite_border
-            </span>
+    <div v-if="$mq === 'lg'">
+      <div v-if="individual_page_data">
+        <div v-if="$auth.loggedIn" class="flex justify-center">
+          <div>
+            <button
+              :class="{ isFavorite: isFavorite }"
+              class="
+                font-bold
+                text-3xl
+                border border-pink-500
+                text-pink-500
+                rounded-md
+                px-4
+                py-2
+                m-2
+                transition
+                duration-500
+                ease
+                hover:bg-pink-200
+                focus:outline-none focus:shadow-outline
+                inline-block
+              "
+              @click="favoriteBtnClick"
+            >
+              お気に入り
+              <span class="material-icons text-4xl inline-block mb-1">
+                favorite_border
+              </span>
+            </button>
           </div>
         </div>
+        <div v-else class="flex justify-center">
+          <div>
+            <div
+              class="
+                font-bold
+                text-3xl
+                border border-gray-500
+                text-gray-500
+                rounded-md
+                px-4
+                py-2
+                m-2
+                transition
+                duration-500
+                ease
+                focus:outline-none focus:shadow-outline
+                inline-block
+              "
+              @click="pleaseLoginClick"
+            >
+              お気に入り
+              <span class="material-icons text-4xl inline-block mb-1">
+                favorite_border
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="text-3xl font-bold flex justify-center">
+          <p>{{ favorites }}</p>
+        </div>
       </div>
-      <div class="text-3xl font-bold flex justify-center">
-        <p>{{ favorites }}</p>
+    </div>
+
+    <div v-if="$mq === 'sm'">
+      <div v-if="individual_page_data">
+        <div v-if="$auth.loggedIn" class="flex justify-center">
+          <div>
+            <button
+              :class="{ isFavorite: isFavorite }"
+              class="
+                font-bold
+                text-sm
+                border border-pink-500
+                text-pink-500
+                rounded-md
+                px-2
+                py-1
+                m-2
+                transition
+                duration-500
+                ease
+                hover:bg-pink-200
+                focus:outline-none focus:shadow-outline
+                inline-block
+              "
+              @click="favoriteBtnClick"
+            >
+              お気に入り
+              <span class="material-icons text-sm inline-block">
+                favorite_border
+              </span>
+              <span class="text-sm font-bold">
+                {{ favorites }}
+              </span>
+            </button>
+          </div>
+        </div>
+        <div v-else class="flex justify-center">
+          <div>
+            <div
+              class="
+                font-bold
+                text-sm
+                border border-gray-500
+                text-gray-500
+                rounded-md
+                px-2
+                py-1
+                m-2
+                transition
+                duration-500
+                ease
+                focus:outline-none focus:shadow-outline
+                inline-block
+              "
+              @click="pleaseLoginClick"
+            >
+              お気に入り
+              <span class="material-icons text-sm inline-block">
+                favorite_border
+              </span>
+              <span class="text-sm font-bold">
+                {{ favorites }}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

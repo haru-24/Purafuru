@@ -1,13 +1,31 @@
 <template>
   <div>
-    <div v-if="individual_page_data">
-      <img
-        v-if="individual_page_data.image"
-        :src="individual_page_data.image"
-        class="w-full h-400"
-      />
-      <div v-else class="w-full h-400 flex items-center">
-        <p class="text-center text-3xl font-bold">画像なし</p>
+    <div v-if="$mq === 'lg'">
+      <div v-if="individual_page_data">
+        <img
+          v-if="individual_page_data.image"
+          :src="individual_page_data.image"
+          class="w-full h-400"
+        />
+        <div v-else class="w-full h-400 flex items-center">
+          <p class="text-center text-3xl font-bold">画像なし</p>
+        </div>
+      </div>
+    </div>
+    <!-- レスポンシブ対応 -->
+
+    <div v-if="$mq === 'sm'">
+      <div v-if="individual_page_data">
+        <div
+          v-if="individual_page_data.image"
+          class="w-full flex justify-center"
+        >
+          <img :src="individual_page_data.image" class="h-64" />
+        </div>
+
+        <div v-else class="w-full flex items-center">
+          <p class="text-center text-3xl font-bold">画像なし</p>
+        </div>
       </div>
     </div>
   </div>

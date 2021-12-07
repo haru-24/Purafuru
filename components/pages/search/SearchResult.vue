@@ -128,16 +128,16 @@
               v-else
               class="
                 bg-white
-                h-12
-                w-18
-                mr-3
+                h-16
+                w-24
+                mr-1
                 inline-block
                 flex
                 items-center
                 text-center
               "
             >
-              <p class="text-xs ml-3">画像なし</p>
+              <p class="text-xs ml-6">画像なし</p>
             </div>
           </div>
         </nuxt-link>
