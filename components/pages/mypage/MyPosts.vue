@@ -126,7 +126,7 @@
                 transition
                 ease-in-out
                 duration-300
-                mt-1
+                mt-3
               "
             >
               <div class="w-3/5 mt-1">

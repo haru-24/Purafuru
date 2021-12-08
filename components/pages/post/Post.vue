@@ -128,6 +128,19 @@
               @change="previewImage"
             />
           </label>
+          <button
+            class="
+              hover:text-red-900
+              text-red-500
+              font-bold
+              text-xs
+              inline
+              ml-4
+            "
+            @click="clickCancelBtn"
+          >
+            画像を取り消す
+          </button>
         </div>
 
         <div v-if="isLoading" class="flex justify-center mt-3">
@@ -258,7 +271,7 @@
               hover:bg-gray-200
               text-gray-500
               font-bold
-              py-2
+              py-1
               px-2
               border border-gray-500
               rounded
@@ -273,8 +286,21 @@
               @change="previewImage"
             />
           </label>
+          <button
+            class="
+              hover:text-red-900
+              text-red-500 text-xs
+              font-bold
+              inline
+              ml-3
+              -mb-4
+            "
+            @click="clickCancelBtn"
+          >
+            画像を取り消す
+          </button>
         </div>
-        <div class="bg-white w-full mt-2 border-2 border-dashed h-48">
+        <div class="bg-white w-full mt-2 border-2 text-sm border-dashed h-48">
           <div class="h-full w-full flex items-center justify-center">
             <img
               :src="postInformationData.imgOriginalUrl"
@@ -392,6 +418,10 @@ export default defineComponent({
           isLoading.value = false
         })
     }
+    const clickCancelBtn = () => {
+      postInformationData.imgOriginalUrl = ''
+      URL.revokeObjectURL(postInformationData.imgOriginalUrl)
+    }
 
     return {
       postInformationData,
@@ -401,6 +431,7 @@ export default defineComponent({
       previewImage,
       imgPreview,
       isLoading,
+      clickCancelBtn,
     }
   },
 })

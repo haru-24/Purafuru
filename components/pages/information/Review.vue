@@ -39,7 +39,10 @@
             <p>{{ reviewData.review }}</p>
           </div>
 
-          <div v-if="$auth.user && $auth.user.id === reviewData.user_id">
+          <div
+            v-if="$auth.user && $auth.user.id === reviewData.user_id"
+            class="-mt-3"
+          >
             <button
               class="text-xs text-red-600 hover:text-red-900"
               @click="commentDeleteBtnClick(reviewData.id, index)"

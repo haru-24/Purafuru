@@ -11,10 +11,10 @@
             wf-nicomoji
           "
         >
-          プラフル
+          シェアトリ
         </h4>
         <p class="font-semibold text-gray-600 text-xl">
-          ガイド本だけでは伝わらない故郷の魅力を<span class="text-yellow-600"
+          ガイド本だけでは伝わらない土地の魅力を<span class="text-yellow-600"
             >発信</span
           ><br />
           旅に出た際に新たな魅力を<span class="text-green-600">発見</span>
@@ -34,7 +34,7 @@
           wf-nicomoji
         "
       >
-        プラフル
+        シェアトリ
       </h4>
     </div>
   </div>

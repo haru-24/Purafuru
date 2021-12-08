@@ -10,17 +10,7 @@
     <footer v-if="$mq === 'lg'">
       <div class="bg-img"></div>
       <div v-if="!getInfodatas" class="flex justify-center mt-64">
-        <div
-          class="
-            animate-spin
-            h-10
-            w-10
-            border-4 border-green-500
-            rounded-full
-            -mt-32
-          "
-          style="border-top-color: transparent"
-        ></div>
+        <Loading class="-mt-32" />
       </div>
 
       <div v-else>
@@ -35,17 +25,7 @@
     <footer v-if="$mq === 'sm'">
       <div class="bg-img"></div>
       <div v-if="!getInfodatas" class="flex justify-center mt-64">
-        <div
-          class="
-            animate-spin
-            h-10
-            w-10
-            border-4 border-green-500
-            rounded-full
-            -mt-32
-          "
-          style="border-top-color: transparent"
-        ></div>
+        <Loading class="-mt-32" />
       </div>
 
       <div v-else>
@@ -66,6 +46,7 @@ import HomeTitle from '@/components/pages/home/HomeTitle.vue'
 import HomeCarousel from '@/components/pages/home/HomeCarousel.vue'
 import HomeSubTitle from '@/components/pages/home/HomeSubTitle.vue'
 import ResponsiveCarousel from '@/components/pages/home/ResponsiveCarousel.vue'
+import Loading from '@/components/shared/Loading.vue'
 import { allInformation } from '@/api/get'
 import { Infomation } from '@/types/types'
 
@@ -78,6 +59,7 @@ export default defineComponent({
     HomeCarousel,
     HomeSubTitle,
     ResponsiveCarousel,
+    Loading,
   },
 
   setup() {

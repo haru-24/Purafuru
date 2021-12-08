@@ -26,7 +26,7 @@
             font-extrabold
             wf-nicomoji
           "
-          >プラフル</nuxt-Link
+          >シェアトリ</nuxt-Link
         >
 
         <button
@@ -89,7 +89,7 @@
             wf-nicomoji
             mt-1
           "
-          >プラフル</nuxt-Link
+          >シェアトリ</nuxt-Link
         >
         <div class="mt-2 space-x-1">
           <button @click="onClickNavSearchBtn">

@@ -2,21 +2,31 @@
   <div>
     <Navbar />
     <UserData :user_favorite_count="userFavoriteCount" />
-    <SortBtn
-      @emit_post_histry_btn="clickPostHistoryBtn"
-      @emit_favorite_btn="clickFavoritePageBtn"
-    />
-    <MyPosts
-      v-if="!isFavoritePage"
-      class="mt-3"
-      :user_post_info_datas="userPostInformationDatas"
-      @refresh_my_post_data="refreshMyData"
-    />
-    <MyfavoritePage
-      v-else
-      class="mt-3"
-      :user_favorite_page_datas="userFavoritePageDatas"
-    />
+    <div v-if="!userPostInformationDatas" class="flex justify-center mt-10">
+      <Loading />
+    </div>
+    <div v-else>
+      <SortBtn
+        @emit_post_histry_btn="clickPostHistoryBtn"
+        @emit_favorite_btn="clickFavoritePageBtn"
+      />
+      <MyPosts
+        v-if="!isFavoritePage"
+        class="mt-3"
+        :user_post_info_datas="userPostInformationDatas"
+        @refresh_my_post_data="refreshMyData"
+      />
+      <div v-else>
+        <div v-if="!userFavoritePageDatas" class="flex justify-center mt-10">
+          <Loading />
+        </div>
+        <MyfavoritePage
+          v-else
+          class="mt-3"
+          :user_favorite_page_datas="userFavoritePageDatas"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -26,6 +36,7 @@ import Navbar from '../components/shared/Navbar.vue'
 import UserData from '../components/pages/mypage/UserData.vue'
 import MyPosts from '../components/pages/mypage/MyPosts.vue'
 import SortBtn from '@/components/pages/mypage/SortBtn.vue'
+import Loading from '@/components/shared/Loading.vue'
 import MyfavoritePage from '@/components/pages/mypage/MyfavoritePage.vue'
 import { Infomation } from '@/types/types'
 import {
@@ -41,6 +52,7 @@ export default defineComponent({
     MyPosts,
     SortBtn,
     MyfavoritePage,
+    Loading,
   },
   middleware: 'authFilter',
 
