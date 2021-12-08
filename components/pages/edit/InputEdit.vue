@@ -86,7 +86,7 @@
                   </div>
                   <div class="my-5 text-sm">
                     <label class="block text-black"
-                      >アピールポイント(200字以内)<span>※</span></label
+                      >どんなところ？(200字以内)<span>※</span></label
                     >
                     <textarea
                       v-model="editInformationData.apealPoint"
@@ -271,7 +271,7 @@
                 </div>
                 <div class="my-2 text-xs">
                   <label class="block text-black"
-                    >アピールポイント(200字以内)<span>※</span></label
+                    >どんなところ？(200字以内)<span>※</span></label
                   >
                   <textarea
                     v-model="editInformationData.apealPoint"

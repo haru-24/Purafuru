@@ -30,7 +30,7 @@
             </div>
             <div>
               <div class="mr-7 font-bold text-2xl mt-10">
-                <p>アピールポイント</p>
+                <p>どんなところ？</p>
               </div>
               <div class="w-2/3 mt-3">
                 <p class="break-words ml-10">
@@ -75,7 +75,7 @@
             </div>
             <div>
               <div class="font-bold text-base mt-6">
-                <p>アピールポイント</p>
+                <p>どんなところ？</p>
               </div>
               <div class="w-11/12 mt-1 mr-2">
                 <p class="break-words ml-5 text-sm">
