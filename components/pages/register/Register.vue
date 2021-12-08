@@ -23,7 +23,7 @@
             wf-nicomoji
           "
         >
-          プラフル
+          シェアトリ
         </h1>
 
         <div action="" class="py-8 px-8 rounded-xl">
@@ -161,7 +161,7 @@
             wf-nicomoji
           "
         >
-          プラフル
+          シェアトリ
         </h1>
 
         <div action="" class="py-8 px-8 rounded-xl">

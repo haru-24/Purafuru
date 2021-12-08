@@ -22,7 +22,7 @@
           wf-nicomoji
         "
       >
-        プラフル
+        シェアトリ
       </h1>
       <form class="py-8 px-8 rounded-xl" @submit.prevent="login">
         <h1 class="font-medium text-2xl text-center">ログイン</h1>
