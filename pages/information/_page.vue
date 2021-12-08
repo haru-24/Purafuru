@@ -38,14 +38,16 @@
       <div v-else>
         <div class="">
           <div>
-            <p>{{ informationData.prefecture }}</p>
+            <p class="text-sm font-semibold mt-1 ml-1">
+              {{ informationData.prefecture }}
+            </p>
           </div>
           <div class="flex justify-items-start w-2/3 inline-block">
             <p
               v-if="informationData.genre === 'スポット'"
               class="text-lg font-semibold inline-block mt-1 ml-2"
             >
-              <span class="material-icons mr-2 inline-block mb-1">
+              <span class="material-icons mr-2 text-lg inline-block mb-1">
                 explore </span
               >{{ informationData.placeName }}
             </p>

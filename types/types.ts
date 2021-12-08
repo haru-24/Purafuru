@@ -45,3 +45,7 @@ export interface ResponseInformationData {
   dbInfoData: Infomation[]
   dbDataCount: number
 }
+
+export interface UserFavoriteData {
+  favoritePageId: number
+}

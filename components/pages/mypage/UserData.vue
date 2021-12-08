@@ -1,14 +1,5 @@
 <template>
-  <div
-    class="
-      bg-primary
-      border border-primary
-      rounded-b-lg
-      p-5
-      pt-10
-      flex flex-col
-    "
-  >
+  <div class="bg-primary rounded-b-lg p-5 pt-10 flex flex-col">
     <p class="text-4xl font-bold">{{ $auth.user.user_name }}</p>
     <button
       class="
@@ -34,9 +25,17 @@
       出身地 <span class="ml-5">{{ $auth.user.birth_place }}</span>
     </div>
     <div class="mb-1 mt-5 w-full">
-      総お気に入り数 <span class="ml-5">Number</span>
+      総お気に入り数
+      <span v-if="user_favorite_count" class="ml-5">{{
+        user_favorite_count
+      }}</span>
+      <span v-else>0</span>
     </div>
-
-    <p class="-mb-5 mt-6">投稿履歴</p>
   </div>
 </template>
+
+<script>
+export default {
+  props: ['user_favorite_count'],
+}
+</script>

@@ -87,7 +87,7 @@
               <div class="font-bold text-base mt-4">
                 <p>オススメのメニュー or スポット</p>
               </div>
-              <div class="w-11/12 mt-3">
+              <div class="w-11/12 mt-1">
                 <p class="break-words ml-5 text-sm">
                   {{ individual_page_data.recommendation }}
                 </p>

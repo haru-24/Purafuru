@@ -276,7 +276,11 @@
         </div>
         <div class="bg-white w-full mt-2 border-2 border-dashed h-48">
           <div class="h-full w-full flex items-center justify-center">
-            <img :src="postInformationData.imgOriginalUrl" alt="" class="img" />
+            <img
+              :src="postInformationData.imgOriginalUrl"
+              alt=""
+              class="img-phone"
+            />
           </div>
         </div>
 
@@ -410,6 +414,11 @@ textarea {
   resize: none;
 }
 .img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+}
+.img-phone {
   width: 100%;
   height: 192px;
   object-fit: cover;
