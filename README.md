@@ -46,6 +46,11 @@ DB
 ## 3.設計
 ### 画面設計
 * Figmaで画面遷移図とワイヤーフレームを作成しました。
+<img width="942" alt="スクリーンショット 2021-12-09 16 23 27" src="https://user-images.githubusercontent.com/88644715/145352100-d828f323-f174-4a7a-959b-cba884230773.png">
+
+### ER図
+
+
 
 
 
