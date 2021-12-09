@@ -13,13 +13,16 @@ export const getSearchInformation = async (
   queryPageNumber: string
 ) => {
   try {
-    const result = await axios.get('http://localhost:8000/post_info/search', {
-      params: {
-        prefecture: selectedPrefecture,
-        genre: selectedGenre,
-        page_number: queryPageNumber,
-      },
-    })
+    const result = await axios.get(
+      'https://share-tori.herokuapp.com/post_info/search',
+      {
+        params: {
+          prefecture: selectedPrefecture,
+          genre: selectedGenre,
+          page_number: queryPageNumber,
+        },
+      }
+    )
     if (result.data) {
       const dbInfoData = result.data.rows as Infomation[]
       const dbDataCount = result.data.count as number
@@ -40,7 +43,7 @@ export const getSearchInformationFavoriteSort = async (
 ) => {
   try {
     const result = await axios.get(
-      'http://localhost:8000/post_info/search/sort_favorite',
+      'https://share-tori.herokuapp.com/post_info/search/sort_favorite',
       {
         params: {
           prefecture: selectedPrefecture,
@@ -64,11 +67,14 @@ export const getSearchInformationFavoriteSort = async (
 // 全県全ジャンル新着１０件分のデータ
 export const allInformation = async (queryPageNumber: string) => {
   try {
-    const result = await axios.get('http://localhost:8000/post_info', {
-      params: {
-        page_number: queryPageNumber,
-      },
-    })
+    const result = await axios.get(
+      'https://share-tori.herokuapp.com/post_info',
+      {
+        params: {
+          page_number: queryPageNumber,
+        },
+      }
+    )
 
     if (result.data) {
       const dbInfoData = result.data.rows as Infomation[]
@@ -86,7 +92,7 @@ export const allInformation = async (queryPageNumber: string) => {
 export const favoriteSortInformation = async (queryPageNumber: string) => {
   try {
     const result = await axios.get(
-      'http://localhost:8000/post_info/sort_favorite',
+      'https://share-tori.herokuapp.com/post_info/sort_favorite',
       {
         params: {
           page_number: queryPageNumber,
@@ -109,7 +115,9 @@ export const favoriteSortInformation = async (queryPageNumber: string) => {
 // クチコミデータを取得
 export const getAllReviewData = async (pageId: number) => {
   try {
-    const result = await axios.get(`http://localhost:8000/review/${pageId}`)
+    const result = await axios.get(
+      `https://share-tori.herokuapp.com/review/${pageId}`
+    )
 
     if (result.data) {
       return result.data
@@ -124,7 +132,7 @@ export const getAllReviewData = async (pageId: number) => {
 export const getIndividualInformation = async (pageId: string) => {
   try {
     const result = await axios.get(
-      `http://localhost:8000/post_info/information/${pageId}`
+      `https://share-tori.herokuapp.com/post_info/information/${pageId}`
     )
     if (result.data) {
       const infoData = {
@@ -156,12 +164,15 @@ export const getUserFavoriteData = async (
   pageId: number
 ) => {
   try {
-    const result = await axios.get('http://localhost:8000/user_favorite', {
-      params: {
-        user_id: userId,
-        favorite_page_id: pageId,
-      },
-    })
+    const result = await axios.get(
+      'https://share-tori.herokuapp.com/user_favorite',
+      {
+        params: {
+          user_id: userId,
+          favorite_page_id: pageId,
+        },
+      }
+    )
     if (result.data) {
       return true as boolean
     } else {
@@ -175,7 +186,7 @@ export const getUserFavoriteData = async (
 export const getUserPostInfoData = async (userId: number) => {
   try {
     const result = await axios.get(
-      'http://localhost:8000/post_info/userPostInfo',
+      'https://share-tori.herokuapp.com/post_info/userPostInfo',
       {
         params: {
           userID: userId,
@@ -193,7 +204,7 @@ export const getUserPostInfoData = async (userId: number) => {
 export const getUserFavoritePageId = async (userId: number) => {
   try {
     const result = await axios.get(
-      'http://localhost:8000/user_favorite/page_number',
+      'https://share-tori.herokuapp.com/user_favorite/page_number',
       {
         params: {
           userID: userId,
@@ -211,7 +222,7 @@ export const getUserFavoritePageId = async (userId: number) => {
 export const getUserFavoritePages = async (pageId: number[]) => {
   try {
     const result = await axios.get(
-      'http://localhost:8000/post_info/favorite_page',
+      'https://share-tori.herokuapp.com/post_info/favorite_page',
       {
         params: { pageId },
         paramsSerializer(params) {
@@ -230,7 +241,7 @@ export const getUserFavoritePages = async (pageId: number[]) => {
 export const getFavoritesNumber = async (pageId: number) => {
   try {
     const result = await axios.get(
-      'http://localhost:8000/user_favorite/favorite_number',
+      'https://share-tori.herokuapp.com/user_favorite/favorite_number',
       {
         params: {
           favorite_page_id: pageId,
