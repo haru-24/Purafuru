@@ -49,6 +49,8 @@ DB
 <img width="942" alt="スクリーンショット 2021-12-09 16 23 27" src="https://user-images.githubusercontent.com/88644715/145352100-d828f323-f174-4a7a-959b-cba884230773.png">
 
 ### ER図
+![スクリーンショット 2021-12-09 16 44 45](https://user-images.githubusercontent.com/88644715/145354834-b8d4eb21-8662-4672-bd92-ea59b31f6e79.png)
+
 
 
 
