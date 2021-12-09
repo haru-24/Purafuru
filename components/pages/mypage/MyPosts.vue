@@ -202,7 +202,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from '@nuxtjs/composition-api'
 import { Infomation } from '@/types/types'
-import { deleteInformation } from '@/api/delete'
+import { deleteInformation, deletePageFavorite } from '@/api/delete'
 import { deleteStorageData } from '@/api/firebaseStorage'
 
 export default defineComponent({
@@ -212,14 +212,21 @@ export default defineComponent({
     },
   },
   setup(_props, context) {
-    // 投稿の削除
-    const deleteInfoBtnClick = (id: number, imgUrl: string, userId: number) => {
+    const deleteInfoBtnClick = async (
+      id: number,
+      imgUrl: string,
+      userId: number
+    ) => {
       if (confirm('投稿を削除しますか？')) {
-        deleteStorageData(imgUrl).then(() => {
-          deleteInformation(id).then(() => {
-            context.emit('refresh_my_post_data', userId)
-          })
-        })
+        try {
+          await deletePageFavorite(id)
+          await deleteStorageData(imgUrl)
+          await deleteInformation(id)
+          context.emit('refresh_my_post_data', userId)
+        } catch (err) {
+          console.log(err)
+          window.alert('削除に失敗しました')
+        }
       }
     }
     return {

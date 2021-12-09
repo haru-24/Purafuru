@@ -75,12 +75,7 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  onMounted,
-  ref,
-  useRoute,
-} from '@nuxtjs/composition-api'
+import { defineComponent, ref, useRoute } from '@nuxtjs/composition-api'
 import { getIndividualInformation } from '../../api/get'
 import { Infomation } from '../../types/types'
 import Navbar from '@/components/shared/Navbar.vue'
@@ -102,13 +97,12 @@ export default defineComponent({
     const pageId = useRoute().value.query.id as string
     const informationData = ref<Infomation | null | undefined>()
 
-    onMounted(() => {
-      // データ取得
-      getIndividualInformation(pageId).then((result) => {
-        informationData.value = result
-        console.log(informationData.value)
-      })
+    // データ取得
+    getIndividualInformation(pageId).then((result) => {
+      informationData.value = result
+      console.log(informationData.value)
     })
+
     return {
       informationData,
       pageId,

@@ -141,9 +141,9 @@ import {
   ref,
 } from '@nuxtjs/composition-api'
 import { Infomation } from '@/types/types'
-import { getUserFavoriteData } from '@/api/get'
-import { postFavoritePageData } from '@/api/post'
+import { getUserFavoriteData, getFavoritesNumber } from '@/api/get'
 import { putPostInfoFavoriteData } from '@/api/put'
+import { postFavoritePageData } from '@/api/post'
 import { deleteFavorite } from '@/api/delete'
 
 export default defineComponent({
@@ -156,6 +156,10 @@ export default defineComponent({
   setup(props) {
     // お気に入り数格納
     const favorites = ref<number>(0)
+    //  お気に入りの数
+    getFavoritesNumber(props.individual_page_data.id).then((result) => {
+      favorites.value = result as number
+    })
 
     // ログインしているか否か
     let userID: number | null = null
@@ -166,43 +170,30 @@ export default defineComponent({
     // お気に入りしているか判定
     const isFavorite = ref<boolean | undefined>(false)
     // ユーザーがお気に入りしているか否か
-    const confilmUserFavorite = () => {
-      getUserFavoriteData(userID, props.individual_page_data.id).then(
-        (result) => {
-          isFavorite.value = result
-        }
-      )
-    }
+    getUserFavoriteData(userID, props.individual_page_data.id).then(
+      (result) => {
+        isFavorite.value = result
+      }
+    )
 
-    //  createdで発火
-    favorites.value = props.individual_page_data.favorites
-    confilmUserFavorite()
-
-    // お気に入りボタンクリック処理
-    const favoriteBtnClick = () => {
-      try {
-        if (!isFavorite.value) {
-          // favoritesテーブルにお気に入りしたことを伝える
-          postFavoritePageData(userID, props.individual_page_data.id).then(
-            () => {
-              favorites.value++
-              isFavorite.value = true
-              // post_infoにfavoriteの数を入れる
-              putPostInfoFavoriteData(
-                favorites.value,
-                props.individual_page_data.id
-              )
-            }
-          )
-        } else if (confirm('お気に入り登録解除しますか?')) {
-          // お気に入り登録を解除する
-          deleteFavorite(userID, props.individual_page_data.id).then(() => {
-            favorites.value--
-            isFavorite.value = false
-          })
-        }
-      } catch (err) {
-        console.log(err)
+    const favoriteBtnClick = async () => {
+      if (!isFavorite.value) {
+        await postFavoritePageData(userID, props.individual_page_data.id)
+        favorites.value++
+        isFavorite.value = true
+        await putPostInfoFavoriteData(
+          favorites.value,
+          props.individual_page_data.id
+        )
+      } else if (confirm('お気に入り登録解除しますか?')) {
+        // お気に入り登録を解除する
+        await deleteFavorite(userID, props.individual_page_data.id)
+        favorites.value--
+        isFavorite.value = false
+        await putPostInfoFavoriteData(
+          favorites.value,
+          props.individual_page_data.id
+        )
       }
     }
 

@@ -84,6 +84,7 @@ export default defineComponent({
       userFavoritePageNumber.value = result?.map(
         (value) => value.favoritePageId
       )
+      console.log(result)
       userFavoriteCount.value = result?.length
     })
 
