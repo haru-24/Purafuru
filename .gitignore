@@ -91,6 +91,5 @@ sw.*
 # Vim swap files
 *.swp
 
-plugins/firebase.js
 
 storage.rules
