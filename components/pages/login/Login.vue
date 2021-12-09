@@ -92,6 +92,9 @@
         >
           Login
         </button>
+        <button class="text-xs w-full mt-3" @click="gestLogin">
+          ゲストユーザーでログイン
+        </button>
       </form>
     </div>
   </div>
@@ -119,10 +122,17 @@ export default defineComponent({
           isError.value = true
         })
     }
+
+    const gestLogin = () => {
+      loginData.email = 'gest@example.com'
+      loginData.password = 'gestpassword'
+      login()
+    }
     return {
       loginData,
       login,
       isError,
+      gestLogin,
     }
   },
 })
