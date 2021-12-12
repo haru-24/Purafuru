@@ -55,7 +55,7 @@ DB
 ![スクリーンショット 2021-12-09 16 44 45](https://user-images.githubusercontent.com/88644715/145354834-b8d4eb21-8662-4672-bd92-ea59b31f6e79.png)
 
 ### インフラ構成図
-![スクリーンショット 2021-12-09 23 36 43](https://user-images.githubusercontent.com/88644715/145416394-c4884cf1-8d1a-4e4d-994f-ac6ce50c3b2e.png)
+![スクリーンショット 2021-12-12 14 37 21](https://user-images.githubusercontent.com/88644715/145701718-544e3525-c383-4b0d-a064-eedbd879f4ee.png)
 
 
 ## 3.機能一覧
