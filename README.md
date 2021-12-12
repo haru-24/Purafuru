@@ -36,7 +36,7 @@
 * express 4.17
  
 DB
-* Heroku Posgres
+* Heroku Postgres
 
 インフラ
 * Firebase Hosting
