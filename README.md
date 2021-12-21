@@ -2,7 +2,7 @@
 
 # シェアトリ
 
-[https://purafuru.web.app](https://purafuru.web.app/)
+[https://purafuru.web.app](https://sharetori.org/)
 
 ## 1.概要
 自分の故郷や旅先などよく行くの「お店」,「景色」,「建物」などをシェアして、投稿した記事を見た人が観光する際に,
