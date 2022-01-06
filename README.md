@@ -32,6 +32,7 @@
 * TypeScript
 
 バックエンド
+* TypeScript
 * Node.js 16.13
 * express 4.17
  
