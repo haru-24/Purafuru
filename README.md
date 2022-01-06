@@ -90,10 +90,10 @@ DB
 
 
 
-<img width="376" alt="スクリーンショット 2021-12-09 17 58 17" src="https://user-images.githubusercontent.com/88644715/145365575-b2742842-43fb-49ac-b8cb-df1b4dd02a3e.png">
+　　<img width="376" alt="スクリーンショット 2021-12-09 17 58 17" src="https://user-images.githubusercontent.com/88644715/145365575-b2742842-43fb-49ac-b8cb-df1b4dd02a3e.png">　　<img width="374" alt="スクリーンショット 2021-12-09 17 59 42" src="https://user-images.githubusercontent.com/88644715/145365585-04c5a065-6962-41a4-84c9-0663f2e9cd88.png">
 
 
-<img width="374" alt="スクリーンショット 2021-12-09 17 59 42" src="https://user-images.githubusercontent.com/88644715/145365585-04c5a065-6962-41a4-84c9-0663f2e9cd88.png">
+
 
 
 
